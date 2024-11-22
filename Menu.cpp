@@ -6,7 +6,7 @@
     Description:
     Version: 1.0
 ************************/
- 
+
 
 #include <iostream>
 #include <cstring>
@@ -14,32 +14,34 @@
 #include <cmath>
 #include <fstream>
 #include <cstdlib>
+#include <string>
 using namespace std;
 
 int displayCalculator();
 void function01();
 void function02();
 void functionWriteOut();
+bool isNumber(string);
 
 int main() {
-//DECLARE 
+    //DECLARE 
     int userFunctionNum;
 
     userFunctionNum = displayCalculator();
     //INPUTS
     switch (userFunctionNum) {
-        case 0:
-            cout << "See you next time!" << endl;
-            return 0;
-        case 1:
-            function01();
-            break;
-        case 2:
-            function02();
-            break;
-        default: 
-            functionWriteOut();
-            break;
+    case 0:
+        cout << "See you next time!" << endl;
+        return 0;
+    case 1:
+        function01();
+        break;
+    case 2:
+        function02();
+        break;
+    default:
+        functionWriteOut();
+        break;
     }
 
     //RETURN
@@ -47,7 +49,10 @@ int main() {
 }
 
 int displayCalculator() {
-    string userInput;
+    string sInput;
+    int iInput = 0;
+    bool bValid = false;
+    //string userInput;
     int userFunctionNum;
 
     cout << setw(33) << "PHYSICS CALCULATOR" << endl;
@@ -61,175 +66,267 @@ int displayCalculator() {
     cout << "|                      |\t|                      |\t" << endl;
     cout << "+----------------------+\t+----------------------+\t" << endl;
     cout << "\t (9 to quit)" << endl;
-    
-    while(true) {
-        cout << setw(25) << "Enter Option: ";
-        cin >> userInput;
 
-        if (userInput.length() == 1 && isdigit(userInput[0])) {
-            userFunctionNum = stoi(userInput);
-
-            // Check if it's a valid menu option
-            if (userFunctionNum == 9 || (userFunctionNum >= 1 && userFunctionNum <= 2)) {
-                return userFunctionNum;
-            } else {
-                cout << "INVALID ENTRY: " << endl;
-                cin.clear();
-                cin.ignore();
-            }
-        } else {
-            cout << "INVALID ENTRY: " << endl;
-            cin.clear();
-            cin.ignore();
+    cout << "Enter an option (1,2, or 9): ";
+    do {
+        getline(cin >> ws, sInput);
+        bValid = isNumber(sInput);
+        if (bValid) {
+            iInput = stoi(sInput);
         }
-
-    }; 
+        if (bValid && (iInput < 1 || (iInput > 2 && iInput != 9) || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1, 2, or 9.
+            bValid = false;
+            cout << "Error\n";
+        }
+        if (!bValid) {
+            cout << "Enter a valid option: ";
+        }
+    } while (!bValid);
+    return iInput;
 }
 
 void function01() {
-    double userMass = 0.0, userVelocity = 0.0, userMomentum = 0.0, result = 0.0;
-    int userInput = 0;
+    string sUserMass, sUserVelocity, sUserMomentum;
+    double dResult = 0.0, dUserMass = 0.0, dUserVelocity = 0.0, dUserMomentum = 0.0;
+    string sInput;
+    int iInput = 0;
+    bool bValid = false;
 
     cout << "1] Momentum" << endl;
     cout << "2] Mass" << endl;
     cout << "3] Velocity" << endl;
-    cout << "What would you like to solve for?: ";
 
-    while (true) {
-        cin >> userInput;
+    cout << "Enter an option (1-3): ";
 
-        if (cin.fail() || userInput < 1 || userInput > 3) {
-            cout << "INVALID ENTRY: " << endl;
-            cin.clear();
-            cin.ignore();
-        } else {
-            break;
+    do {
+        getline(cin >> ws, sInput);
+        bValid = isNumber(sInput);
+        if (bValid) {
+            iInput = stoi(sInput);
         }
-    }
+        if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+            bValid = false;
+            cout << "Error\n";
+        }
+        if (!bValid) {
+            cout << "Enter a valid option: ";
+        }
+    } while (!bValid);
 
-    switch (userInput) {
-        case 1:
-            cout << "Enter Mass (kg): ";
-            cin >> userMass;
 
-            while (cin.fail() || userMass <= 0) {
-                cout << "INVALID ENTRY: ";
-                cin >> userMass;
-                cout << endl;
+
+    switch (iInput) {
+    case 1:
+        cout << "Enter Mass (kg): ";
+
+        do {
+            getline(cin >> ws, sUserMass);
+            bValid = isNumber(sUserMass);
+            if (bValid) {
+                dUserMass = stod(sUserMass);
             }
-            cout << "Enter Velocity (m/s): ";
-            cin >> userVelocity;
-
-            while (cin.fail() || userVelocity <= 0) {
-                cout << "INVALID ENTRY: ";
-                cin >> userVelocity;
-                cout << endl;
+            if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+                bValid = false;
+                cout << "Error\n";
             }
-
-            result = userMass * userVelocity;
-            cout << "**************" << endl;
-            cout << "Momentum: " << result << " kg.m/s";
-            break;
-        
-        case 2:
-            cout << "Enter Momentum (kg·m/s): ";
-            cin >> userMomentum;
-
-            while (cin.fail()) {
-                cout << "INVALID ENTRY: ";
-                cin >> userMomentum;
-                cout << endl;
+            if (!bValid) {
+                cout << "Enter a valid mass: ";
             }
+        } while (!bValid);
 
-            cout << "Enter Velocity (m/s): ";
-            cin >> userVelocity;
 
-            while (cin.fail() || userVelocity == 0) {
-                cout << "INVALID ENTRY: ";
-                cin >> userVelocity;
-                cout << endl;
+
+        cout << "Enter Velocity (m/s): ";
+
+        do {
+            getline(cin >> ws, sUserVelocity);
+            bValid = isNumber(sUserVelocity);
+            if (bValid) {
+                dUserVelocity = stod(sUserVelocity);
             }
-
-            result = userMomentum / userVelocity;
-            cout << "**************" << endl;
-            cout << "Mass: " << result << " kg";
-            break;
-
-        case 3:
-            cout << "Enter Momentum (kg·m/s): ";
-            cin >> userMomentum;
-
-            while (cin.fail()) {
-                cout << "INVALID ENTRY: ";
-                cin >> userMomentum;
-                cout << endl;
+            if (!bValid) {
+                cout << "Enter a valid velocity: ";
             }
+        } while (!bValid);
 
-            cout << "Enter Mass (kg): ";
-            cin >> userMass;
+        dResult = dUserMass * dUserVelocity;
+        cout << "**************" << endl;
+        cout << "Momentum: " << dResult << " (kg*m/s)";
+        break;
 
-            while (cin.fail() || userMass <= 0) {
-                cout << "INVALID ENTRY: ";
-                cin >> userMass;
-                cout << endl;
+    case 2:
+        cout << "Enter Momentum (kg*m/s): ";
+
+        do {
+            getline(cin >> ws, sUserMomentum);
+            bValid = isNumber(sUserMomentum);
+            if (bValid) {
+                dUserMomentum = stod(sUserMomentum);
             }
+            if (!bValid) {
+                cout << "Enter a valid momentum: ";
+            }
+        } while (!bValid);
 
-            result = userMomentum / userMass;
-            cout << "**************" << endl;
-            cout << "Velocity: " << result << " m/s\n";
-            break;
+        cout << "Enter Velocity (m/s): ";
 
-        default:
-            break;
+        do {
+            getline(cin >> ws, sUserVelocity);
+            bValid = isNumber(sUserVelocity);
+            if (bValid) {
+                dUserVelocity = stod(sUserVelocity);
+            }
+            if (!bValid) {
+                cout << "Enter a valid velocity: ";
+            }
+        } while (!bValid);
+
+        dResult = dUserMomentum / dUserVelocity;
+        cout << "**************" << endl;
+        cout << "Mass: " << dResult << " kg";
+        break;
+
+    case 3:
+        cout << "Enter Momentum (kg*m/s): ";
+
+        do {
+            getline(cin >> ws, sUserMomentum);
+            bValid = isNumber(sUserMomentum);
+            if (bValid) {
+                dUserMomentum = stod(sUserMomentum);
+            }
+            if (!bValid) {
+                cout << "Enter a valid momentum: ";
+            }
+        } while (!bValid);
+
+        cout << "Enter Mass (kg): ";
+
+        do {
+            getline(cin >> ws, sUserMass);
+            bValid = isNumber(sUserMass);
+            if (bValid) {
+                dUserMass = stod(sUserMass);
+            }
+            if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+                bValid = false;
+                cout << "Error\n";
+            }
+            if (!bValid) {
+                cout << "Enter a valid mass: ";
+            }
+        } while (!bValid);
+
+        dResult = dUserMomentum / dUserMass;
+        cout << "**************" << endl;
+        cout << "Velocity: " << dResult << " m/s";
+        break;
+
+    default:
+        break;
     }
 }
 //final (oops) velocity function. This will determine the class of projectile
 // (I, II, or III) and calculate final velocity before hitting the ground
 void function02() {
-
-    char ans;
-    int choice;
-    const int G = 9.807;
-    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y;
-
-    cout << "Does the projectile land at the same height it is launched from (Y or N?)";
-    cin >> ans;
-
-    if (ans == 'y' || ans == 'Y')// class I
-    {
-        cout << "What is the object's intital velocity (in m/s)?";
-        cin >> v_0;
-        cout << "What is the launch angle (degrees)?";
-        cin >> theta;
-    }
-
-    else // class II or III
-    {   
-        cout << "Does the projectile land at an elevated height (1)or a lower height (2)?";
-        cin >> choice;
-        if (choice == 1)
-        {
-            cout << "What is the height of the "
-        }
-        cout << "Is the projectile launched at an angle?";
-        cin >> ans;
-        if (ans == 'y' || ans == 'Y')
-        {
-            cout << "What is the launch angle?";
-            cin >> theta;
-        }
-        else
-    }
-
-    //formula: 
-    //v_fx = v_0x;
-    //v_fy = v_0y + G * 
-
+    //
+    //    char ans;
+    //    int choice;
+    //    const int G = 9.807;
+    //    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y;
+    //
+    //    cout << "Does the projectile land at the same height it is launched from (Y or N?)";
+    //    cin >> ans;
+    //
+    //    if (ans == 'y' || ans == 'Y')// class I
+    //    {
+    //        cout << "What is the object's intital velocity (in m/s)?";
+    //        cin >> v_0;
+    //        cout << "What is the launch angle (degrees)?";
+    //        cin >> theta;
+    //    }
+    //
+    //    else // class II or III
+    //    {
+    //        cout << "Does the projectile land at an elevated height (1)or a lower height (2)?";
+    //        cin >> choice;
+    //        if (choice == 1)
+    //        {
+    //            cout << "What is the height of the ";
+    //        }
+    //        cout << "Is the projectile launched at an angle?";
+    //        cin >> ans;
+    //        if (ans == 'y' || ans == 'Y')
+    //        {
+    //            cout << "What is the launch angle?";
+    //            cin >> theta;
+    //        }
+    //        else
+    //    }
+    //
+    //    //formula: 
+    //    //v_fx = v_0x;
+    //    //v_fy = v_0y + G * 
+    //
+}
+//
+void functionWriteOut() {
+    //    ofstream outFile("results.txt");
+    //
+    //
+    //    outFile.close();
 }
 
-void functionWriteOut() {
-    ofstream outFile("results.txt");
+bool isNumber(string sInput) {
+    //Returns true if input is int or double, returns false otherwise.
+    bool bValid = true;
+    int iDotCount = 0;
+    int iDigCount = 0;
 
+    if (sInput[0] == '-') {           //Negative number validation.
+        for (int i = 1; i < sInput.length(); i++) {           //Iterates over input string.
 
-    outFile.close();
+            if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+                iDotCount++;
+            }
+            if (isdigit(sInput[i])) {
+                iDigCount++;
+            }
+
+            if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+            else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+        }
+    }
+    else {            //Positive number validation.
+        for (int i = 0; i < sInput.length(); i++) {           //Iterates over input string.
+
+            if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+                iDotCount++;
+            }
+
+            if (isdigit(sInput[i])) {
+                iDigCount++;
+            }
+
+            if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+            else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+        }
+    }
+    return bValid;
 }
