@@ -262,21 +262,29 @@ void functionWriteOut() {
 
 bool isNumber(string sInput) {
   //Returns true if input is int or double, returns false otherwise.
-  bool bValid = true;
-  int iDotcount = 0;
+  bool bValid = false;
+  int iDotCount = 0;
+  int iDigCount = 0;
     
   if (sInput[0] == '-') {           //Negative number validation.
     for (int i = 1; i < sInput.length(); i++) {           //Iterates over input string.
 
       if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
-        iDotcount++;
+        iDotCount++;
+      }
+      if (isdigit(sInput[i])) {
+      iDigCount++;
       }
 
       if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
         bValid = false;
         cout << "Error\n";
         break;
-      } else if (iDotcount > 1) {                //Throws an error flag if the number of periods is greater than 1.
+      } else if (iDotCount > 1) {                //Throws an error flag if the number of periods is greater than 1.
+        bValid = false;
+        cout << "Error\n";
+        break;
+      } else if (iDotCount > iDigCount) {
         bValid = false;
         cout << "Error\n";
         break;
@@ -287,14 +295,14 @@ bool isNumber(string sInput) {
     for (int i = 0; i < sInput.length(); i++) {           //Iterates over input string.
 
       if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
-        iDotcount++;
+        iDotCount++;
       }
 
       if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
         bValid = false;
         cout << "Error\n";
         break;
-      } else if (iDotcount > 1) {                //Throws an error flag if the number of periods is greater than 1.
+      } else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
         bValid = false;
         cout << "Error\n";
         break;
