@@ -7,7 +7,6 @@
     Version: 1.0
 ************************/
  
-//testing
 
 #include <iostream>
 #include <cstring>
@@ -184,7 +183,47 @@ void function01() {
             break;
     }
 }
+//final (oops) velocity function. This will determine the class of projectile
+// (I, II, or III) and calculate final velocity before hitting the ground
 void function02() {
+
+    char ans;
+    int choice;
+    const int G = 9.807;
+    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y;
+
+    cout << "Does the projectile land at the same height it is launched from (Y or N?)";
+    cin >> ans;
+
+    if (ans == 'y' || ans == 'Y')// class I
+    {
+        cout << "What is the object's intital velocity (in m/s)?";
+        cin >> v_0;
+        cout << "What is the launch angle (degrees)?";
+        cin >> theta;
+    }
+
+    else // class II or III
+    {   
+        cout << "Does the projectile land at an elevated height (1)or a lower height (2)?";
+        cin >> choice;
+        if (choice == 1)
+        {
+            cout << "What is the height of the "
+        }
+        cout << "Is the projectile launched at an angle?";
+        cin >> ans;
+        if (ans == 'y' || ans == 'Y')
+        {
+            cout << "What is the launch angle?";
+            cin >> theta;
+        }
+        else
+    }
+
+    //formula: 
+    //v_fx = v_0x;
+    //v_fy = v_0y + G * 
 
 }
 
