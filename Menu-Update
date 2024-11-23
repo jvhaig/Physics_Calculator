@@ -95,11 +95,11 @@ int displayCalculator() {
     getline(cin >> ws, sInput);
     bValid = isNumber(sInput);
     if (bValid) {
-    iInput = stoi(sInput);
+      iInput = stoi(sInput);
     }
-    if (bValid && (iInput < 1 || (iInput > 2 && iInput != 9) || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1, 2, or 9.
+    if (bValid && (iInput < 1 || iInput > 9)) {
       bValid = false;
-      cout << "Error\n";
+      cout << "Error: Enter a valid option between 1 and 9: ";
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -301,7 +301,7 @@ void function02() {
 
 //Speed Distance Time
 void function03() {
-    string sUserSpeed, sUserTime;
+    string sUserSpeed, sUserTime, sUserDistance;
     double dResult = 0.0, dUserSpeed = 0.0, dUserTime = 0.0, dUserDistance = 0.0;
     string sInput;
     int iInput = 0;
@@ -313,14 +313,45 @@ void function03() {
     cout << "3] Time" << endl;
   
     cout << "Enter an option (1-3): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Speed (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserSpeed);
+      bValid = isNumber(sUserSpeed);
+      if (bValid) {
+      dUserSpeed = stod(sUserSpeed);
+      }
+      if (!bValid) {
+        cout << "Enter a valid speed: ";
+      }
+    } while (!bValid);
     cout << "Enter Time (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+      dUserTime = stod(sUserTime);
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
 
     dResult = dUserSpeed * dUserTime;
     cout << "**************" << endl;
@@ -329,9 +360,27 @@ void function03() {
 
   case 2:
     cout << "Enter Distance (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserDistance);
+      bValid = isNumber(sUserDistance);
+      if (bValid) {
+      dUserDistance = stod(sUserDistance);
+      }
+      if (!bValid) {
+        cout << "Enter a valid distance: ";
+      }
+    } while (!bValid);
     cout << "Enter Time (): ";
-    //validation
+     do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+      dUserTime = stod(sUserTime);
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
 
     dResult = dUserDistance / dUserTime;
     cout << "**************" << endl;
@@ -340,9 +389,27 @@ void function03() {
   
   case 3:
     cout << "Enter Distance (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserDistance);
+      bValid = isNumber(sUserDistance);
+      if (bValid) {
+      dUserDistance = stod(sUserDistance);
+      }
+      if (!bValid) {
+        cout << "Enter a valid distance: ";
+      }
+    } while (!bValid);
     cout << "Enter Speed (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserSpeed);
+      bValid = isNumber(sUserSpeed);
+      if (bValid) {
+      dUserSpeed = stod(sUserSpeed);
+      }
+      if (!bValid) {
+        cout << "Enter a valid speed: ";
+      }
+    } while (!bValid);
     
     dResult = dUserDistance / dUserSpeed;
     cout << "**************" << endl;
@@ -614,6 +681,7 @@ void functionWriteOut() {
   outFile.close();
 }
 
+
 bool isNumber(string sInput) {
   //Returns true if input is int or double, returns false otherwise.
   bool bValid = true;
@@ -625,40 +693,43 @@ bool isNumber(string sInput) {
 
       if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
         iDotCount++;
-      }
-      if (isdigit(sInput[i])) {
+      } else if (isdigit(sInput[i])) { // Count digits
       iDigCount++;
+      } else { // Invalid character
+      bValid = false;
+      cout << "Error: Invalid Character.\n";
+      break;
+      }
+      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) {
+        bValid = false;
+        cout << "Error: Invalid . Entry\n";
+        break;
       }
 
-      if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
-        bValid = false;
-        cout << "Error\n";
-        break;
-      } else if (iDotCount > 1) {                //Throws an error flag if the number of periods is greater than 1.
-        bValid = false;
-        cout << "Error\n";
-        break;
-      } else if (iDotCount > iDigCount) {
-        bValid = false;
-        cout << "Error\n";
-        break;
       }
-    }
-  }
-  else {            //Positive number validation.
+  } else {            //Positive number validation.
     for (int i = 0; i < sInput.length(); i++) {           //Iterates over input string.
 
       if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
         iDotCount++;
       }
+      if (isdigit(sInput[i])) {
+      iDigCount++;
+      }
 
-      if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
+      if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+        iDotCount++;
+      } else if (isdigit(sInput[i])) { // Count digits
+      iDigCount++;
+      } else { // Invalid character
+      bValid = false;
+      cout << "Error: Invalid Character.\n";
+      break;
+      }
+
+      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) {
         bValid = false;
-        cout << "Error\n";
-        break;
-      } else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
-        bValid = false;
-        cout << "Error\n";
+        cout << "Error: Invalid . Entry\n";
         break;
       }
     }
