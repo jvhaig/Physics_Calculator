@@ -681,50 +681,40 @@ void functionWriteOut() {
   outFile.close();
 }
 
-
 bool isNumber(string sInput) {
-  //Returns true if input is int or double, returns false otherwise.
   bool bValid = true;
   int iDotCount = 0;
   int iDigCount = 0;
-    
-  if (sInput[0] == '-') {           //Negative number validation.
-    for (int i = 1; i < sInput.length(); i++) {           //Iterates over input string.
 
-      if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+
+  if (sInput[0] == '-') {                       //Negative number validation.
+    for (int i = 1; i < sInput.length(); i++) { //Iterates over input string.
+      if (sInput[i] == '.') {                   //Counts the number of periods in the user input string.
         iDotCount++;
-      } else if (isdigit(sInput[i])) { // Count digits
-      iDigCount++;
-      } else { // Invalid character
-      bValid = false;
-      cout << "Error: Invalid Character.\n";
-      break;
+      } else if (isdigit(sInput[i])) {          //Counts Digit
+        iDigCount++;
+      } else {                                  // Invalid character
+        bValid = false;
+        cout << "Error: Invalid Character.\n";
+        break;
       }
-      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) {
+
+      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) { //Check decimal
         bValid = false;
         cout << "Error: Invalid . Entry\n";
         break;
       }
-
-      }
-  } else {            //Positive number validation.
-    for (int i = 0; i < sInput.length(); i++) {           //Iterates over input string.
-
-      if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+    }
+  } else {                                       // Positive number validation
+    for (int i = 0; i < sInput.length(); i++) {
+      if (sInput[i] == '.') {  
         iDotCount++;
-      }
-      if (isdigit(sInput[i])) {
-      iDigCount++;
-      }
-
-      if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
-        iDotCount++;
-      } else if (isdigit(sInput[i])) { // Count digits
-      iDigCount++;
-      } else { // Invalid character
-      bValid = false;
-      cout << "Error: Invalid Character.\n";
-      break;
+      } else if (isdigit(sInput[i])) {  
+        iDigCount++;
+      } else {                                   
+        bValid = false;
+        cout << "Error: Invalid Character.\n";
+        break;
       }
 
       if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) {
@@ -734,5 +724,7 @@ bool isNumber(string sInput) {
       }
     }
   }
+
   return bValid;
 }
+
