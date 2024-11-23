@@ -435,14 +435,53 @@ void function04() {
     cout << "3] Volume" << endl;
   
     cout << "Enter an option (1-3): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Mass (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
     cout << "Enter Volume (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserVolume);
+      bValid = isNumber(sUserVolume);
+      if (bValid) {
+        dUserVolume = stod(sUserVolume);
+      }
+      if (bValid && (dUserVolume < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid volume: ";
+      }
+    } while (!bValid);
 
     dResult = dUserMass / dUserVolume;
     cout << "**************" << endl;
@@ -451,9 +490,35 @@ void function04() {
 
   case 2:
     cout << "Enter Density (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserDensity);
+      bValid = isNumber(sUserDensity);
+      if (bValid) {
+        dUserDensity = stod(sUserDensity);
+      }
+      if (bValid && (dUserDensity < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid density: ";
+      }
+    } while (!bValid);
     cout << "Enter Mass (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
 
     dResult = dUserMass / dUserDensity;
     cout << "**************" << endl;
@@ -462,9 +527,35 @@ void function04() {
   
   case 3:
     cout << "Enter Density (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserDensity);
+      bValid = isNumber(sUserDensity);
+      if (bValid) {
+        dUserDensity = stod(sUserDensity);
+      }
+      if (bValid && (dUserDensity < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid density: ";
+      }
+    } while (!bValid);
     cout << "Enter Volume (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserVolume);
+      bValid = isNumber(sUserVolume);
+      if (bValid) {
+        dUserVolume = stod(sUserVolume);
+      }
+      if (bValid && (dUserVolume < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid volume: ";
+      }
+    } while (!bValid);
     
     dResult = dUserDensity * dUserVolume;
     cout << "**************" << endl;
@@ -489,14 +580,53 @@ void function05() {
     cout << "3] Acceleration" << endl;
   
     cout << "Enter an option (1-3): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Mass (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
     cout << "Enter Acceleration (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+      if (bValid && (dUserAcceleration < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
 
     dResult = dUserMass * dUserAcceleration;
     cout << "**************" << endl;
@@ -505,9 +635,35 @@ void function05() {
 
   case 2:
     cout << "Enter Force (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (bValid && (dUserForce < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
     cout << "Enter Acceleraton (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+      if (bValid && (dUserAcceleration < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
 
     dResult = dUserForce / dUserAcceleration;
     cout << "**************" << endl;
@@ -516,9 +672,35 @@ void function05() {
   
   case 3:
     cout << "Enter Force (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (bValid && (dUserForce < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
     cout << "Enter Mass (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
     
     dResult = dUserForce / dUserMass;
     cout << "**************" << endl;
@@ -542,12 +724,38 @@ void function06() {
     cout << "2] Mass" << endl;
   
     cout << "Enter an option (1-2): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 2 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Mass (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
 
     dResult = dUserMass * pow(dLight, 2);
     cout << "**************" << endl;
@@ -556,7 +764,20 @@ void function06() {
 
   case 2:
     cout << "Enter Energy (J): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserEnergy);
+      bValid = isNumber(sUserEnergy);
+      if (bValid) {
+        dUserEnergy = stod(sUserEnergy);
+      }
+      if (bValid && (dUserEnergy < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter valid energy: ";
+      }
+    } while (!bValid);
 
     dResult = dUserEnergy / (pow(dLight, 2));
     cout << "**************" << endl;
@@ -581,14 +802,53 @@ void function07() {
     cout << "3] Gravity" << endl;
   
     cout << "Enter an option (1-3): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Mass (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
     cout << "Enter Gravity (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserGravity);
+      bValid = isNumber(sUserGravity);
+      if (bValid) {
+        dUserGravity = stod(sUserGravity);
+      }
+      if (bValid && (dUserGravity < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter valid gravity: ";
+      }
+    } while (!bValid);
 
     dResult = dUserMass * dUserGravity;
     cout << "**************" << endl;
@@ -597,9 +857,35 @@ void function07() {
 
   case 2:
     cout << "Enter Weight (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserWeight);
+      bValid = isNumber(sUserWeight);
+      if (bValid) {
+        dUserWeight = stod(sUserWeight);
+      }
+      if (bValid && (dUserWeight < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid weight: ";
+      }
+    } while (!bValid);
     cout << "Enter Gravity (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserGravity);
+      bValid = isNumber(sUserGravity);
+      if (bValid) {
+        dUserGravity = stod(sUserGravity);
+      }
+      if (bValid && (dUserGravity < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter valid gravity: ";
+      }
+    } while (!bValid);
 
     dResult = dUserWeight / dUserGravity;
     cout << "**************" << endl;
@@ -608,9 +894,35 @@ void function07() {
 
 case 3:
     cout << "Enter Weight (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserWeight);
+      bValid = isNumber(sUserWeight);
+      if (bValid) {
+        dUserWeight = stod(sUserWeight);
+      }
+      if (bValid && (dUserWeight < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid weight: ";
+      }
+    } while (!bValid);
     cout << "Enter Mass (kg): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (bValid && (dUserMass < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
     
     dResult = dUserWeight/ dUserMass;
     cout << "**************" << endl;
@@ -634,14 +946,53 @@ void function08() {
     cout << "3] Area" << endl;
   
     cout << "Enter an option (1-3): ";
-    //validation
+    do {
+      getline(cin >> ws, sInput);
+      bValid = isNumber(sInput);
+      if (bValid) {
+        iInput = stoi(sInput);
+      }
+      if (bValid && (iInput < 1 || iInput > 3 || stoi(sInput) != stod(sInput))) {           //Additional conditions: Number must be integer 1-3.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid option: ";
+      }
+    } while (!bValid);
 
     switch (iInput) {
   case 1:
     cout << "Enter Force (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (bValid && (dUserForce < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
     cout << "Enter Area (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserArea);
+      bValid = isNumber(sUserArea);
+      if (bValid) {
+        dUserArea = stod(sUserArea);
+      }
+      if (bValid && (dUserArea < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid area: ";
+      }
+    } while (!bValid);
 
     dResult = dUserForce / dUserArea;
     cout << "**************" << endl;
@@ -650,9 +1001,35 @@ void function08() {
 
   case 2:
     cout << "Enter Pressure (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserPressure);
+      bValid = isNumber(sUserPressure);
+      if (bValid) {
+        dUserPressure = stod(sUserPressure);
+      }
+      if (bValid && (dUserPressure < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid pressure: ";
+      }
+    } while (!bValid);
     cout << "Enter Area (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserArea);
+      bValid = isNumber(sUserArea);
+      if (bValid) {
+        dUserArea = stod(sUserArea);
+      }
+      if (bValid && (dUserArea < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid area: ";
+      }
+    } while (!bValid);
 
     dResult = dUserPressure * dUserArea;
     cout << "**************" << endl;
@@ -661,9 +1038,35 @@ void function08() {
 
 case 3:
     cout << "Enter Pressure (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserPressure);
+      bValid = isNumber(sUserPressure);
+      if (bValid) {
+        dUserPressure = stod(sUserPressure);
+      }
+      if (bValid && (dUserPressure < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid pressure: ";
+      }
+    } while (!bValid);
     cout << "Enter Force (): ";
-    //validation
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (bValid && (dUserForce < 0)) {            //Additional condition: Mass must be positive.
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
     
     dResult = dUserForce/ dUserPressure;
     cout << "**************" << endl;
@@ -673,58 +1076,66 @@ case 3:
     break;
     }   
 }
-
+/*
 void functionWriteOut() {
   ofstream outFile("results.txt");
 
 
   outFile.close();
 }
+*/
 
 bool isNumber(string sInput) {
-  bool bValid = true;
-  int iDotCount = 0;
-  int iDigCount = 0;
+    //Returns true if input is int or double, returns false otherwise.
+    bool bValid = true;
+    int iDotCount = 0;
+    int iDigCount = 0;
 
+    if (sInput[0] == '-') {           //Negative number validation.
+        for (int i = 1; i < sInput.length(); i++) {           //Iterates over input string.
 
-  if (sInput[0] == '-') {                       //Negative number validation.
-    for (int i = 1; i < sInput.length(); i++) { //Iterates over input string.
-      if (sInput[i] == '.') {                   //Counts the number of periods in the user input string.
-        iDotCount++;
-      } else if (isdigit(sInput[i])) {          //Counts Digit
-        iDigCount++;
-      } else {                                  // Invalid character
-        bValid = false;
-        cout << "Error: Invalid Character.\n";
-        break;
-      }
+            if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+                iDotCount++;
+            }
+            if (isdigit(sInput[i])) {
+                iDigCount++;
+            }
 
-      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) { //Check decimal
-        bValid = false;
-        cout << "Error: Invalid . Entry\n";
-        break;
-      }
+            if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+            else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+        }
     }
-  } else {                                       // Positive number validation
-    for (int i = 0; i < sInput.length(); i++) {
-      if (sInput[i] == '.') {  
-        iDotCount++;
-      } else if (isdigit(sInput[i])) {  
-        iDigCount++;
-      } else {                                   
-        bValid = false;
-        cout << "Error: Invalid Character.\n";
-        break;
-      }
+    else {            //Positive number validation.
+        for (int i = 0; i < sInput.length(); i++) {           //Iterates over input string.
 
-      if (iDotCount > 1 || (iDotCount > 0 && iDigCount == 0)) {
-        bValid = false;
-        cout << "Error: Invalid . Entry\n";
-        break;
-      }
+            if (sInput[i] == '.') {           //Counts the number of periods in the user input string.
+                iDotCount++;
+            }
+
+            if (isdigit(sInput[i])) {
+                iDigCount++;
+            }
+
+            if (!(isdigit(sInput[i])) && sInput[i] != '.') {            //Throws an error flag if char is not a digit and is not a period.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+            else if (iDotCount > 1 || iDigCount == 0) {                //Throws an error flag if the number of periods is greater than 1.
+                bValid = false;
+                cout << "Error\n";
+                break;
+            }
+        }
     }
-  }
-
-  return bValid;
+    return bValid;
 }
 
