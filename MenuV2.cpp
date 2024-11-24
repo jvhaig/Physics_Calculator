@@ -774,13 +774,13 @@ void function01() {
 
 //final (oops) velocity function. This will determine the class of projectile
 
-/*// (I, II, or III) and calculate final velocity before hitting the ground
+// (I, II, or III) and calculate final velocity before hitting the ground
 void function02() {
 
     char ans;
     int choice;
-    const double G = 9.807;
-    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y;
+    const double G = -9.807;
+    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y, maxh, t_maxh, t_fall, t;
 
     cout << "Does the projectile land at the same height it is launched from (Y or N?)";
     cin >> ans;
@@ -795,11 +795,19 @@ void function02() {
 
     else // class II or III
     {   
-        cout << "Does the projectile land at an elevated height (1)or a lower height (2)?";
+        cout << "Does the projectile land at an elevated height (1) or a lower height (2)?";
         cin >> choice;
         if (choice == 1)
         {
-            cout << "What is the height of the ";
+            cout << "What is the height of the landing height relative to launch height (m)?";
+            cin >> delta_y;
+        }
+        else
+        {
+          float n;
+          cout << "What is the height of the launch relative to the landing height (m)?";
+          cin >> n;
+          delta_y = -n;
         }
         cout << "Is the projectile launched at an angle?";
         cin >> ans;
@@ -809,14 +817,32 @@ void function02() {
             cin >> theta;
         }
         else
+          theta = 0;
+
+        cout << "What is the object's intital velocity (in m/s)?";
+        cin >> v_0;
     }
 
-    //formula: 
-    //v_fx = v_0x;
-    //v_fy = v_0y + G * 
+    //formulas: 
+
+    v_0x = v_0 * cos(theta);
+    v_0y = v_0 * sin(theta);
+
+    //flight time!! = time at which the projectile reaches landing
+    //t = (2 * delta_y)/(v_0 + v_fy);
+    t_maxh = v_0y/G; // when v_y = 0
+    maxh = (v_0y * t_maxh) - ((1/2) * G * pow(t_maxh, 2));
+    t_fall = (maxh - delta_y)/G; // assumes that the max height is above the landing height. still need to validate input.
+    t = t_maxh + t_fall;
+
+    v_fx = v_0x;
+    v_fy = v_0y + G * t;
+    v_f = pow(v_fx, 2) + pow(v_fy, 2);
+
+    cout << "The final velocity is " << v_f << endl;
 
 }
-*/
+
 
 bool isNumber(string sInput) {
     //Returns true if input is int or double, returns false otherwise.
