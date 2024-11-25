@@ -18,7 +18,7 @@ using namespace std;
 
 int displayCalculator();
 void function01();
-//void function02();
+void function02();
 //void function03();
 //void functionWriteOut();
 bool isNumber(string);
@@ -37,9 +37,9 @@ int main() {
     function01();
     break;
   case 2:
-    //function02();
+    function02();
     break;
- case 3:
+  case 3:
     //function03();
     break;                    
   default:
@@ -770,17 +770,24 @@ void function01() {
 }
 
 
-//void function02() {}
-
-//final (oops) velocity function. This will determine the class of projectile
-
-// (I, II, or III) and calculate final velocity before hitting the ground
+//2D kinematics: projectile motion.
+//still need to finish menu options 5 & 6, incorporate input validation, and fix some issues with 
+//negative distance/ accounting for pos vs neg delta_y
 void function02() {
 
     char ans;
-    int choice;
-    const double G = -9.807;
-    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, a_y, maxh, t_maxh, t_fall, t;
+    int choice, ans1;
+    bool flag;
+    const double G = 9.807;
+    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, maxh, t_maxh, t_fall, t,
+          d, dx, t_dx, h_dx, spx, t_spx, h_spx, spy, t_spy1, t_spy2, d_spy1, d_spy2;
+    
+    cout << "Select value to solve for: \n(1) Final velocity \n(2) Maximum height"
+         << "\n(3) Distance traveled \n(4) Time of flight "
+         << "\n(5) Time & distance for a specific height \n(6) Time & height for a specific distance"
+         << "\n(7) Distance & height at a specific time" << endl;
+    cin >> ans1;
+    //determine type of projectile
 
     cout << "Does the projectile land at the same height it is launched from (Y or N?)";
     cin >> ans;
@@ -798,16 +805,20 @@ void function02() {
         cout << "Does the projectile land at an elevated height (1) or a lower height (2)?";
         cin >> choice;
         if (choice == 1)
-        {
+        {   
+            flag = true;
             cout << "What is the height of the landing height relative to launch height (m)?";
             cin >> delta_y;
         }
         else
         {
+          flag = false;
           float n;
           cout << "What is the height of the launch relative to the landing height (m)?";
           cin >> n;
           delta_y = -n;
+          cout << "How far away from the launching site (m, horizontally) does the new elevated height begin?";
+          cin >> dx;
         }
         cout << "Is the projectile launched at an angle?";
         cin >> ans;
@@ -834,12 +845,64 @@ void function02() {
     maxh = (v_0y * t_maxh) - ((1/2) * G * pow(t_maxh, 2));
     t_fall = (maxh - delta_y)/G; // assumes that the max height is above the landing height. still need to validate input.
     t = t_maxh + t_fall;
-
+    
     v_fx = v_0x;
     v_fy = v_0y + G * t;
     v_f = pow(v_fx, 2) + pow(v_fy, 2);
 
-    cout << "The final velocity is " << v_f << endl;
+    d = v_0x * t;
+
+    //time to reach the location of the elevated height:
+    t_dx = dx / v_0x;
+    //height of projectile at first elevated height:
+    h_dx = (v_0y * t_dx) - ((1/2) * G * pow(t_dx, 2));
+
+    //time(s) a projectile reaches a particular distance:
+    t_spx = spx / v_0x;
+    //height of projectile at that particular distance:
+    h_spx = (v_0y * t_spx) - ((1/2) * G * pow(t_spx, 2));
+
+    //time(s) a projectile reaches a particular height:
+    t_spy1 = (-1/G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G)));
+    t_spy2 = (-1/G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G)));
+    //distance traveled by the object at those heights:
+    d_spy1 = v_0x * t_spy1;
+    d_spy2 = v_0x * t_spy2;
+
+    //the distance the object traveled by a certain time t_sp;
+
+    //the height the object has at a certain time t_sp;
+
+    if (!flag) // we are launching to an elevated height
+    {
+      if (h_dx < delta_y)
+        cout << "The projectile does not have a high enough initial velocity \n"
+             << "or the correct angle to reach a height of " << delta_y << " m" 
+             << " a distance of " << dx << " m away.";
+    }
+
+
+    switch (ans1)
+    {
+    case 1:
+      cout << "The final velocity is " << v_f << " m/s." << endl;
+      break;
+    case 2:
+      //maxh
+      cout << "The object reaches a maximum height of " << maxh << " m from the launch height.";
+      break;
+    case 3:
+      //dist traveled
+      cout << "The object travels " << d << " m horizontally.";
+      break;
+    case 4:
+      cout << "The object is in the air for " << t << " s.";
+      break;
+      //time of flight
+    default:
+      break;
+    }
+    
 
 }
 
