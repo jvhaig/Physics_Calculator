@@ -764,16 +764,17 @@ int displayCalculator() {             //Main Menu
   int iInput = 0;
   bool bValid = false;
 
-  cout << setw(33) << "PHYSICS CALCULATOR++" << endl;
+  cout << "========================" << endl;
+  cout << "   PHYSICS CALCULATOR   " << endl;
+  cout << "========================" << endl;
+  cout << "|     1] Kinematics    |" << endl;
   cout << "+----------------------+" << endl;
-  cout << "|      1] Kinematics   |" << endl;
+  cout << "|     2] Dynamics      |" << endl;
   cout << "+----------------------+" << endl;
-  cout << "|      2] Dynamics     |" << endl;
-  cout << "+----------------------+" << endl;
-  cout << "|      3] Energy       |" << endl;
-  cout << "+----------------------+" << endl;
-  cout << "(0 to quit)" << endl;
-  cout << "\tEnter an option: ";
+  cout << "|     3] Energy        |" << endl;
+  cout << "========================" << endl;
+  cout << "       (0 to quit)      " << endl;
+  cout << "Enter an option: ";
 
   do {
     getline(cin >> ws, sInput);
@@ -802,6 +803,7 @@ int Kinematics() {            //Menu for Kinematics
   bool bValid = false;
 
   //subMENU
+  cout << "======================" << endl;
   cout << "--Kinematics--" << endl;
   cout << "1] 1D Kinematics" << endl;
   cout << "2] 2D Kinematics" << endl;
@@ -839,6 +841,7 @@ int OneDKinematics() {            //Menu for 1D Kinematics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--1D Kinematics--" << endl;
   cout << "1] Velocity/Displacement/Acceleration/Time" << endl;
   cout << "2] Initial Velocity/Final Velocity/Acceleration/Time" << endl;
@@ -874,6 +877,7 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 //  bool bValid = false;
 //
 //  //subsubsubmenu
+//  cout << "======================" << endl;
 //  cout << "\nWhat would you like to solve for?" << endl;
 //  cout << "\t1] Momentum" << endl;
 //  cout << "\t2] Mass" << endl;
@@ -906,6 +910,7 @@ void OneDVelDispAccTime() {
   bool bValid = false;
 
   //subsubsubmenu
+  cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
   cout << "\t1] Displacement" << endl;
   cout << "\t2] Velocity" << endl;
@@ -939,6 +944,7 @@ void OneDViVfAccTime() {
   bool bValid = false;
 
   //subsubsubmenu
+  cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
   cout << "\t1] Initial Velocity	" << endl;
   cout << "\t2] Final Velocity" << endl;
@@ -972,6 +978,7 @@ int TwoDKinematics() {            //Menu for 2D Kinematics.
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--2D Kinematics--" << endl;
   cout << "1] Projectile Motion" << endl;
   cout << "2] Velocity/Displacement/Acceleration/Time" << endl;
@@ -1003,15 +1010,15 @@ int TwoDKinematics() {            //Menu for 2D Kinematics.
 }
 //2D Kinematics functions
 void TwoDProjectileMotion() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TwoDVelDispAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TwoDViVfAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int ThreeDKinematics() {            //Menu for 3D Kinematics.
@@ -1020,6 +1027,7 @@ int ThreeDKinematics() {            //Menu for 3D Kinematics.
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--3D Kinematics--" << endl;
   cout << "1] Projectile Motion" << endl;
   cout << "2] Velocity/Displacement/Acceleration/Time" << endl;
@@ -1051,15 +1059,15 @@ int ThreeDKinematics() {            //Menu for 3D Kinematics.
 }
 //3D Kinematics functions
 void ThreeDProjectileMotion() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ThreeDVelDispAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ThreeDViVfAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int AngularKinematics() {           //Menu for Angular Kinematics
@@ -1068,6 +1076,7 @@ int AngularKinematics() {           //Menu for Angular Kinematics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Angular Kinematics--" << endl;
   cout << "1] Angular Velocity/Angular Displacement/Angular Acceleration/Time" << endl;
   cout << "2] Initial Angular Velocity/Final Angular Velocity/Angular Acceleration/Time" << endl;
@@ -1098,11 +1107,11 @@ int AngularKinematics() {           //Menu for Angular Kinematics
 }
 //Angular Kinematics functions
 void AngVelDispAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void AngViVfAccTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int Dynamics() {            //Menu for dynamics
@@ -1111,6 +1120,7 @@ int Dynamics() {            //Menu for dynamics
   bool bValid = false;
 
   //subMENU
+  cout << "======================" << endl;
   cout << "--Dynamics--" << endl;
   cout << "1] 1D Dynamics" << endl;
   cout << "2] 2D Dynamics" << endl;
@@ -1148,6 +1158,7 @@ int OneDDynamics() {            //Menu for 1D Dynamics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--1D Dynamics--" << endl;
   cout << "1] Momentum/Mass/Velocity" << endl;
   cout << "2] Force/Mass/Acceleration" << endl;
@@ -1182,27 +1193,27 @@ int OneDDynamics() {            //Menu for 1D Dynamics
 }
 //1D Dynamics functions   
 void OneDMomMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void OneDForceMassAcc() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void OneDAvgForceMomTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void OneDWorkForceDisp() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void Weight() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void Gravity() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int TwoDDynamics() {            //Menu for 2D Dynamics
@@ -1211,6 +1222,7 @@ int TwoDDynamics() {            //Menu for 2D Dynamics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--2D Dynamics--" << endl;
   cout << "1] Momentum/Mass/Velocity" << endl;
   cout << "2] Force/Mass/Acceleration" << endl;
@@ -1246,23 +1258,23 @@ int TwoDDynamics() {            //Menu for 2D Dynamics
 }
 //2D Dynamics functions
 void TwoDMomMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TwoDForceMassAcc() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TwoDAvgForceMomTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TwoDWorkForceDisp() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void Pressure() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int ThreeDDynamics() {            //Menu for 3D Dynamics
@@ -1271,6 +1283,7 @@ int ThreeDDynamics() {            //Menu for 3D Dynamics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--3D Dynamics--" << endl;
   cout << "1] Momentum/Mass/Velocity" << endl;
   cout << "2] Force/Mass/Acceleration" << endl;
@@ -1306,19 +1319,19 @@ int ThreeDDynamics() {            //Menu for 3D Dynamics
 }
 //3D Dynamics functions
 void ThreeDMomMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ThreeDForceMassAcc() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ThreeDAvgForceMomTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ThreeDWorkForceDisp() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int RotationalDynamics() {            //Menu for rotational dynamics
@@ -1327,6 +1340,7 @@ int RotationalDynamics() {            //Menu for rotational dynamics
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Rotational Dynamics--" << endl;
   cout << "1] Angular Momentum/Rotational Inertia/Angular Velocity" << endl;
   cout << "2] Torque/Rotational Inertia/Angular Acceleration" << endl;
@@ -1359,19 +1373,19 @@ int RotationalDynamics() {            //Menu for rotational dynamics
 }
 //Rotational Dynamics functions
 void AngMomInertiaAngVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void TorqueInertiaAngAcc() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void AvgTorqueAngMomTime() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void WorkTorqueAngDisp() {
-  cout << "no code";
+  cout << "no code\n";
 }
 //Energy functions
 int Energy() {          //Energy Menu function
@@ -1380,6 +1394,7 @@ int Energy() {          //Energy Menu function
   bool bValid = false;
 
   //subMENU
+  cout << "======================" << endl;
   cout << "--Energy--" << endl;
   cout << "1] Energy 1D" << endl;
   cout << "2] Energy 2D" << endl;
@@ -1417,6 +1432,7 @@ int OneDEnergy() {
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Energy 1D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
@@ -1448,19 +1464,19 @@ int OneDEnergy() {
   return iInput;
 }
 void OneDKinMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void GravMassAcc() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void ElasSpringDisp() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 void WorkEnergy() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int TwoDEnergy() {
@@ -1469,6 +1485,7 @@ int TwoDEnergy() {
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Energy 2D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
@@ -1501,7 +1518,7 @@ int TwoDEnergy() {
 }
 
 void TwoDKinMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int ThreeDEnergy() {
@@ -1510,6 +1527,7 @@ int ThreeDEnergy() {
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Energy 3D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
@@ -1542,7 +1560,7 @@ int ThreeDEnergy() {
 }
 
 void ThreeDKinMassVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 int RotationalEnergy() {
@@ -1551,6 +1569,7 @@ int RotationalEnergy() {
   bool bValid = false;
 
   //subsubMENU
+  cout << "======================" << endl;
   cout << "--Rotational Energy--" << endl;
   cout << "1] Rotational Kinetic Energy/Rotational Inertia/Angular Velocity" << endl;
   cout << "9] -Back" << endl;
@@ -1580,7 +1599,7 @@ int RotationalEnergy() {
 }
 
 void RotationalKinIntertiaAngVel() {
-  cout << "no code";
+  cout << "no code\n";
 }
 
 //Input Validation function
