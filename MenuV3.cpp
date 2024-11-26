@@ -777,18 +777,18 @@ int displayCalculator() {             //Main Menu
   cout << "Enter an option: ";
 
   do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
+    getline(cin >> ws, sInput); //accepts input, removes whitespace
+    bValid = isNumber(sInput); //bValid checks through isNumber function
     if (bValid) {
-      iInput = stoi(sInput);
+      iInput = stoi(sInput); // converts iInput to int
     }
     if (bValid) {
-      if ((iInput < 0 || iInput > 3) || stoi(sInput) != stod(sInput)) {
-        bValid = false;
+      if ((iInput < 0 || iInput > 3) || stoi(sInput) != stod(sInput)) { //checks if 1-3 and if not double
+        bValid = false; // intitialize bool if fails check
         cout << "Error\n";
       }
     }
-    if (!bValid) {
+    if (!bValid) { //if fails check
       cout << "Enter a valid option: ";
     }
 
