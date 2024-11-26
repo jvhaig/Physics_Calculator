@@ -781,9 +781,11 @@ int displayCalculator() {             //Main Menu
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || iInput > 3)) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if ((iInput < 0 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -816,9 +818,11 @@ int Kinematics() {            //Menu for Kinematics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -849,9 +853,11 @@ int OneDKinematics() {            //Menu for 1D Kinematics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 2 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 2) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -872,8 +878,6 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 //  cout << "\t1] Momentum" << endl;
 //  cout << "\t2] Mass" << endl;
 //  cout << "\t3] Velocity" << endl;
-//  cout << "\t9] -Back" << endl;
-//  cout << "\t0] -Quit" << endl;
 //  cout << "Enter an option: ";
 //
 //  do {
@@ -882,7 +886,7 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 //    if (bValid) {
 //      iInput = stoi(sInput);
 //    }
-//    if (bValid && ((iInput < 0 || (iInput > 3 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
+//    if (bValid && ((iInput < 0 || (iInput > 3))) || stoi(sInput) != stod(sInput)) {
 //      bValid = false;
 //      cout << "Error\n";
 //    }
@@ -907,8 +911,6 @@ void OneDVelDispAccTime() {
   cout << "\t2] Velocity" << endl;
   cout << "\t3] Acceleration" << endl;
   cout << "\t4] Time" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "\t0] -Quit" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -917,9 +919,11 @@ void OneDVelDispAccTime() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if ((iInput < 0 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -940,8 +944,6 @@ void OneDViVfAccTime() {
   cout << "\t2] Final Velocity" << endl;
   cout << "\t3] Acceleration" << endl;
   cout << "\t4] Time" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "\t0] -Quit" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -950,9 +952,11 @@ void OneDViVfAccTime() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if ((iInput < 0 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -983,9 +987,11 @@ int TwoDKinematics() {            //Menu for 2D Kinematics.
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 3 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1029,9 +1035,11 @@ int ThreeDKinematics() {            //Menu for 3D Kinematics.
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 3 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1074,9 +1082,11 @@ int AngularKinematics() {           //Menu for Angular Kinematics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 2 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 2) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1117,9 +1127,11 @@ int Dynamics() {            //Menu for dynamics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1154,9 +1166,11 @@ int OneDDynamics() {            //Menu for 1D Dynamics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 6 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 6) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1216,9 +1230,11 @@ int TwoDDynamics() {            //Menu for 2D Dynamics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 7 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 7) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1274,9 +1290,11 @@ int ThreeDDynamics() {            //Menu for 3D Dynamics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 7 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 7) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1325,9 +1343,11 @@ int RotationalDynamics() {            //Menu for rotational dynamics
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1376,9 +1396,11 @@ int Energy() {          //Energy Menu function
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1411,9 +1433,11 @@ int OneDEnergy() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1461,9 +1485,11 @@ int TwoDEnergy() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1500,9 +1526,11 @@ int ThreeDEnergy() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 4 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
@@ -1536,9 +1564,11 @@ int RotationalEnergy() {
     if (bValid) {
       iInput = stoi(sInput);
     }
-    if (bValid && ((iInput < 0 || (iInput > 1 && iInput != 9))) || stoi(sInput) != stod(sInput)) {
-      bValid = false;
-      cout << "Error\n";
+    if (bValid) {
+      if (((iInput < 0 || iInput > 1) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
     }
     if (!bValid) {
       cout << "Enter a valid option: ";
