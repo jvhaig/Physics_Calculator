@@ -1126,9 +1126,17 @@ void OneDVelDispAccTime() {
 
 
 
-    dResult = abs(sqrt(2 * (dUserDisplacement - dUserIV * dUserTime) / dUserAcceleration));
+    dResult = (-dUserIV + sqrt(dUserIV * dUserIV - (2 * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;           //Not sure about this formula
     cout << "\n**************" << endl;
     cout << "Time: " << dResult << " s\n";
+
+    if (dUserIV * dUserIV - (2 * dUserAcceleration * dUserDisplacement) < 0) {
+      cout << "Input values may be incorrect. Please try again.";
+    }
+    else if (dUserAcceleration == 0) {
+      cout << "0 Acceleration is not allowed for this calculation";
+    }
+
     cout << "**************\n" << endl;
     break;
   }
@@ -1286,7 +1294,7 @@ void OneDViVfAccTime() {
       getline(cin >> ws, sUserIV);
       bValid = isNumber(sUserIV);
       if (bValid) {
-        dUserFV = stod(sUserIV);
+        dUserIV = stod(sUserIV);
       }
 
       if (!bValid) {
@@ -1407,11 +1415,793 @@ void TwoDProjectileMotion() {
 }
 
 void TwoDVelDispAccTime() {
-  cout << "no code\n";
+  string sInput, sUserIVX, sUserIVY, sUserTime, sUserDisplacementX, sUserDisplacementY, sUserAccelerationX, sUserAccelerationY, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dUserIVX = 0.0, dUserIVY = 0.0, dUserTime = 0.0, dUserDisplacementX = 0.0, dUserDisplacementY = 0.0, dUserAccelerationX = 0.0, dUserAccelerationY = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Displacement" << endl;
+  cout << "\t2] Initial Velocity" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 0 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Initial Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVX);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserIVX = stod(sUserIVX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVY);
+      bValid = isNumber(sUserIVY);
+      if (bValid) {
+        dUserIVY = stod(sUserIVY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserIVX * dUserTime + 0.5 * dUserAccelerationX * dUserTime * dUserTime;
+    dResultY = dUserIVY * dUserTime + 0.5 * dUserAccelerationY * dUserTime * dUserTime;
+    dResult = abs(sqrt(dResultX * dResultX + dResultY * dResultY));
+    cout << "\n**************" << endl;
+    cout << "Displacement in the x-direction: " << dResultX << " m\n";
+    cout << "Displacement in the y-direction: " << dResultY << " m\n";
+    cout << "Total Displacement: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Velocity Calculator--" << endl;
+    cout << "Enter Displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserDisplacementX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserDisplacementY);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = (dUserDisplacementX - 0.5 * dUserAccelerationX * dUserTime * dUserTime) / dUserTime;
+    dResultY = (dUserDisplacementY - 0.5 * dUserAccelerationY * dUserTime * dUserTime) / dUserTime;
+    dResult = abs(sqrt(dResultX * dResultX + dResultY * dResultY));
+    cout << "\n**************" << endl;
+    cout << "Initial Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Initial Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Total Initial Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Acceleration Calculator--" << endl;
+    cout << "Enter Displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVX);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserIVX = stod(sUserIVX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid intial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVY);
+      bValid = isNumber(sUserIVY);
+      if (bValid) {
+        dUserIVY = stod(sUserIVY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid intial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = 2 * (dUserDisplacementX - dUserIVX * dUserTime) / (dUserTime * dUserTime);
+    dResultY = 2 * (dUserDisplacementY - dUserIVY * dUserTime) / (dUserTime * dUserTime);
+    dResult = abs(sqrt(dResultX * dResultX + dResultY * dResultY));
+    cout << "\n**************" << endl;
+    cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
+    cout << "Acceleration in the y-direction: " << dResultY << " m/s^2\n";
+    cout << "Total Acceleration: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate time (x or y): ";
+
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x or y): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+
+      cout << "Enter Displacement in the x-direction (m): ";
+      do {
+        getline(cin >> ws, sUserDisplacementX);
+        bValid = isNumber(sUserDisplacementX);
+        if (bValid) {
+          dUserDisplacementX = stod(sUserDisplacementX);
+
+        }
+        if (!bValid) {
+          cout << "Enter a valid displacement: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserIVX);
+        bValid = isNumber(sUserIVX);
+        if (bValid) {
+          dUserIVX = stod(sUserIVX);
+
+        }
+        if (!bValid) {
+          cout << "Enter a valid intitial velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the x-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationX);
+        bValid = isNumber(sUserAccelerationX);
+        if (bValid) {
+          dUserAccelerationX = stod(sUserAccelerationX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+
+
+      dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX - (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;           //Not sure about this formula
+
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+
+      if (dUserIVX * dUserIVX - (2 * dUserAccelerationX * dUserDisplacementX) < 0) {
+        cout << "Input values may be incorrect. Please try again.";
+      }
+      else if (dUserAccelerationX == 0) {
+        cout << "0 Acceleration is not allowed for this calculation";
+      }
+
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Displacement in the y-direction (m): ";
+      do {
+        getline(cin >> ws, sUserDisplacementY);
+        bValid = isNumber(sUserDisplacementY);
+        if (bValid) {
+          dUserDisplacementX = stod(sUserDisplacementY);
+
+        }
+        if (!bValid) {
+          cout << "Enter a valid displacement: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserIVY);
+        bValid = isNumber(sUserIVY);
+        if (bValid) {
+          dUserIVY = stod(sUserIVY);
+
+        }
+        if (!bValid) {
+          cout << "Enter a valid intitial velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the y-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationY);
+        bValid = isNumber(sUserAccelerationY);
+        if (bValid) {
+          dUserAccelerationY = stod(sUserAccelerationY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+
+
+      dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY - (2 * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;           //Not sure about this formula
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+
+      if (dUserIVY * dUserIVY - (2 * dUserAccelerationY * dUserDisplacementY) < 0) {
+        cout << "Input values may be incorrect. Please try again.";
+      }
+      else if (dUserAccelerationY == 0) {
+        cout << "0 Acceleration is not allowed for this calculation";
+      }
+
+      cout << "**************\n" << endl;
+      break;
+    }
+  }
+
 }
 
 void TwoDViVfAccTime() {
-  cout << "no code\n";
+  string sInput, sUserFVX, sUserIVX, sUserTime, sUserAccelerationX, sUserFVY, sUserIVY, sUserAccelerationY, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dUserFVX = 0.0, dUserIVX = 0.0, dUserTime = 0.0, dUserAccelerationX = 0.0, dResultY = 0.0, dUserFVY = 0.0, dUserIVY = 0.0, dUserAccelerationY = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Final Velocity" << endl;
+  cout << "\t2] Initial Velocity" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 0 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Final Velocity Calculator--" << endl;
+    cout << "Enter Initial Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVX);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserIVX = stod(sUserIVX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid intitial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVY);
+      bValid = isNumber(sUserIVY);
+      if (bValid) {
+        dUserIVY = stod(sUserIVY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid intitial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserIVX + dUserAccelerationX * dUserTime;
+    dResultY = dUserIVY + dUserAccelerationY * dUserTime;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+
+    cout << "\n**************" << endl;
+    cout << "Final Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Final Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Total Final Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Velocity Calculator--" << endl;
+    cout << "Enter Final Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserFVX);
+      bValid = isNumber(sUserFVX);
+      if (bValid) {
+        dUserFVX = stod(sUserFVX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserFVY);
+      bValid = isNumber(sUserFVY);
+      if (bValid) {
+        dUserFVY = stod(sUserFVY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserFVX - (dUserAccelerationX * dUserTime);
+    dResultY = dUserFVY - (dUserAccelerationY * dUserTime);
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+
+    cout << "\n**************" << endl;
+    cout << "Initial Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Initial Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Total Initial Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Acceleration Calculator--" << endl;
+    cout << "Enter Final Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserFVX);
+      bValid = isNumber(sUserFVX);
+      if (bValid) {
+        dUserFVX = stod(sUserFVX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserFVY);
+      bValid = isNumber(sUserFVY);
+      if (bValid) {
+        dUserFVY = stod(sUserFVY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVX);
+      bValid = isNumber(sUserIVX);
+      if (bValid) {
+        dUserIVX = stod(sUserIVX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserIVY);
+      bValid = isNumber(sUserIVY);
+      if (bValid) {
+        dUserIVY = stod(sUserIVY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+      }
+      if (bValid && (dUserTime < 0)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserFVX - (dUserAccelerationX * dUserTime);
+    dResultY = dUserFVY - (dUserAccelerationY * dUserTime);
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
+    cout << "Acceleration in the y-direction: " << dResultY << " m/s^2\n";
+    cout << "Total Acceleration: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+
+    cout << "Choose a dimension in which to calculate time (x or y): ";
+
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x or y): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Final Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserFVX);
+        bValid = isNumber(sUserFVX);
+        if (bValid) {
+          dUserFVX = stod(sUserFVX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserIVX);
+        bValid = isNumber(sUserIVX);
+        if (bValid) {
+          dUserIVX = stod(sUserIVX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid intitial velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the x-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationX);
+        bValid = isNumber(sUserAccelerationX);
+        if (bValid) {
+          dUserAccelerationX = stod(sUserAccelerationX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFVX - dUserIVX) / dUserAccelerationX;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Final Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserFVY);
+        bValid = isNumber(sUserFVY);
+        if (bValid) {
+          dUserFVY = stod(sUserFVY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserIVY);
+        bValid = isNumber(sUserIVY);
+        if (bValid) {
+          dUserIVY = stod(sUserIVY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid intitial velocity: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the y-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationY);
+        bValid = isNumber(sUserAccelerationY);
+        if (bValid) {
+          dUserAccelerationY = stod(sUserAccelerationY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFVY - dUserIVY) / dUserAccelerationY;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  }
 }
 
 int ThreeDKinematics() {            //Menu for 3D Kinematics.
