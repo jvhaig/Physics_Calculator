@@ -1,9 +1,11 @@
 /************************
-    <names>
+    James Haig, Austin Aho, and Alys Korosei
     A201 Computer Programming 1
     Assignment: Project01
-    Date:
-    Description:
+    Date: 12/01/2024
+    Description: This application is a physics calculator designed to help users perform physics calculations, 
+        including Kinematics, Dynamics, and Energy. The program is structured with multiple menus and submenus. 
+        Covers one-dimensional, two-dimensional, three-dimensional, and rotational motion scenarios. 
     Version: 1.0
 ************************/
 
@@ -92,7 +94,7 @@ void ThreeDWorkEnergy();
 int RotationalEnergy();
 void RotationalKinIntertiaAngVel();
 
-bool isNumber(string);            //Input Validation function
+bool isNumber(string);                  //Input Validation function
 int returnIntInput();
 float returnNumInput();
 
@@ -141,7 +143,7 @@ int main() {
           cout << "See you next time!" << endl;
           return 0;
           break;
-        case 1:           //Occurs when 1D Kinematics is selected in Kinematics Menu.
+        case 1:                                       //1D Kinematics in Kinematics Menu.
           bChoice = false;
           bSubChoice = true;
           bSubSubChoice = false;
@@ -177,7 +179,7 @@ int main() {
             }
           }
           break;
-        case 2:           //Occurs when 2D Kinematics is selected in Kinematics Menu.
+        case 2:                                       //2D Kinematics in Kinematics Menu.
           bChoice = false;
           bSubChoice = true;
           bSubSubChoice = false;
@@ -219,7 +221,7 @@ int main() {
             }
           }
           break;
-        case 3:           //Occurs when 3D Kinematics is selected in Kinematics Menu.
+        case 3:                                       //3D Kinematics in Kinematics Menu.
           bChoice = false;
           bSubChoice = true;
           bSubSubChoice = false;
@@ -258,7 +260,7 @@ int main() {
             }
           }
           break;
-        case 4:           //Occurs when Angular Kinematics is selected in Kinematics Menu.
+        case 4:                                       //Angular Kinematics in Kinematics Menu.
           bChoice = false;
           bSubChoice = true;
           bSubSubChoice = false;
@@ -913,8 +915,8 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 //}
                                                             //1D Kinematics functions
 void OneDVelDispAccTime() {
-  string sInput, sUserIV, sUserTime, sUserDisplacement, sUserAcceleration;
-  double dResult = 0.0, dUserIV = 0.0, dUserTime = 0.0, dUserDisplacement = 0.0, dUserAcceleration = 0.0;
+  string sInput, sUserIV, sUserTime, sUserDisplacement, sUserAcceleration, sUserVelocity;
+  double dResult = 0.0, dUserIV = 0.0, dUserTime = 0.0, dUserDisplacement = 0.0, dUserAcceleration = 0.0, dUserVelocity = 0.0;
   int iInput = 0;
   bool bValid = false;
 
@@ -922,9 +924,10 @@ void OneDVelDispAccTime() {
   cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
   cout << "\t1] Displacement" << endl;
-  cout << "\t2] Initial Velocity" << endl;
+  cout << "\t2] Velocity" << endl;
   cout << "\t3] Acceleration" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -947,17 +950,17 @@ void OneDVelDispAccTime() {
 
   switch (iInput) {
   case 1:
-    cout << "\n--Displacement Calculator--" << endl;
-    cout << "Enter Initial Velocity (m/s): ";
+    cout << "\n--K1: Displacement Calculator--" << endl;
+    cout << "Enter Velocity (m/s): ";
     do {
-      getline(cin >> ws, sUserIV);
-      bValid = isNumber(sUserIV);
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
       if (bValid) {
-        dUserIV = stod(sUserIV);
+        dUserVelocity = stod(sUserVelocity);
       }
 
       if (!bValid) {
-        cout << "Enter a valid initial velocity: ";
+        cout << "Enter a valid velocity: ";
       }
     } while (!bValid);
 
@@ -990,13 +993,13 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = dUserIV * dUserTime + 0.5 * dUserAcceleration * dUserTime * dUserTime;
+    dResult = dUserIV * dUserTime + 0.5 * dUserAcceleration * pow(dUserTime, 2);
     cout << "\n**************" << endl;
     cout << "Displacement: " << dResult << " m\n";
     cout << "**************\n" << endl;
     break;
   case 2:
-    cout << "\n--Initial Velocity Calculator--" << endl;
+    cout << "\n--Velocity Calculator--" << endl;
     cout << "Enter Displacement (m): ";
     do {
       getline(cin >> ws, sUserDisplacement);
@@ -1039,9 +1042,10 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = (dUserDisplacement - 0.5 * dUserAcceleration * dUserTime * dUserTime) / dUserTime;
+    dResult = (dUserDisplacement - 0.5 * dUserAcceleration * pow(dUserTime, 2)) / dUserTime;
+
     cout << "\n**************" << endl;
-    cout << "Initial Velocity: " << dResult << " m/s\n";
+    cout << "Velocity: " << dResult << " m/s\n";
     cout << "**************\n" << endl;
     break;
   case 3:
@@ -1326,7 +1330,7 @@ void OneDViVfAccTime() {
       }
     } while (!bValid);
 
-    dResult = dUserFV - (dUserAcceleration * dUserTime);
+    dResult = (dUserFV - dUserIV) / dUserTime;
     cout << "\n**************" << endl;
     cout << "Acceleration: " << dResult << " m/s^2\n";
     cout << "**************\n" << endl;
@@ -7213,7 +7217,6 @@ void OneDKinMassVel() {
   cout << "2] Mass" << endl;
   cout << "3] Velocity" << endl;
   cout << "9] -Back" << endl;
-  cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7224,7 +7227,7 @@ void OneDKinMassVel() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 2) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7355,7 +7358,6 @@ void GravMassAcc() {
   cout << "3] Acceleration w/ Gravity" << endl;
   cout << "4] Height" << endl;
   cout << "9] -Back" << endl;
-  cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7395,10 +7397,10 @@ void GravMassAcc() {
 
     cout << "Enter Height (m): ";
     do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
+      getline(cin >> ws, sUserHeight);
+      bValid = isNumber(sUserHeight);
       if (bValid) {
-        dUserMass = stod(sUserMass);
+        dUserHeight = stod(sUserHeight);
       }
 
       if (!bValid) {
@@ -7407,7 +7409,7 @@ void GravMassAcc() {
     } while (!bValid);
 
     //CALCULATE
-    dResult = 0.5 * dUserMass * dGravity * dUserHeight;
+    dResult = dUserMass * dGravity * dUserHeight;
     cout << "\n**************" << endl;
     cout << "Potential Energy: " << dResult << " J\n";
     cout << "**************\n" << endl;
@@ -7862,7 +7864,6 @@ void TwoDKinMassVel() {
   cout << "3] Velocity" << endl;
   cout << "4] Height" << endl;
   cout << "9] -Back" << endl;
-  cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8057,7 +8058,6 @@ void TwoDGravMassAcc() {
   cout << "3] Acceleration Due to Gravity" << endl;
   cout << "4] Height" << endl;
   cout << "9] -Back" << endl;
-  cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
