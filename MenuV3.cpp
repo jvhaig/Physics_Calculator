@@ -1,11 +1,9 @@
 /************************
-    James Haig, Austin Aho, and Alys Korosei
+    <names>
     A201 Computer Programming 1
     Assignment: Project01
-    Date: 12/01/2024
-    Description: This application is a physics calculator designed to help users perform physics calculations, 
-        including Kinematics, Dynamics, and Energy. The program is structured with multiple menus and submenus. 
-        Covers one-dimensional, two-dimensional, three-dimensional, and rotational motion scenarios. 
+    Date:
+    Description:
     Version: 1.0
 ************************/
 
@@ -1168,6 +1166,7 @@ void OneDViVfAccTime() {
   cout << "\t2] Initial Velocity" << endl;
   cout << "\t3] Acceleration" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -1803,10 +1802,11 @@ void TwoDVelDispAccTime() {
   //subsubsubmenu
   cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
-  cout << "\t1] Displacement" << endl;
-  cout << "\t2] Initial Velocity" << endl;
-  cout << "\t3] Acceleration" << endl;
-  cout << "\t4] Time" << endl;
+  cout << "1] Displacement" << endl;
+  cout << "2] Initial Velocity" << endl;
+  cout << "3] Acceleration" << endl;
+  cout << "4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -2198,10 +2198,11 @@ void TwoDViVfAccTime() {
   //subsubsubmenu
   cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
-  cout << "\t1] Final Velocity" << endl;
-  cout << "\t2] Initial Velocity" << endl;
-  cout << "\t3] Acceleration" << endl;
-  cout << "\t4] Time" << endl;
+  cout << "1] Final Velocity" << endl;
+  cout << "2] Initial Velocity" << endl;
+  cout << "3] Acceleration" << endl;
+  cout << "4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -2768,6 +2769,7 @@ void OneDMomMassVel() {
   cout << "\t1] Momentum" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Velocity" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -2909,6 +2911,7 @@ void OneDForceMassAcc() {
   cout << "\t1] Force" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Acceleration" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -3051,6 +3054,7 @@ void OneDAvgForceMomTime() {
   cout << "\t2] Initial Momentum" << endl;
   cout << "\t3] Final Momentum" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -3278,6 +3282,7 @@ void OneDWorkForceDisp() {
   cout << "\t1] Work" << endl;
   cout << "\t2] Force" << endl;
   cout << "\t3] Displacement" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -3411,6 +3416,7 @@ void Weight() {
   cout << "\t1] Weight" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Acceleration due to Gravity" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -3544,6 +3550,7 @@ void Gravity() {
   cout << "\t1] Graviational Force" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Distance" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -3843,6 +3850,7 @@ void TwoDMomMassVel() {
   cout << "\t1] Momentum" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Velocity" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -4069,6 +4077,7 @@ void TwoDForceMassAcc() {
   cout << "\t1] Force" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Acceleration" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -4297,6 +4306,7 @@ void TwoDAvgForceMomTime() {
   cout << "\t2] Initial Momentum" << endl;
   cout << "\t3] Final Momentum" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -4676,6 +4686,7 @@ void TwoDWorkForceDisp() {
   cout << "\t1] Work" << endl;
   cout << "\t2] Force" << endl;
   cout << "\t3] Displacement" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -4897,6 +4908,7 @@ void Pressure() {
   cout << "\t1] Pressure" << endl;
   cout << "\t2] Force" << endl;
   cout << "\t3] Area" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -5071,6 +5083,7 @@ void ThreeDMomMassVel() {
   cout << "\t1] Momentum" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Velocity" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -5360,6 +5373,7 @@ void ThreeDForceMassAcc() {
   cout << "\t1] Force" << endl;
   cout << "\t2] Mass" << endl;
   cout << "\t3] Acceleration" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -5651,6 +5665,7 @@ void ThreeDAvgForceMomTime() {
   cout << "\t2] Initial Momentum" << endl;
   cout << "\t3] Final Momentum" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -6158,6 +6173,7 @@ void ThreeDWorkForceDisp() {
   cout << "\t1] Work" << endl;
   cout << "\t2] Force" << endl;
   cout << "\t3] Displacement" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -6499,6 +6515,7 @@ void AngMomInertiaAngVel() {
   cout << "\t1] Angular Momentum" << endl;
   cout << "\t2] Rotational Inertia" << endl;
   cout << "\t3] Angular Velocity" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -6640,6 +6657,7 @@ void TorqueInertiaAngAcc() {
   cout << "\t1] Torque" << endl;
   cout << "\t2] Rotational Inertia" << endl;
   cout << "\t3] Angular Acceleration" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
@@ -6782,6 +6800,7 @@ void AvgTorqueAngMomTime() {
   cout << "\t2] Initial Angular Momentum" << endl;
   cout << "\t3] Final Angular Momentum" << endl;
   cout << "\t4] Time" << endl;
+  cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
   do {
