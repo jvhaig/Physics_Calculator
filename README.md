@@ -6,9 +6,10 @@
     Date: 12/01/2024
 
 # Description
-
+    This application is a physics calculator designed to help users perform physics calculations, including Kinematics, Dynamics, and Energy. The program is structured with multiple menus and submenus. It covers one-dimensional, two-dimensional, three-dimensional, and rotational motion scenarios. 
+    
 # Installation
-
+    
 # Structure
 
     Main Menu
