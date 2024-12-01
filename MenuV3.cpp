@@ -1416,6 +1416,7 @@ void TwoDProjectileMotion() {
     char ans;
     int choice, ans1;
     bool flag = true;
+    bool flag2 = false;
     const double G = 9.807;
     float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, maxh, t_maxh, t_fall, t,
           d, dx, t_dx, h_dx, spx, t_spx, h_spx, spy, t_spy1, t_spy2, d_spy1, d_spy2, spt, h_spt, d_spt;
@@ -1454,6 +1455,7 @@ void TwoDProjectileMotion() {
 
     if (ans == 1)// class I
     {   
+        flag2 = true;
         delta_y = 0;
         cout << "What is the object's intital velocity (in m/s)? ";
         while (true) {
@@ -1474,7 +1476,7 @@ void TwoDProjectileMotion() {
           theta = returnNumInput();
 
           if (theta < LOWER || theta > UPPER) { // check range    
-            cout << "Enter an angle 0 through 90 degrees: ";
+            cout << "Enter an angle 0 through 90 degrees: "; // does not accept downward launch or "backwards"
             continue;
           }
           else
@@ -1498,6 +1500,7 @@ void TwoDProjectileMotion() {
         }
         if (choice == 1)
         {   
+            flag = false;
             cout << "What is the height of the landing height relative to launch height (m)? ";
             while (true) {
               const int UPPER = 300000, LOWER = 0; //valid range:
@@ -1525,7 +1528,7 @@ void TwoDProjectileMotion() {
         }
         else
         {
-          flag = false;
+          
           cout << "How far below the launch height is the landing height (m)? ";
           while (true) {
             const int UPPER = 300000, LOWER = 0; //valid range:
@@ -1631,7 +1634,13 @@ void TwoDProjectileMotion() {
     }
     //formulas: 
 
-    v_0x = v_0 * cos(theta * (M_PI / 180));
+    if (theta == 90)
+      v_0x = 0;
+    else
+      v_0x = v_0 * cos(theta * (M_PI / 180));
+    //if (theta == 0 && flag2) // if no angle and flat ground
+    //  v_0y = 0;
+    //else
     v_0y = v_0 * sin(theta * (M_PI / 180));
 
     //flight time!! = time at which the projectile reaches landing
@@ -1691,18 +1700,22 @@ void TwoDProjectileMotion() {
          << "\nv_f " << v_f
          << "\nt " << t
          << "\nmaxh " << maxh
-         << "\nd " << d << endl << endl;
+         << "\nd " << d 
+         << "\ncase " << ans1
+         << "\nh_spx" << h_spx
+         << "\nt_spx" << t_spx
+         << "\nspx" << spx
+         << endl << endl;
 
-    if (!flag) // we are launching to an elevated height
+    if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
     {
-      if (h_dx < delta_y)
         cout << "The projectile does not have a high enough initial velocity \n"
              << "or the correct angle to reach a height of " << delta_y << " m" 
-             << " a distance of " << dx << " m away. ";
+             << " a distance of " << dx << " m away. \n";
     }
     else if (t == 9999999)
     {
-      cout << "Complex flight time. Invalid parameters, no real solution. ";
+      cout << "Complex flight time. Invalid parameters no real solution. \n";
     }
     else {
       switch (ans1)
@@ -1732,16 +1745,16 @@ void TwoDProjectileMotion() {
         }
         else {
         cout << "The object reaches a height of " << spy << " m after "
-            << t_spy1 << " s at a distance of " << d_spy1 << " m \nand again after"
-            << t_spy2 << " s at a distance of " << d_spy2 << " m from the launching point. \n";
+            << t_spy1 << " s at a distance of " << d_spy1 << " m \nfrom the launching point and again after "
+            << t_spy2 << " s at a distance of " << d_spy2 << " m. \n";
         }
         break;
       case 6:
-        if (dx > d) {
-        cout << "The projectile does not reach the horizontal distance " << dx << " m. \n";
+        if (spx > d) {
+        cout << "The projectile does not reach the horizontal distance " << spx << " m. \n";
         return;
         }
-        else {
+        else { cout << endl << h_spx << endl;
           cout << "The object reaches a distance of " << spx << " m after \n"
               << t_spx << " s at a height of " << h_spx << " m. \n";
         }
