@@ -2720,7 +2720,7 @@ int OneDDynamics() {            //Menu for 1D Dynamics
   cout << "3] Average Force/Change in Momentum/Change in Time" << endl;
   cout << "4] Work/Force/Displacement" << endl;
   cout << "5] Weight/Mass/Acceleration due to Gravity" << endl;
-  cout << "6] Gravity/G/Mass 1/Mass 2/Radius" << endl;
+  cout << "6] Gravity/Mass 1/Mass 2/Radius" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -2746,29 +2746,1040 @@ int OneDDynamics() {            //Menu for 1D Dynamics
 
   return iInput;
 }
+
 //1D Dynamics functions   
 void OneDMomMassVel() {
-  cout << "no code\n";
+  string sInput, sUserVelocity, sUserMass, sUserMomentum;
+  double dResult = 0.0, dInput = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserMomentum = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Momentum" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Momentum Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMass * dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Enter Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentum);
+      bValid = isNumber(sUserMomentum);
+      if (bValid) {
+        dUserMomentum = stod(sUserMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMomentum / dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Mass: " << dResult << " kg\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentum);
+      bValid = isNumber(sUserMomentum);
+      if (bValid) {
+        dUserMomentum = stod(sUserMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMomentum / dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void OneDForceMassAcc() {
-  cout << "no code\n";
+  string sInput, sUserForce, sUserMass, sUserAcceleration;
+  double dResult = 0.0, dInput = 0.0, dUserForce = 0.0, dUserMass = 0.0, dUserAcceleration = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Force" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMass * dUserAcceleration;
+    cout << "\n**************" << endl;
+    cout << "Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce / dUserAcceleration;
+    cout << "\n**************" << endl;
+    cout << "Mass: " << dResult << " kg\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Acceleration Calculator--" << endl;
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce / dUserMass;
+    cout << "\n**************" << endl;
+    cout << "Acceleration: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void OneDAvgForceMomTime() {
-  cout << "no code\n";
+  string sInput, sUserAverageForce, sUserInitialMomentum, sUserFinalMomentum, sUserTime;
+  double dResult = 0.0, dInput = 0.0, dUserAverageForce = 0.0, dUserInitialMomentum = 0.0, dUserFinalMomentum = 0.0, dUserTime = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Average Force" << endl;
+  cout << "\t2] Initial Momentum" << endl;
+  cout << "\t3] Final Momentum" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Average Force Calculator--" << endl;
+    cout << "Enter Initial Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = (dUserFinalMomentum - dUserInitialMomentum) / dUserTime;
+    cout << "\n**************" << endl;
+    cout << "Average Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Momentum Calculator--" << endl;
+    cout << "Enter Average Force (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserFinalMomentum - dUserAverageForce * dUserTime;
+    cout << "\n**************" << endl;
+    cout << "Initial Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Final Momentum Calculator--" << endl;
+    cout << "Enter Average Force (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserAverageForce * dUserTime + dUserInitialMomentum;
+    cout << "\n**************" << endl;
+    cout << "Final Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+    cout << "Enter Average Force (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    dResult = (dUserFinalMomentum - dUserInitialMomentum) / dUserAverageForce;
+    cout << "\n**************" << endl;
+    cout << "Time: " << dResult << " s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void OneDWorkForceDisp() {
-  cout << "no code\n";
+  string sInput, sUserWork, sUserForce, sUserDisplacement;
+  double dResult = 0.0, dInput = 0.0, dUserWork = 0.0, dUserForce = 0.0, dUserDisplacement = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Work" << endl;
+  cout << "\t2] Force" << endl;
+  cout << "\t3] Displacement" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Work Calculator--" << endl;
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce * dUserDisplacement;
+    cout << "\n**************" << endl;
+    cout << "Work: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWork / dUserDisplacement;
+    cout << "\n**************" << endl;
+    cout << "Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWork / dUserForce;
+    cout << "\n**************" << endl;
+    cout << "Displacement: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void Weight() {
-  cout << "no code\n";
+  string sInput, sUserWeight, sUserMass, sUserAccGrav;
+  double dResult = 0.0, dInput = 0.0, dUserWeight = 0.0, dUserMass = 0.0, dUserAccGrav = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Weight" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration due to Gravity" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Weight Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration due to Gravity (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccGrav);
+      bValid = isNumber(sUserAccGrav);
+      if (bValid) {
+        dUserAccGrav = stod(sUserAccGrav);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMass * dUserAccGrav;
+    cout << "\n**************" << endl;
+    cout << "Weight: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Enter Weight (N): ";
+    do {
+      getline(cin >> ws, sUserWeight);
+      bValid = isNumber(sUserWeight);
+      if (bValid) {
+        dUserWeight = stod(sUserWeight);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid weight: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration due to Gravity (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccGrav);
+      bValid = isNumber(sUserAccGrav);
+      if (bValid) {
+        dUserAccGrav = stod(sUserAccGrav);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWeight / dUserAccGrav;
+    cout << "\n**************" << endl;
+    cout << "Mass: " << dResult << " kg\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Acceleration due to Gravity Calculator--" << endl;
+    cout << "Enter Weight (N): ";
+    do {
+      getline(cin >> ws, sUserWeight);
+      bValid = isNumber(sUserWeight);
+      if (bValid) {
+        dUserWeight = stod(sUserWeight);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid weight: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWeight / dUserMass;
+    cout << "\n**************" << endl;
+    cout << "Acceleration due to Gravity: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void Gravity() {
-  cout << "no code\n";
+  string sInput, sUserGravForce, sUserMass1, sUserMass2, sUserDistance, sUserChoice;
+  double dResult = 0.0, dInput = 0.0, dUserGravForce = 0.0, dUserMass1 = 0.0, dUserMass2 = 0.0, dUserDistance = 0.0, dGravConst = 0.0000000000667430;
+  int iInput = 0, iUserChoice = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Graviational Force" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Distance" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Gravitational Force Calculator--" << endl;
+    cout << "Enter Mass 1 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass1);
+      bValid = isNumber(sUserMass1);
+      if (bValid) {
+        dUserMass1 = stod(sUserMass1);
+        if (dUserMass1 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 2 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass2);
+      bValid = isNumber(sUserMass2);
+      if (bValid) {
+        dUserMass2 = stod(sUserMass2);
+        if (dUserMass2 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter the Distance Between the Objects (m): ";
+    do {
+      getline(cin >> ws, sUserDistance);
+      bValid = isNumber(sUserDistance);
+      if (bValid) {
+        sUserDistance = stod(sUserDistance);
+      }
+      if (!bValid) {
+        cout << "Enter a valid distance: ";
+      }
+    } while (!bValid);
+
+    dResult = dGravConst * dUserMass1 * dUserMass2 / (dUserDistance * dUserDistance);
+    cout << "\n**************" << endl;
+    cout << "Gravitational Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a mass to calculate (1 or 2): ";
+
+    do {
+      getline(cin >> ws, sUserChoice);
+      bValid = isNumber(sUserChoice);
+      if (bValid) {
+        iUserChoice = stod(sUserChoice);
+        if (iUserChoice < 1 || iUserChoice > 2 || stoi(sUserChoice) != stod(sUserChoice)) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid choice (1 or 2): ";
+      }
+    } while (!bValid);
+
+    if (iUserChoice == 1) {
+      cout << "Enter Gravitational Force (N): ";
+      do {
+        getline(cin >> ws, sUserGravForce);
+        bValid = isNumber(sUserGravForce);
+        if (bValid) {
+          dUserGravForce = stod(sUserGravForce);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid gravitational force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Mass 2 (kg): ";
+      do {
+        getline(cin >> ws, sUserMass2);
+        bValid = isNumber(sUserMass2);
+        if (bValid) {
+          dUserMass2 = stod(sUserMass2);
+          if (dUserMass2 < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid mass: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter the Distance between the objects (m): ";
+      do {
+        getline(cin >> ws, sUserDistance);
+        bValid = isNumber(sUserDistance);
+        if (bValid) {
+          dUserDistance = stod(sUserDistance);
+        }
+        if (!bValid) {
+          cout << "Enter a valid distance: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserGravForce * dUserDistance * dUserDistance) / (dGravConst * dUserMass2);
+      cout << "\n**************" << endl;
+      cout << "Mass 1: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (iUserChoice == 2) {
+      cout << "Enter Gravitational Force (N): ";
+      do {
+        getline(cin >> ws, sUserGravForce);
+        bValid = isNumber(sUserGravForce);
+        if (bValid) {
+          dUserGravForce = stod(sUserGravForce);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid gravitational force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Mass 1 (kg): ";
+      do {
+        getline(cin >> ws, sUserMass2);
+        bValid = isNumber(sUserMass2);
+        if (bValid) {
+          dUserMass2 = stod(sUserMass2);
+          if (dUserMass2 < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid mass: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter the Distance between the objects (m): ";
+      do {
+        getline(cin >> ws, sUserDistance);
+        bValid = isNumber(sUserDistance);
+        if (bValid) {
+          dUserDistance = stod(sUserDistance);
+        }
+        if (!bValid) {
+          cout << "Enter a valid distance: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserGravForce * dUserDistance * dUserDistance) / (dGravConst * dUserMass1);
+      cout << "\n**************" << endl;
+      cout << "Mass 2: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Distance Calculator--" << endl;
+    cout << "Enter Gravitational Force (N): ";
+    do {
+      getline(cin >> ws, sUserGravForce);
+      bValid = isNumber(sUserGravForce);
+      if (bValid) {
+        dUserGravForce = stod(sUserGravForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid gravitational force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 1 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass1);
+      bValid = isNumber(sUserMass1);
+      if (bValid) {
+        dUserMass1 = stod(sUserMass1);
+        if (dUserMass1 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 2 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass2);
+      bValid = isNumber(sUserMass2);
+      if (bValid) {
+        dUserMass2 = stod(sUserMass2);
+        if (dUserMass2 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResult = sqrt(dGravConst * dUserMass1 * dUserMass2 / dUserGravForce);
+    cout << "\n**************" << endl;
+    cout << "Distance between objects: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 int TwoDDynamics() {            //Menu for 2D Dynamics
@@ -2785,7 +3796,7 @@ int TwoDDynamics() {            //Menu for 2D Dynamics
   cout << "4] Work/Force/Displacement" << endl;
   cout << "5] Pressure/Force/Area" << endl;
   cout << "6] Weight/Mass/Acceleration due to Gravity" << endl;
-  cout << "7] Gravity/G/Mass 1/Mass 2/Radius" << endl;
+  cout << "7] Gravity/Mass 1/Mass 2/Radius" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -2813,23 +3824,1190 @@ int TwoDDynamics() {            //Menu for 2D Dynamics
 }
 //2D Dynamics functions
 void TwoDMomMassVel() {
-  cout << "no code\n";
+  string sInput, sUserVelocityX, sUserVelocityY, sUserMass, sUserMomentumX, sUserMomentumY, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dInput = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserMass = 0.0, dUserMomentumX = 0.0, dUserMomentumY = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Momentum" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Momentum Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityX);
+      bValid = isNumber(sUserVelocityX);
+      if (bValid) {
+        dUserVelocityX = stod(sUserVelocityX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityY);
+      bValid = isNumber(sUserVelocityY);
+      if (bValid) {
+        dUserVelocityY = stod(sUserVelocityY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMass * dUserVelocityX;
+    dResultY = dUserMass * dUserVelocityY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Total Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate mass (x or y): ";
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x or y): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserMomentumX);
+        bValid = isNumber(sUserMomentumX);
+        if (bValid) {
+          dUserMomentumX = stod(sUserMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityX);
+        bValid = isNumber(sUserVelocityX);
+        if (bValid) {
+          dUserVelocityX = stod(sUserVelocityX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserMomentumX / dUserVelocityX;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserMomentumY);
+        bValid = isNumber(sUserMomentumY);
+        if (bValid) {
+          dUserMomentumY = stod(sUserMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityY);
+        bValid = isNumber(sUserVelocityY);
+        if (bValid) {
+          dUserVelocityY = stod(sUserVelocityY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserMomentumY / dUserVelocityY;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentumX);
+      bValid = isNumber(sUserMomentumX);
+      if (bValid) {
+        dUserMomentumX = stod(sUserMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentumY);
+      bValid = isNumber(sUserMomentumY);
+      if (bValid) {
+        dUserMomentumY = stod(sUserMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMomentumX / dUserVelocityX;
+    dResultY = dUserMomentumY / dUserVelocityY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Total Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void TwoDForceMassAcc() {
-  cout << "no code\n";
+  string sInput, sUserForceX, sUserForceY, sUserMass, sUserAccelerationX, sUserAccelerationY, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dInput = 0.0, dUserForceX = 0.0, dUserForceY = 0.0, dUserMass = 0.0, dUserAccelerationX = 0.0, dUserAccelerationY = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Force" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMass * dUserAccelerationX;
+    dResultY = dUserMass * dUserAccelerationY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Force in the x-direction: " << dResultX << " N\n";
+    cout << "Force in the y-direction: " << dResultY << " N\n";
+    cout << "Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate mass (x or y): ";
+
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x or y): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Force in the x-direction (N): ";
+      do {
+        getline(cin >> ws, sUserForceX);
+        bValid = isNumber(sUserForceX);
+        if (bValid) {
+          dUserForceX = stod(sUserForceX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the x-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationX);
+        bValid = isNumber(sUserAccelerationX);
+        if (bValid) {
+          dUserAccelerationX = stod(sUserAccelerationX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserForceX / dUserAccelerationX;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Force in the y-direction (N): ";
+      do {
+        getline(cin >> ws, sUserForceY);
+        bValid = isNumber(sUserForceY);
+        if (bValid) {
+          dUserForceY = stod(sUserForceY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the y-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationY);
+        bValid = isNumber(sUserAccelerationY);
+        if (bValid) {
+          dUserAccelerationY = stod(sUserAccelerationY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserForceY / dUserAccelerationY;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Acceleration Calculator--" << endl;
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserForceX / dUserMass;
+    dResultY = dUserForceY / dUserMass;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
+    cout << "Acceleration in the y-direction: " << dResultY << " m/s^2\n";
+    cout << "Total Acceleration: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void TwoDAvgForceMomTime() {
-  cout << "no code\n";
+  string sInput, sUserAverageForceX, sUserInitialMomentumX, sUserFinalMomentumX, sUserAverageForceY, sUserInitialMomentumY, sUserFinalMomentumY, sUserTime, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dInput = 0.0, dUserAverageForceX = 0.0, dUserInitialMomentumX = 0.0, dUserFinalMomentumX = 0.0, dUserAverageForceY = 0.0, dUserInitialMomentumY = 0.0, dUserFinalMomentumY = 0.0, dUserTime = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Average Force" << endl;
+  cout << "\t2] Initial Momentum" << endl;
+  cout << "\t3] Final Momentum" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Average Force Calculator--" << endl;
+    cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumX);
+      bValid = isNumber(sUserInitialMomentumX);
+      if (bValid) {
+        dUserInitialMomentumX = stod(sUserInitialMomentumX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumY);
+      bValid = isNumber(sUserInitialMomentumY);
+      if (bValid) {
+        dUserInitialMomentumY = stod(sUserInitialMomentumY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumX);
+      bValid = isNumber(sUserFinalMomentumX);
+      if (bValid) {
+        dUserFinalMomentumX = stod(sUserFinalMomentumX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumY);
+      bValid = isNumber(sUserFinalMomentumY);
+      if (bValid) {
+        dUserFinalMomentumY = stod(sUserFinalMomentumY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = (dUserFinalMomentumX - dUserInitialMomentumX) / dUserTime;
+    dResultY = (dUserFinalMomentumY - dUserInitialMomentumY) / dUserTime;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Average Force in the x-direction: " << dResultX << " N\n";
+    cout << "Average Force in the y-direction: " << dResultY << " N\n";
+    cout << "Average Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Momentum Calculator--" << endl;
+    cout << "Enter Average Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceX);
+      bValid = isNumber(sUserAverageForceX);
+      if (bValid) {
+        dUserAverageForceX = stod(sUserAverageForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceY);
+      bValid = isNumber(sUserAverageForceY);
+      if (bValid) {
+        dUserAverageForceY = stod(sUserAverageForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumX);
+      bValid = isNumber(sUserFinalMomentumX);
+      if (bValid) {
+        dUserFinalMomentumX = stod(sUserFinalMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumY);
+      bValid = isNumber(sUserFinalMomentumY);
+      if (bValid) {
+        dUserFinalMomentumY = stod(sUserFinalMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserFinalMomentumX - dUserAverageForceX * dUserTime;
+    dResultY = dUserFinalMomentumY - dUserAverageForceY * dUserTime;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Initial Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Initial Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Total Initial Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Final Momentum Calculator--" << endl;
+    cout << "Enter Average Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceX);
+      bValid = isNumber(sUserAverageForceX);
+      if (bValid) {
+        dUserAverageForceX = stod(sUserAverageForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceY);
+      bValid = isNumber(sUserAverageForceY);
+      if (bValid) {
+        dUserAverageForceY = stod(sUserAverageForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumX);
+      bValid = isNumber(sUserInitialMomentumX);
+      if (bValid) {
+        dUserInitialMomentumX = stod(sUserInitialMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumY);
+      bValid = isNumber(sUserInitialMomentumY);
+      if (bValid) {
+        dUserInitialMomentumY = stod(sUserInitialMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserAverageForceX * dUserTime + dUserInitialMomentumX;
+    dResultY = dUserAverageForceY * dUserTime + dUserInitialMomentumY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Final Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Final Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Total Final Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate time (x or y): ";
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x or y): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Average Force in the x-direction (N): ";
+      do {
+        getline(cin >> ws, sUserAverageForceX);
+        bValid = isNumber(sUserAverageForceX);
+        if (bValid) {
+          dUserAverageForceX = stod(sUserAverageForceX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid average force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserInitialMomentumX);
+        bValid = isNumber(sUserInitialMomentumX);
+        if (bValid) {
+          dUserInitialMomentumX = stod(sUserInitialMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid initial momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserFinalMomentumX);
+        bValid = isNumber(sUserFinalMomentumX);
+        if (bValid) {
+          dUserFinalMomentumX = stod(sUserFinalMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final momentum: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFinalMomentumX - dUserInitialMomentumX) / dUserAverageForceX;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Average Force in the y-direction (N): ";
+      do {
+        getline(cin >> ws, sUserAverageForceY);
+        bValid = isNumber(sUserAverageForceY);
+        if (bValid) {
+          dUserAverageForceY = stod(sUserAverageForceY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid average force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserInitialMomentumY);
+        bValid = isNumber(sUserInitialMomentumY);
+        if (bValid) {
+          dUserInitialMomentumY = stod(sUserInitialMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid initial momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserFinalMomentumY);
+        bValid = isNumber(sUserFinalMomentumY);
+        if (bValid) {
+          dUserFinalMomentumY = stod(sUserFinalMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final momentum: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFinalMomentumY - dUserInitialMomentumY) / dUserAverageForceY;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  }
 }
 
 void TwoDWorkForceDisp() {
-  cout << "no code\n";
+  string sInput, sUserWorkX, sUserForceX, sUserDisplacementX, sUserWorkY, sUserForceY, sUserDisplacementY;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dInput = 0.0, dUserWorkX = 0.0, dUserWorkY = 0.0, dUserForceX = 0.0, dUserForceY = 0.0, dUserDisplacementX = 0.0, dUserDisplacementY = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Work" << endl;
+  cout << "\t2] Force" << endl;
+  cout << "\t3] Displacement" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Work Calculator--" << endl;
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserDisplacementX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserDisplacementY);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserForceX * dUserDisplacementX;
+    dResultY = dUserForceY * dUserDisplacementY;
+    dResult = dResultX + dResultY;
+    cout << "\n**************" << endl;
+    cout << "Work Done by forces in the x-direction: " << dResultX << " J\n";
+    cout << "Work Done by forces in the y-direction: " << dResultY << " J\n";
+    cout << "Total Work Done: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Work done by forces in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkX);
+      bValid = isNumber(sUserWorkX);
+      if (bValid) {
+        dUserWorkX = stod(sUserWorkX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkY);
+      bValid = isNumber(sUserWorkY);
+      if (bValid) {
+        dUserWorkY = stod(sUserWorkY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserDisplacementX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserDisplacementY);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserWorkX / dUserDisplacementX;
+    dResultY = dUserWorkY / dUserDisplacementY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Net Force in the x-direction: " << dResultX << " N\n";
+    cout << "Net Force in the y-direction: " << dResultY << " N\n";
+    cout << "Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Work done by forces in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkX);
+      bValid = isNumber(sUserWorkX);
+      if (bValid) {
+        dUserWorkX = stod(sUserWorkX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkY);
+      bValid = isNumber(sUserWorkY);
+      if (bValid) {
+        dUserWorkY = stod(sUserWorkY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserWorkX / dUserForceX;
+    dResultY = dUserWorkY / dUserForceY;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Displacement in the x-direction: " << dResultX << " m\n";
+    cout << "Displacement in the y-direction: " << dResultY << " m\n";
+    cout << "Total Displacement: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void Pressure() {
-  cout << "no code\n";
+  string sInput, sUserPressure, sUserForce, sUserArea;
+  double dResult = 0.0, dInput = 0.0, dUserPressure = 0.0, dUserForce = 0.0, dUserArea = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Pressure" << endl;
+  cout << "\t2] Force" << endl;
+  cout << "\t3] Area" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Pressure Calculator--" << endl;
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        sUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Area (m^2): ";
+    do {
+      getline(cin >> ws, sUserArea);
+      bValid = isNumber(sUserArea);
+      if (bValid) {
+        dUserArea = stod(sUserArea);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid area: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce * dUserArea;
+    cout << "\n**************" << endl;
+    cout << "Pressure: " << dResult << " Pa\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Pressure (Pa): ";
+    do {
+      getline(cin >> ws, sUserPressure);
+      bValid = isNumber(sUserPressure);
+      if (bValid) {
+        dUserPressure = stod(sUserPressure);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid pressure: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Area (m^2): ";
+    do {
+      getline(cin >> ws, sUserArea);
+      bValid = isNumber(sUserArea);
+      if (bValid) {
+        dUserArea = stod(sUserArea);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid area: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserPressure / dUserArea;
+    cout << "\n**************" << endl;
+    cout << "Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Area Calculator--" << endl;
+    cout << "Enter Pressure (Pa): ";
+    do {
+      getline(cin >> ws, sUserPressure);
+      bValid = isNumber(sUserPressure);
+      if (bValid) {
+        dUserPressure = stod(sUserPressure);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid pressure: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force (N): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserPressure / dUserForce;
+    cout << "\n**************" << endl;
+    cout << "Area: " << dResult << " m^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 int ThreeDDynamics() {            //Menu for 3D Dynamics
@@ -2846,7 +5024,7 @@ int ThreeDDynamics() {            //Menu for 3D Dynamics
   cout << "4] Work/Force/Displacement" << endl;
   cout << "5] Pressure/Force/Area" << endl;
   cout << "6] Weight/Mass/Acceleration due to Gravity" << endl;
-  cout << "7] Gravity/G/Mass 1/Mass 2/Radius" << endl;
+  cout << "7] Gravity/Mass 1/Mass 2/Radius" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -2874,19 +5052,1393 @@ int ThreeDDynamics() {            //Menu for 3D Dynamics
 }
 //3D Dynamics functions
 void ThreeDMomMassVel() {
-  cout << "no code\n";
+  string sInput, sUserVelocityX, sUserVelocityY, sUserVelocityZ, sUserMass, sUserMomentumX, sUserMomentumY, sUserMomentumZ, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dInput = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserVelocityZ = 0.0, dUserMass = 0.0, dUserMomentumX = 0.0, dUserMomentumY = 0.0, dUserMomentumZ = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Momentum" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Momentum Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityX);
+      bValid = isNumber(sUserVelocityX);
+      if (bValid) {
+        dUserVelocityX = stod(sUserVelocityX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityY);
+      bValid = isNumber(sUserVelocityY);
+      if (bValid) {
+        dUserVelocityY = stod(sUserVelocityY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Velocity in the z-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityZ);
+      bValid = isNumber(sUserVelocityZ);
+      if (bValid) {
+        dUserVelocityZ = stod(sUserVelocityZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMass * dUserVelocityX;
+    dResultY = dUserMass * dUserVelocityY;
+    dResultZ = dUserMass * dUserVelocityZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Momentum in the z-direction: " << dResultZ << " kg*m/s\n";
+    cout << "Total Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate mass (x, y, or z): ";
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y" || sUserDimension == "z") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x, y, or z): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserMomentumX);
+        bValid = isNumber(sUserMomentumX);
+        if (bValid) {
+          dUserMomentumX = stod(sUserMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityX);
+        bValid = isNumber(sUserVelocityX);
+        if (bValid) {
+          dUserVelocityX = stod(sUserVelocityX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserMomentumX / dUserVelocityX;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserMomentumY);
+        bValid = isNumber(sUserMomentumY);
+        if (bValid) {
+          dUserMomentumY = stod(sUserMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityY);
+        bValid = isNumber(sUserVelocityY);
+        if (bValid) {
+          dUserVelocityY = stod(sUserVelocityY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserMomentumY / dUserVelocityY;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "z") {
+      cout << "Enter Momentum in the z-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserMomentumZ);
+        bValid = isNumber(sUserMomentumZ);
+        if (bValid) {
+          dUserMomentumZ = stod(sUserMomentumZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the z-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityZ);
+        bValid = isNumber(sUserVelocityZ);
+        if (bValid) {
+          dUserVelocityZ = stod(sUserVelocityZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserMomentumZ / dUserVelocityZ;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentumX);
+      bValid = isNumber(sUserMomentumX);
+      if (bValid) {
+        dUserMomentumX = stod(sUserMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentumY);
+      bValid = isNumber(sUserMomentumY);
+      if (bValid) {
+        dUserMomentumY = stod(sUserMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Momentum in the z-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserMomentumZ);
+      bValid = isNumber(sUserMomentumZ);
+      if (bValid) {
+        dUserMomentumZ = stod(sUserMomentumZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMomentumX / dUserVelocityX;
+    dResultY = dUserMomentumY / dUserVelocityY;
+    dResultZ = dUserMomentumZ / dUserVelocityZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Velocity in the z-direction: " << dResultZ << " m/s\n";
+    cout << "Total Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void ThreeDForceMassAcc() {
-  cout << "no code\n";
+  string sInput, sUserForceX, sUserForceY, sUserForceZ, sUserMass, sUserAccelerationX, sUserAccelerationY, sUserAccelerationZ, sUserDimension;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dInput = 0.0, dUserForceX = 0.0, dUserForceY = 0.0, dUserForceZ = 0.0, dUserMass = 0.0, dUserAccelerationX = 0.0, dUserAccelerationY = 0.0, dUserAccelerationZ = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Force" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the x-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationX);
+      bValid = isNumber(sUserAccelerationX);
+      if (bValid) {
+        dUserAccelerationX = stod(sUserAccelerationX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the y-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationY);
+      bValid = isNumber(sUserAccelerationY);
+      if (bValid) {
+        dUserAccelerationY = stod(sUserAccelerationY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration in the z-direction (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccelerationZ);
+      bValid = isNumber(sUserAccelerationZ);
+      if (bValid) {
+        dUserAccelerationZ = stod(sUserAccelerationZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserMass * dUserAccelerationX;
+    dResultY = dUserMass * dUserAccelerationY;
+    dResultZ = dUserMass * dUserAccelerationZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Force in the x-direction: " << dResultX << " N\n";
+    cout << "Force in the y-direction: " << dResultY << " N\n";
+    cout << "Force in the z-direction: " << dResultZ << " N\n";
+    cout << "Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate mass (x, y, or z): ";
+
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y" || sUserDimension == "z") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x, y, or z): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Force in the x-direction (N): ";
+      do {
+        getline(cin >> ws, sUserForceX);
+        bValid = isNumber(sUserForceX);
+        if (bValid) {
+          dUserForceX = stod(sUserForceX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the x-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationX);
+        bValid = isNumber(sUserAccelerationX);
+        if (bValid) {
+          dUserAccelerationX = stod(sUserAccelerationX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserForceX / dUserAccelerationX;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Force in the y-direction (N): ";
+      do {
+        getline(cin >> ws, sUserForceY);
+        bValid = isNumber(sUserForceY);
+        if (bValid) {
+          dUserForceY = stod(sUserForceY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the y-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationY);
+        bValid = isNumber(sUserAccelerationY);
+        if (bValid) {
+          dUserAccelerationY = stod(sUserAccelerationY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserForceY / dUserAccelerationY;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "z") {
+      cout << "Enter Force in the z-direction (N): ";
+      do {
+        getline(cin >> ws, sUserForceZ);
+        bValid = isNumber(sUserForceZ);
+        if (bValid) {
+          dUserForceZ = stod(sUserForceZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Acceleration in the z-direction (m/s^2): ";
+      do {
+        getline(cin >> ws, sUserAccelerationZ);
+        bValid = isNumber(sUserAccelerationZ);
+        if (bValid) {
+          dUserAccelerationZ = stod(sUserAccelerationZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid acceleration: ";
+        }
+      } while (!bValid);
+
+      dResult = dUserForceZ / dUserAccelerationZ;
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Acceleration Calculator--" << endl;
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the z-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceZ);
+      bValid = isNumber(sUserForceZ);
+      if (bValid) {
+        dUserForceZ = stod(sUserForceZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserForceX / dUserMass;
+    dResultY = dUserForceY / dUserMass;
+    dResultZ = dUserForceZ / dUserMass;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
+    cout << "Acceleration in the y-direction: " << dResultY << " m/s^2\n";
+    cout << "Acceleration in the z-direction: " << dResultZ << " m/s^2\n";
+    cout << "Total Acceleration: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void ThreeDAvgForceMomTime() {
-  cout << "no code\n";
+  string sInput, sUserAverageForceX, sUserInitialMomentumX, sUserFinalMomentumX, sUserAverageForceY, sUserInitialMomentumY, sUserFinalMomentumY, sUserTime, sUserDimension, sUserAverageForceZ, sUserInitialMomentumZ, sUserFinalMomentumZ;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dInput = 0.0, dUserAverageForceX = 0.0, dUserAverageForceZ = 0.0, dUserInitialMomentumX = 0.0, dUserInitialMomentumZ = 0.0, dUserFinalMomentumX = 0.0, dUserFinalMomentumZ = 0.0, dUserAverageForceY = 0.0, dUserInitialMomentumY = 0.0, dUserFinalMomentumY = 0.0, dUserTime = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Average Force" << endl;
+  cout << "\t2] Initial Momentum" << endl;
+  cout << "\t3] Final Momentum" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Average Force Calculator--" << endl;
+    cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumX);
+      bValid = isNumber(sUserInitialMomentumX);
+      if (bValid) {
+        dUserInitialMomentumX = stod(sUserInitialMomentumX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumY);
+      bValid = isNumber(sUserInitialMomentumY);
+      if (bValid) {
+        dUserInitialMomentumY = stod(sUserInitialMomentumY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the z-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumZ);
+      bValid = isNumber(sUserInitialMomentumZ);
+      if (bValid) {
+        dUserInitialMomentumZ = stod(sUserInitialMomentumZ);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumX);
+      bValid = isNumber(sUserFinalMomentumX);
+      if (bValid) {
+        dUserFinalMomentumX = stod(sUserFinalMomentumX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumY);
+      bValid = isNumber(sUserFinalMomentumY);
+      if (bValid) {
+        dUserFinalMomentumY = stod(sUserFinalMomentumY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the z-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumZ);
+      bValid = isNumber(sUserFinalMomentumZ);
+      if (bValid) {
+        dUserFinalMomentumZ = stod(sUserFinalMomentumZ);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = (dUserFinalMomentumX - dUserInitialMomentumX) / dUserTime;
+    dResultY = (dUserFinalMomentumY - dUserInitialMomentumY) / dUserTime;
+    dResultZ = (dUserFinalMomentumZ - dUserInitialMomentumZ) / dUserTime;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Average Force in the x-direction: " << dResultX << " N\n";
+    cout << "Average Force in the y-direction: " << dResultY << " N\n";
+    cout << "Average Force in the z-direction: " << dResultZ << " N\n";
+    cout << "Average Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Momentum Calculator--" << endl;
+    cout << "Enter Average Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceX);
+      bValid = isNumber(sUserAverageForceX);
+      if (bValid) {
+        dUserAverageForceX = stod(sUserAverageForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceY);
+      bValid = isNumber(sUserAverageForceY);
+      if (bValid) {
+        dUserAverageForceY = stod(sUserAverageForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the z-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceZ);
+      bValid = isNumber(sUserAverageForceZ);
+      if (bValid) {
+        dUserAverageForceZ = stod(sUserAverageForceZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumX);
+      bValid = isNumber(sUserFinalMomentumX);
+      if (bValid) {
+        dUserFinalMomentumX = stod(sUserFinalMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumY);
+      bValid = isNumber(sUserFinalMomentumY);
+      if (bValid) {
+        dUserFinalMomentumY = stod(sUserFinalMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Momentum in the z-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentumZ);
+      bValid = isNumber(sUserFinalMomentumZ);
+      if (bValid) {
+        dUserFinalMomentumZ = stod(sUserFinalMomentumZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserFinalMomentumX - dUserAverageForceX * dUserTime;
+    dResultY = dUserFinalMomentumY - dUserAverageForceY * dUserTime;
+    dResultZ = dUserFinalMomentumZ - dUserAverageForceZ * dUserTime;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Initial Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Initial Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Initial Momentum in the z-direction: " << dResultZ << " kg*m/s\n";
+    cout << "Total Initial Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Final Momentum Calculator--" << endl;
+    cout << "Enter Average Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceX);
+      bValid = isNumber(sUserAverageForceX);
+      if (bValid) {
+        dUserAverageForceX = stod(sUserAverageForceX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceY);
+      bValid = isNumber(sUserAverageForceY);
+      if (bValid) {
+        dUserAverageForceY = stod(sUserAverageForceY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Average Force in the z-direction (N): ";
+    do {
+      getline(cin >> ws, sUserAverageForceZ);
+      bValid = isNumber(sUserAverageForceZ);
+      if (bValid) {
+        dUserAverageForceZ = stod(sUserAverageForceZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumX);
+      bValid = isNumber(sUserInitialMomentumX);
+      if (bValid) {
+        dUserInitialMomentumX = stod(sUserInitialMomentumX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumY);
+      bValid = isNumber(sUserInitialMomentumY);
+      if (bValid) {
+        dUserInitialMomentumY = stod(sUserInitialMomentumY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Momentum in the z-direction (kg*m/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentumZ);
+      bValid = isNumber(sUserInitialMomentumZ);
+      if (bValid) {
+        dUserInitialMomentumZ = stod(sUserInitialMomentumZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserAverageForceX * dUserTime + dUserInitialMomentumX;
+    dResultY = dUserAverageForceY * dUserTime + dUserInitialMomentumY;
+    dResultZ = dUserAverageForceZ * dUserTime + dUserInitialMomentumZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Final Momentum in the x-direction: " << dResultX << " kg*m/s\n";
+    cout << "Final Momentum in the y-direction: " << dResultY << " kg*m/s\n";
+    cout << "Final Momentum in the z-direction: " << dResultZ << " kg*m/s\n";
+    cout << "Total Final Momentum: " << dResult << " kg*m/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+    cout << "Choose a dimension in which to calculate time (x, y, or z): ";
+    do {
+      getline(cin >> ws, sUserDimension);
+
+      if (sUserDimension == "x" || sUserDimension == "y" || sUserDimension == "z") {
+        bValid = true;
+      }
+
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x, y, or z): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Average Force in the x-direction (N): ";
+      do {
+        getline(cin >> ws, sUserAverageForceX);
+        bValid = isNumber(sUserAverageForceX);
+        if (bValid) {
+          dUserAverageForceX = stod(sUserAverageForceX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid average force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserInitialMomentumX);
+        bValid = isNumber(sUserInitialMomentumX);
+        if (bValid) {
+          dUserInitialMomentumX = stod(sUserInitialMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid initial momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Final Momentum in the x-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserFinalMomentumX);
+        bValid = isNumber(sUserFinalMomentumX);
+        if (bValid) {
+          dUserFinalMomentumX = stod(sUserFinalMomentumX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final momentum: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFinalMomentumX - dUserInitialMomentumX) / dUserAverageForceX;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "y") {
+      cout << "Enter Average Force in the y-direction (N): ";
+      do {
+        getline(cin >> ws, sUserAverageForceY);
+        bValid = isNumber(sUserAverageForceY);
+        if (bValid) {
+          dUserAverageForceY = stod(sUserAverageForceY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid average force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserInitialMomentumY);
+        bValid = isNumber(sUserInitialMomentumY);
+        if (bValid) {
+          dUserInitialMomentumY = stod(sUserInitialMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid initial momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Final Momentum in the y-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserFinalMomentumY);
+        bValid = isNumber(sUserFinalMomentumY);
+        if (bValid) {
+          dUserFinalMomentumY = stod(sUserFinalMomentumY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final momentum: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFinalMomentumY - dUserInitialMomentumY) / dUserAverageForceY;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "z") {
+      cout << "Enter Average Force in the z-direction (N): ";
+      do {
+        getline(cin >> ws, sUserAverageForceZ);
+        bValid = isNumber(sUserAverageForceZ);
+        if (bValid) {
+          dUserAverageForceZ = stod(sUserAverageForceZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid average force: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Initial Momentum in the z-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserInitialMomentumZ);
+        bValid = isNumber(sUserInitialMomentumZ);
+        if (bValid) {
+          dUserInitialMomentumZ = stod(sUserInitialMomentumZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid initial momentum: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Final Momentum in the z-direction (kg*m/s): ";
+      do {
+        getline(cin >> ws, sUserFinalMomentumZ);
+        bValid = isNumber(sUserFinalMomentumZ);
+        if (bValid) {
+          dUserFinalMomentumZ = stod(sUserFinalMomentumZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid final momentum: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserFinalMomentumZ - dUserInitialMomentumZ) / dUserAverageForceZ;
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  }
 }
 
 void ThreeDWorkForceDisp() {
-  cout << "no code\n";
+  string sInput, sUserWorkX, sUserForceX, sUserDisplacementX, sUserWorkY, sUserForceY, sUserDisplacementY, sUserWorkZ, sUserForceZ, sUserDisplacementZ;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dInput = 0.0, dUserWorkX = 0.0, dUserWorkY = 0.0, dUserWorkZ = 0.0, dUserForceX = 0.0, dUserForceY = 0.0, dUserForceZ = 0.0, dUserDisplacementX = 0.0, dUserDisplacementY = 0.0, dUserDisplacementZ = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Work" << endl;
+  cout << "\t2] Force" << endl;
+  cout << "\t3] Displacement" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Work Calculator--" << endl;
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the z-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceZ);
+      bValid = isNumber(sUserForceZ);
+      if (bValid) {
+        dUserForceZ = stod(sUserForceZ);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserDisplacementX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserDisplacementY);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter displacement in the z-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementZ);
+      bValid = isNumber(sUserDisplacementZ);
+      if (bValid) {
+        dUserDisplacementZ = stod(sUserDisplacementZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserForceX * dUserDisplacementX;
+    dResultY = dUserForceY * dUserDisplacementY;
+    dResultZ = dUserForceZ * dUserDisplacementZ;
+    dResult = dResultX + dResultY + dResultZ;
+    cout << "\n**************" << endl;
+    cout << "Work Done by forces in the x-direction: " << dResultX << " J\n";
+    cout << "Work Done by forces in the y-direction: " << dResultY << " J\n";
+    cout << "Work Done by forces in the z-direction: " << dResultZ << " J\n";
+    cout << "Total Work Done: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Force Calculator--" << endl;
+    cout << "Enter Work done by forces in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkX);
+      bValid = isNumber(sUserWorkX);
+      if (bValid) {
+        dUserWorkX = stod(sUserWorkX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkY);
+      bValid = isNumber(sUserWorkY);
+      if (bValid) {
+        dUserWorkY = stod(sUserWorkY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the z-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkZ);
+      bValid = isNumber(sUserWorkZ);
+      if (bValid) {
+        dUserWorkZ = stod(sUserWorkZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the x-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementX);
+      bValid = isNumber(sUserDisplacementX);
+      if (bValid) {
+        dUserDisplacementX = stod(sUserDisplacementX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the y-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementY);
+      bValid = isNumber(sUserDisplacementY);
+      if (bValid) {
+        dUserDisplacementY = stod(sUserDisplacementY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Displacement in the z-direction (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacementZ);
+      bValid = isNumber(sUserDisplacementZ);
+      if (bValid) {
+        dUserDisplacementZ = stod(sUserDisplacementZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserWorkX / dUserDisplacementX;
+    dResultY = dUserWorkY / dUserDisplacementY;
+    dResultZ = dUserWorkZ / dUserDisplacementZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Net Force in the x-direction: " << dResultX << " N\n";
+    cout << "Net Force in the y-direction: " << dResultY << " N\n";
+    cout << "Net Force in the z-direction: " << dResultZ << " N\n";
+    cout << "Total Force: " << dResult << " N\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Work done by forces in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkX);
+      bValid = isNumber(sUserWorkX);
+      if (bValid) {
+        dUserWorkX = stod(sUserWorkX);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkY);
+      bValid = isNumber(sUserWorkY);
+      if (bValid) {
+        dUserWorkY = stod(sUserWorkY);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Work done by forces in the z-direction (J): ";
+    do {
+      getline(cin >> ws, sUserWorkZ);
+      bValid = isNumber(sUserWorkZ);
+      if (bValid) {
+        dUserWorkZ = stod(sUserWorkZ);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the x-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceX);
+      bValid = isNumber(sUserForceX);
+      if (bValid) {
+        dUserForceX = stod(sUserForceX);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the y-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceY);
+      bValid = isNumber(sUserForceY);
+      if (bValid) {
+        dUserForceY = stod(sUserForceY);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Force in the z-direction (N): ";
+    do {
+      getline(cin >> ws, sUserForceZ);
+      bValid = isNumber(sUserForceZ);
+      if (bValid) {
+        dUserForceZ = stod(sUserForceZ);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    dResultX = dUserWorkX / dUserForceX;
+    dResultY = dUserWorkY / dUserForceY;
+    dResultZ = dUserWorkZ / dUserForceZ;
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Displacement in the x-direction: " << dResultX << " m\n";
+    cout << "Displacement in the y-direction: " << dResultY << " m\n";
+    cout << "Displacement in the z-direction: " << dResultZ << " m\n";
+    cout << "Total Displacement: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 int RotationalDynamics() {            //Menu for rotational dynamics
@@ -2928,19 +6480,646 @@ int RotationalDynamics() {            //Menu for rotational dynamics
 }
 //Rotational Dynamics functions
 void AngMomInertiaAngVel() {
-  cout << "no code\n";
+  string sInput, sUserVelocity, sUserMass, sUserMomentum;
+  double dResult = 0.0, dInput = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserMomentum = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Angular Momentum" << endl;
+  cout << "\t2] Rotational Inertia" << endl;
+  cout << "\t3] Angular Velocity" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Angular Momentum Calculator--" << endl;
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid rotational inertia: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Velocity (rad/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular velocity: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMass * dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Angular Momentum: " << dResult << " kg*m^2/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Rotational Inertia Calculator--" << endl;
+    cout << "Enter Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserMomentum);
+      bValid = isNumber(sUserMomentum);
+      if (bValid) {
+        dUserMomentum = stod(sUserMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Velocity (rad/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular velocity: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMomentum / dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Rotational Inertia: " << dResult << " kg*m^2\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Angular Velocity Calculator--" << endl;
+    cout << "Enter Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserMomentum);
+      bValid = isNumber(sUserMomentum);
+      if (bValid) {
+        dUserMomentum = stod(sUserMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid rotational inertia: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMomentum / dUserVelocity;
+    cout << "\n**************" << endl;
+    cout << "Angular Velocity: " << dResult << " rad/s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void TorqueInertiaAngAcc() {
-  cout << "no code\n";
+  string sInput, sUserForce, sUserMass, sUserAcceleration;
+  double dResult = 0.0, dInput = 0.0, dUserForce = 0.0, dUserMass = 0.0, dUserAcceleration = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Torque" << endl;
+  cout << "\t2] Rotational Inertia" << endl;
+  cout << "\t3] Angular Acceleration" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Torque Calculator--" << endl;
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid rotational inertia: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Acceleration (rad/s^2): ";
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserMass * dUserAcceleration;
+    cout << "\n**************" << endl;
+    cout << "Torque: " << dResult << " N*m\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Rotational Inertia Calculator--" << endl;
+    cout << "Enter Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid torque: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Acceleration (rad/s^2): ";
+    do {
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
+      if (bValid) {
+        dUserAcceleration = stod(sUserAcceleration);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular acceleration: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce / dUserAcceleration;
+    cout << "\n**************" << endl;
+    cout << "Rotational Inertia: " << dResult << " kg*m^2\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Angular Acceleration Calculator--" << endl;
+    cout << "Enter Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid torque: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid rotational inertia: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce / dUserMass;
+    cout << "\n**************" << endl;
+    cout << "Angular Acceleration: " << dResult << " rad/s^2\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void AvgTorqueAngMomTime() {
-  cout << "no code\n";
+  string sInput, sUserAverageForce, sUserInitialMomentum, sUserFinalMomentum, sUserTime;
+  double dResult = 0.0, dInput = 0.0, dUserAverageForce = 0.0, dUserInitialMomentum = 0.0, dUserFinalMomentum = 0.0, dUserTime = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Average Torque" << endl;
+  cout << "\t2] Initial Angular Momentum" << endl;
+  cout << "\t3] Final Angular Momentum" << endl;
+  cout << "\t4] Time" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Average Torque Calculator--" << endl;
+    cout << "Enter Initial Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = (dUserFinalMomentum - dUserInitialMomentum) / dUserTime;
+    cout << "\n**************" << endl;
+    cout << "Average Torque: " << dResult << " N*m\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Initial Angular Momentum Calculator--" << endl;
+    cout << "Enter Average Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average torque: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserFinalMomentum - dUserAverageForce * dUserTime;
+    cout << "\n**************" << endl;
+    cout << "Initial Angular Momentum: " << dResult << " kg*m^2/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Final Momentum Calculator--" << endl;
+    cout << "Enter Average Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average torque: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Time (s): ";
+    do {
+      getline(cin >> ws, sUserTime);
+      bValid = isNumber(sUserTime);
+      if (bValid) {
+        dUserTime = stod(sUserTime);
+        if (dUserTime < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid time: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserAverageForce * dUserTime + dUserInitialMomentum;
+    cout << "\n**************" << endl;
+    cout << "Final Angular Momentum: " << dResult << " kg*m^2/s\n";
+    cout << "**************\n" << endl;
+    break;
+  case 4:
+    cout << "\n--Time Calculator--" << endl;
+    cout << "Enter Average Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserAverageForce);
+      bValid = isNumber(sUserAverageForce);
+      if (bValid) {
+        dUserAverageForce = stod(sUserAverageForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid average torque: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Initial Angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserInitialMomentum);
+      bValid = isNumber(sUserInitialMomentum);
+      if (bValid) {
+        dUserInitialMomentum = stod(sUserInitialMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid initial angular momentum: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Final angular Momentum (kg*m^2/s): ";
+    do {
+      getline(cin >> ws, sUserFinalMomentum);
+      bValid = isNumber(sUserFinalMomentum);
+      if (bValid) {
+        dUserFinalMomentum = stod(sUserFinalMomentum);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid final angular momentum: ";
+      }
+    } while (!bValid);
+
+    dResult = (dUserFinalMomentum - dUserInitialMomentum) / dUserAverageForce;
+    cout << "\n**************" << endl;
+    cout << "Time: " << dResult << " s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 void WorkTorqueAngDisp() {
-  cout << "no code\n";
+  string sInput, sUserWork, sUserForce, sUserDisplacement;
+  double dResult = 0.0, dInput = 0.0, dUserWork = 0.0, dUserForce = 0.0, dUserDisplacement = 0.0;
+  int iInput = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Work" << endl;
+  cout << "\t2] Torque" << endl;
+  cout << "\t3] Angular Displacement" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Work Calculator--" << endl;
+    cout << "Enter Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid force: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter angular displacement (rad): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular displacement: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserForce * dUserDisplacement;
+    cout << "\n**************" << endl;
+    cout << "Work: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Torque Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Displacement (rad): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular displacement: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWork / dUserDisplacement;
+    cout << "\n**************" << endl;
+    cout << "Torque: " << dResult << " N*m\n";
+    cout << "**************\n" << endl;
+    break;
+  case 3:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Torque (N*m): ";
+    do {
+      getline(cin >> ws, sUserForce);
+      bValid = isNumber(sUserForce);
+      if (bValid) {
+        dUserForce = stod(sUserForce);
+      }
+      if (!bValid) {
+        cout << "Enter a valid torque: ";
+      }
+    } while (!bValid);
+
+    dResult = dUserWork / dUserForce;
+    cout << "\n**************" << endl;
+    cout << "Angular Displacement: " << dResult << " rad\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 //Energy functions
 int Energy() {          //Energy Menu function
