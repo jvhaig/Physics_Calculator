@@ -1,10 +1,9 @@
 # PHYSICS CALCULATOR
 
-  <names>
-  A201 Computer Programming 1
-  Assignment: Project01
-  Date:
-  Description:
+    James Haig, Austin Aho, and Alys Korosei
+    A201 Computer Programming 1
+    Assignment: Project01
+    Date: 12/01/2024
 
 # Description
 
