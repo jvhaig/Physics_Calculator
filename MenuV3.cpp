@@ -1372,7 +1372,11 @@ void OneDViVfAccTime() {
       }
     } while (!bValid);
 
-    dResult = (dUserFV - dUserIV) / dUserAcceleration;
+    if (dUserAcceleration != 0) {
+      dResult = (dUserFV - dUserIV) / dUserAcceleration;
+    }else if (dUserAcceleration == 0) {
+      dResult = dUserIV;
+    }
     cout << "\n**************" << endl;
     cout << "Time: " << dResult << " s\n";
     cout << "**************\n" << endl;
@@ -2114,19 +2118,13 @@ void TwoDVelDispAccTime() {
       } while (!bValid);
 
 
-
-      dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX - (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;           //Not sure about this formula
-
+      if (dUserAccelerationX != 0) {
+        dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
+      }else if (dUserAccelerationX == 0) {
+        dResult = dUserDisplacementX / dUserIVX;
+      }
       cout << "\n**************" << endl;
       cout << "Time: " << dResult << " s\n";
-
-      if (dUserIVX * dUserIVX - (2 * dUserAccelerationX * dUserDisplacementX) < 0) {
-        cout << "Input values may be incorrect. Please try again.";
-      }
-      else if (dUserAccelerationX == 0) {
-        cout << "0 Acceleration is not allowed for this calculation";
-      }
-
       cout << "**************\n" << endl;
       break;
     }
@@ -2172,17 +2170,14 @@ void TwoDVelDispAccTime() {
 
 
 
-      dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY - (2 * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;           //Not sure about this formula
-      cout << "\n**************" << endl;
-      cout << "Time: " << dResult << " s\n";
-
-      if (dUserIVY * dUserIVY - (2 * dUserAccelerationY * dUserDisplacementY) < 0) {
-        cout << "Input values may be incorrect. Please try again.";
+      if (dUserAccelerationY != 0) {
+        dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY + (2 * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;
       }
       else if (dUserAccelerationY == 0) {
-        cout << "0 Acceleration is not allowed for this calculation";
+        dResult = dUserDisplacementY / dUserIVY;
       }
-
+      cout << "\n**************" << endl;
+      cout << "Time: " << dResult << " s\n";
       cout << "**************\n" << endl;
       break;
     }
@@ -2521,7 +2516,11 @@ void TwoDViVfAccTime() {
         }
       } while (!bValid);
 
-      dResult = (dUserFVX - dUserIVX) / dUserAccelerationX;
+      if (dUserAccelerationX != 0) {
+        dResult = (dUserFVX - dUserIVX) / dUserAccelerationX;
+      }else if (dUserAccelerationX == 0) {
+        dResult = dUserIVX;
+      }
       cout << "\n**************" << endl;
       cout << "Time: " << dResult << " s\n";
       cout << "**************\n" << endl;
@@ -2567,7 +2566,12 @@ void TwoDViVfAccTime() {
         }
       } while (!bValid);
 
-      dResult = (dUserFVY - dUserIVY) / dUserAccelerationY;
+      if (dUserAccelerationY != 0) {
+        dResult = (dUserFVY - dUserIVY) / dUserAccelerationY;
+      }
+      else if (dUserAccelerationY == 0) {
+        dResult = dUserIVY;
+      }
       cout << "\n**************" << endl;
       cout << "Time: " << dResult << " s\n";
       cout << "**************\n" << endl;
