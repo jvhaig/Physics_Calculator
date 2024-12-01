@@ -1583,6 +1583,7 @@ void TwoDProjectileMotion() {
             break;
         }
     }
+
     if (ans1 == 5)
     {
       cout << "Enter the height (m) for which to calculate time and distance: ";
@@ -1649,7 +1650,7 @@ void TwoDProjectileMotion() {
 
     v_fx = v_0x;
     v_fy = v_0y - G * t;
-    v_f = pow(v_fx, 2) + pow(v_fy, 2);
+    v_f = sqrt(pow(v_fx, 2) + pow(v_fy, 2));
 
     d = v_0x * t;
 
@@ -1663,7 +1664,7 @@ void TwoDProjectileMotion() {
     //height of projectile at that particular distance:
     h_spx = (v_0y * t_spx) - ((1/2) * G * pow(t_spx, 2));
 
-    //time(s) a projectile reaches a particular height:
+    //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
     if (pow(v_0y, 2) >= 2 * G * spy) {
     t_spy1 = (-1/G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
     t_spy2 = (-1/G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
@@ -1681,6 +1682,17 @@ void TwoDProjectileMotion() {
     //the height the object has at a certain time t_sp;
     h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
     
+    //For debugging, comment out when done:
+    cout << endl 
+         << "\nv_0x " << v_0x
+         << "\nv_0y " << v_0y
+         << "\nv_0 " << v_0
+         << "\ndelta_y" << delta_y
+         << "\nv_f " << v_f
+         << "\nt " << t
+         << "\nmaxh " << maxh
+         << "\nd " << d << endl << endl;
+
     if (!flag) // we are launching to an elevated height
     {
       if (h_dx < delta_y)
