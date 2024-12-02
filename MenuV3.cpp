@@ -5336,9 +5336,9 @@ void ThreeDMomMassVel() {
       }
     } while (!bValid);
 
-    dResultX = dUserMomentumX / dUserVelocityX;
-    dResultY = dUserMomentumY / dUserVelocityY;
-    dResultZ = dUserMomentumZ / dUserVelocityZ;
+    dResultX = dUserMomentumX / dUserMass;
+    dResultY = dUserMomentumY / dUserMass;
+    dResultZ = dUserMomentumZ / dUserMass;
     dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
     cout << "\n**************" << endl;
     cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
