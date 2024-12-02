@@ -79,6 +79,7 @@ int Energy();           //Energy functions
 int OneDEnergy();
 void OneDKinMassVel();
 void GravPotMassAccHeight();
+void GravPotM1M2();
 void ElasSpringDisp();
 void WorkEnergy();
 
@@ -604,12 +605,18 @@ int main() {
               bSubSubChoice = true;
               break;
             case 3:
-              ElasSpringDisp();
+              GravPotM1M2();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 4:
+              ElasSpringDisp();
+              bChoice = false;
+              bSubChoice = true;
+              bSubSubChoice = true;
+              break;
+            case 5:
               WorkEnergy();
               bChoice = false;
               bSubChoice = true;
@@ -652,12 +659,18 @@ int main() {
               bSubSubChoice = true;
               break;
             case 3:
-              ElasSpringDisp();
+              GravPotM1M2();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 4:
+              ElasSpringDisp();
+              bChoice = false;
+              bSubChoice = true;
+              bSubSubChoice = true;
+              break;
+            case 5:
               WorkEnergy();
               bChoice = false;
               bSubChoice = true;
@@ -700,12 +713,18 @@ int main() {
               bSubSubChoice = true;
               break;
             case 3:
-              ElasSpringDisp();
+              GravPotM1M2();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 4:
+              ElasSpringDisp();
+              bChoice = false;
+              bSubChoice = true;
+              bSubSubChoice = true;
+              break;
+            case 5:
               WorkEnergy();
               bChoice = false;
               bSubChoice = true;
@@ -7168,8 +7187,9 @@ int OneDEnergy() {
   cout << "--Energy 1D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
-  cout << "3] Elastic Potential Energy/Spring Constant/Displacement" << endl;
-  cout << "4] Work/Change in Energy" << endl;
+  cout << "3] Gravitational Potential Energy/Mass 1/Mass 2/Distance" << endl;
+  cout << "4] Elastic Potential Energy/Spring Constant/Displacement" << endl;
+  cout << "5] Work/Change in Energy" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -7182,7 +7202,7 @@ int OneDEnergy() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if (((iInput < 0 || iInput > 5) && iInput != 9) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7588,6 +7608,265 @@ void GravPotMassAccHeight() {
   }
 }
 
+void GravPotM1M2() {
+  string sInput, sUserGravForce, sUserMass1, sUserMass2, sUserDistance, sUserChoice;
+  double dResult = 0.0, dInput = 0.0, dUserGravForce = 0.0, dUserMass1 = 0.0, dUserMass2 = 0.0, dUserDistance = 0.0, dGravConst = 0.0000000000667430;
+  int iInput = 0, iUserChoice = 0;
+  bool bValid = false;
+
+  //subsubsubmenu
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "\t1] Graviational Potential Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Distance" << endl;
+  cout << "----------------------" << endl;
+  cout << "Enter an option: ";
+
+  do {
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
+      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
+  } while (!bValid);
+
+  switch (iInput) {
+  case 1:
+    cout << "\n--Gravitational Potential Energy Calculator--" << endl;
+    cout << "Enter Mass 1 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass1);
+      bValid = isNumber(sUserMass1);
+      if (bValid) {
+        dUserMass1 = stod(sUserMass1);
+        if (dUserMass1 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 2 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass2);
+      bValid = isNumber(sUserMass2);
+      if (bValid) {
+        dUserMass2 = stod(sUserMass2);
+        if (dUserMass2 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter the Distance Between the Objects (m): ";
+    do {
+      getline(cin >> ws, sUserDistance);
+      bValid = isNumber(sUserDistance);
+      if (bValid) {
+        sUserDistance = stod(sUserDistance);
+      }
+      if (!bValid) {
+        cout << "Enter a valid distance: ";
+      }
+    } while (!bValid);
+
+    dResult = dGravConst * dUserMass1 * dUserMass2 / (dUserDistance * dUserDistance);
+    cout << "\n**************" << endl;
+    cout << "Gravitational Potential Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Choose a mass to calculate (1 or 2): ";
+
+    do {
+      getline(cin >> ws, sUserChoice);
+      bValid = isNumber(sUserChoice);
+      if (bValid) {
+        iUserChoice = stod(sUserChoice);
+        if (iUserChoice < 1 || iUserChoice > 2 || stoi(sUserChoice) != stod(sUserChoice)) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid choice (1 or 2): ";
+      }
+    } while (!bValid);
+
+    if (iUserChoice == 1) {
+      cout << "Enter Gravitational Potential Energy (J): ";
+      do {
+        getline(cin >> ws, sUserGravForce);
+        bValid = isNumber(sUserGravForce);
+        if (bValid) {
+          dUserGravForce = stod(sUserGravForce);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid gravitational potential energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Mass 2 (kg): ";
+      do {
+        getline(cin >> ws, sUserMass2);
+        bValid = isNumber(sUserMass2);
+        if (bValid) {
+          dUserMass2 = stod(sUserMass2);
+          if (dUserMass2 < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid mass: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter the Distance between the objects (m): ";
+      do {
+        getline(cin >> ws, sUserDistance);
+        bValid = isNumber(sUserDistance);
+        if (bValid) {
+          dUserDistance = stod(sUserDistance);
+        }
+        if (!bValid) {
+          cout << "Enter a valid distance: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserGravForce * dUserDistance * dUserDistance) / (dGravConst * dUserMass2);
+      cout << "\n**************" << endl;
+      cout << "Mass 1: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (iUserChoice == 2) {
+      cout << "Enter Gravitational Potential Energy (J): ";
+      do {
+        getline(cin >> ws, sUserGravForce);
+        bValid = isNumber(sUserGravForce);
+        if (bValid) {
+          dUserGravForce = stod(sUserGravForce);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid gravitational potential energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Mass 1 (kg): ";
+      do {
+        getline(cin >> ws, sUserMass2);
+        bValid = isNumber(sUserMass2);
+        if (bValid) {
+          dUserMass2 = stod(sUserMass2);
+          if (dUserMass2 < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid mass: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter the Distance between the objects (m): ";
+      do {
+        getline(cin >> ws, sUserDistance);
+        bValid = isNumber(sUserDistance);
+        if (bValid) {
+          dUserDistance = stod(sUserDistance);
+        }
+        if (!bValid) {
+          cout << "Enter a valid distance: ";
+        }
+      } while (!bValid);
+
+      dResult = (dUserGravForce * dUserDistance * dUserDistance) / (dGravConst * dUserMass1);
+      cout << "\n**************" << endl;
+      cout << "Mass 2: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+  case 3:
+    cout << "\n--Distance Calculator--" << endl;
+    cout << "Enter Gravitational Potential Energy (J): ";
+    do {
+      getline(cin >> ws, sUserGravForce);
+      bValid = isNumber(sUserGravForce);
+      if (bValid) {
+        dUserGravForce = stod(sUserGravForce);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid gravitational potential energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 1 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass1);
+      bValid = isNumber(sUserMass1);
+      if (bValid) {
+        dUserMass1 = stod(sUserMass1);
+        if (dUserMass1 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass 2 (kg): ";
+    do {
+      getline(cin >> ws, sUserMass2);
+      bValid = isNumber(sUserMass2);
+      if (bValid) {
+        dUserMass2 = stod(sUserMass2);
+        if (dUserMass2 < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResult = sqrt(dGravConst * dUserMass1 * dUserMass2 / dUserGravForce);
+    cout << "\n**************" << endl;
+    cout << "Distance between objects: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
+  }
+}
+
 void ElasSpringDisp() {
   string sInput, sUserElasticPEnergy, sUserSpringConstant, sUserDisplacement;
   double dResult = 0.0, dUserElasticPEnergy = 0.0, dUserSpringConstant = 0.0, dUserDisplacement = 0.0;
@@ -7880,8 +8159,9 @@ int TwoDEnergy() {
   cout << "--Energy 2D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
-  cout << "3] Elastic Potential Energy/Spring Constant/Displacement" << endl;
-  cout << "4] Work/Change in Energy" << endl;
+  cout << "3] Gravitational Potential Energy/Mass 1/Mass 2/Distance" << endl;
+  cout << "4] Elastic Potential Energy/Spring Constant/Displacement" << endl;
+  cout << "5] Work/Change in Energy" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -7894,7 +8174,7 @@ int TwoDEnergy() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if (((iInput < 0 || iInput > 5) && iInput != 9) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -8166,8 +8446,9 @@ int ThreeDEnergy() {
   cout << "--Energy 3D--" << endl;
   cout << "1] Kinetic Energy/Mass/Velocity" << endl;
   cout << "2] Gravitational Potential Energy/Mass/Acceleration Due to Gravity" << endl;
-  cout << "3] Elastic Potential Energy/Spring Constant/Displacement" << endl;
-  cout << "4] Work/Change in Energy" << endl;
+  cout << "3] Gravitational Potential Energy/Mass 1/Mass 2/Distance" << endl;
+  cout << "4] Elastic Potential Energy/Spring Constant/Displacement" << endl;
+  cout << "5] Work/Change in Energy" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -8180,7 +8461,7 @@ int ThreeDEnergy() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if (((iInput < 0 || iInput > 5) && iInput != 9) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
