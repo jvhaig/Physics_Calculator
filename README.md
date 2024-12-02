@@ -18,21 +18,16 @@
     1D Kinematics
       Velocity/Displacement/Acceleration/Time 					
       Initial Velocity/Final Velocity/Acceleration/Time								
-      Quit
     
     2D Kinematics
       Projectile Motion: Initial Velocity/Launch Angle/Acceleration due to Gravity
       Velocity/Displacement/Time							
       Initial Velocity/Final Velocity/Acceleration					
-      Back
-      Quit
     
     3D Kinematics
       Projectile Motion: Initial Velocity/Launch Angle/Acceleration due to Gravity  
       Velocity/Displacement/Time
       Initial Velocity/Final Velocity/Acceleration
-      Back
-      Quit
       
     Angular Kinematics
       Angular Velocity/Angular Displacement/Time
@@ -46,8 +41,7 @@
       Work/Force/Displacement						
       Weight/Mass/Acceleration due to Gravity				
       Gravity/G/Mass 1/Mass 2/Radius					
-      Back
-      Quit
+
     2D Dynamics
       Momentum/Mass/Velocity
       Force/Mass/Acceleration
@@ -56,8 +50,7 @@
       Pressure/Force/Area
       Weight/Mass/Acceleration due to Gravity
       Gravity/G/Mass 1/Mass 2/Radius
-      Back
-      Quit
+
     3D Dynamics
       Momentum/Mass/Velocity
       Force/Mass/Acceleration
@@ -66,8 +59,7 @@
       Pressure/Force/Area
       Weight/Mass/Acceleration due to Gravity
       Gravity/G/Mass 1/Mass 2/Radius
-      Back
-      Quit
+
     Rotational Dynamics
       Angular Momentum/Rotational Inertia/Angular Velocity			
       Torque/Rotational Inertia/Angular Acceleration
@@ -80,21 +72,18 @@
       Gravitational Potential Energy/Mass/Acceleration Due to Gravity	
       Elastic Potential Energy/Spring Constant/Displacement		
       Work/∆Energy								
-      Back	
-      Quit
+
     Energy 2D
       Kinetic Energy/Mass/Velocity
       Gravitational Potential Energy/Mass/Acceleration Due to Gravity
       Elastic Potential Energy/Spring Constant/Displacement
       Work/∆Energy
-      Back
-      Quit
+
     Energy 3D
       Kinetic Energy/Mass/Velocity
       Gravitational Potential Energy/Mass/Acceleration Due to Gravity
       Elastic Potential Energy/Spring Constant/Displacement
       Work/∆Energy
-      Back
-      Quit
+
     Rotational Energy
       Rotational Kinetic Energy
