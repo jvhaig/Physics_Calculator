@@ -12,8 +12,9 @@
         Operating System: Windows
         
 # Installation
-        Download .exe file
-        Run the Application
+        Download Zip File
+        Extract Zip File
+        Run the Application .exe
     
 # Structure
 
