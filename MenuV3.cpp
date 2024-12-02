@@ -1409,8 +1409,8 @@ void TwoDProjectileMotion() {
   bool flag = true;
   bool flag2 = false;
   const double G = 9.807;
-  float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, maxh, t_maxh, t_fall, t,
-    d, dx, t_dx, h_dx, spx, t_spx, h_spx, spy, t_spy1, t_spy2, d_spy1, d_spy2, spt, h_spt, d_spt;
+  float v_f = 0.0, v_fx = 0.0, v_fy = 0.0, v_0 = 0.0, theta = 0.0, v_0x = 0.0, v_0y = 0.0, y = 0.0, delta_x = 0.0, delta_y = 0.0, maxh = 0.0, t_maxh = 0.0, t_fall = 0.0, t = 0.0,
+    d = 0.0, dx = 0.0, t_dx = 0.0, h_dx = 0.0, spx = 0.0, t_spx = 0.0, h_spx = 0.0, spy = 0.0, t_spy1 = 0.0, t_spy2 = 0.0, d_spy1 = 0.0, d_spy2 = 0.0, spt = 0.0, h_spt = 0.0, d_spt = 0.0;
 
   cout << "Select value to solve for: \n(1) Final velocity \n(2) Maximum height"
     << "\n(3) Distance traveled \n(4) Time of flight "
