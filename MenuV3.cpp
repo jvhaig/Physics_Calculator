@@ -1648,9 +1648,10 @@ void TwoDProjectileMotion() {
   //t = t_maxh + t_fall;
   if (pow(v_0y, 2) >= 2 * G * delta_y) {
     t = (v_0y + sqrt(pow(v_0y, 2) - (2 * G * delta_y))) / G; // Positive root
-  }
-  else
-    t = 99999;
+    }
+    else {
+      t = 9999999;
+    }
 
   v_fx = v_0x;
   v_fy = v_0y - G * t;
@@ -1663,23 +1664,26 @@ void TwoDProjectileMotion() {
   //height of projectile at first elevated height:
   h_dx = (v_0y * t_dx) - ((1 / 2) * G * pow(t_dx, 2));
 
-  //time(s) a projectile reaches a particular distance:
-  t_spx = spx / v_0x;
-  //height of projectile at that particular distance:
-  h_spx = (v_0y * t_spx) - ((1 / 2) * G * pow(t_spx, 2));
+    //time(s) a projectile reaches a particular distance:
+    t_spx = spx / v_0x;
+    //height of projectile at that particular distance:
 
-  //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
-  if (pow(v_0y, 2) >= 2 * G * spy) {
-    t_spy1 = (-1 / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
-    t_spy2 = (-1 / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
-  }
-  else {
-    t_spy1 = 9999999;
-    t_spy2 = 9999999;
-  }
-  //distance traveled by the object at those heights:
-  d_spy1 = v_0x * t_spy1;
-  d_spy2 = v_0x * t_spy2;
+    h_spx = (v_0y * t_spx) - ((1/2) * G * pow(t_spx, 2));
+    //h_spx = 5;
+    cout << " \nhspx is now " << h_spx;
+    
+    //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
+    if (pow(v_0y, 2) >= 2 * G * spy) {
+    t_spy1 = (-1/G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
+    t_spy2 = (-1/G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
+    }
+    else {
+      t_spy1 = 9999999;
+      t_spy2 = 9999999;
+    }
+    //distance traveled by the object at those heights:
+    d_spy1 = v_0x * t_spy1;
+    d_spy2 = v_0x * t_spy2;
 
   //the distance the object traveled by a certain time t_sp;
   d_spt = v_0x * spt;
@@ -1701,44 +1705,75 @@ void TwoDProjectileMotion() {
     << "\nt_spx" << t_spx
     << "\nspx" << spx
     << endl << endl;
+    //the distance the object traveled by a certain time t_sp;
+    d_spt = v_0x * spt;
+    //the height the object has at a certain time t_sp;
+    h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
+    
+    //For debugging, comment out when done:
+    cout << endl 
+         << "\nv_0x " << v_0x
+         << "\nv_0y " << v_0y
+         << "\nv_0 " << v_0
+         << "\ndelta_y" << delta_y
+         << "\nv_f " << v_f
+         << "\nt " << t
+         << "\nmaxh " << maxh
+         << "\nd " << d 
+         << "\ncase " << ans1
+         << "\nh_spx" << h_spx
+         << "\nt_spx" << t_spx
+         << "\nspx" << spx
+         << "\nG" << G
+         << endl << endl;
 
-  if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
-  {
-    cout << "The projectile does not have a high enough initial velocity \n"
-      << "or the correct angle to reach a height of " << delta_y << " m"
-      << " a distance of " << dx << " m away. \n";
-  }
-  else if (t == 9999999)
-  {
-    cout << "Complex flight time. Invalid parameters no real solution. \n";
-  }
-  else {
-    switch (ans1)
+    if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
     {
-    case 1:
-      cout << "The final velocity is " << v_f << " m/s. \n" << endl;
-      break;
-    case 2:
-      //maxh
-      cout << "The object reaches a maximum height of " << maxh << " m from the launch height. \n";
-      break;
-    case 3:
-      //dist traveled
-      cout << "The object travels " << d << " m horizontally. \n";
-      break;
-    case 4:
-      cout << "The object is in the air for " << t << " s. \n";
-      break;
-    case 5:
-      if (maxh < spy) {
-        cout << "The object does not reach the specified height " << spy << " m. \n";
-      }
-      else if (t_spy1 == 9999999 && t_spy2 == 9999999)
+        cout << "The projectile does not have a high enough initial velocity \n"
+             << "or the correct angle to reach a height of " << delta_y << " m" 
+             << " a distance of " << dx << " m away. \n";
+    }
+    else if (t == 9999999)
+    {
+      cout << "The projectile does not have a high enough initial velocity \n"
+             << "or the correct angle to reach a height of " << delta_y << " m" 
+             << " a distance of " << dx << " m away. \n";
+
+    }
+    else {
+      switch (ans1)
       {
-        cout << "Complex time at height of " << spy << " m. No real solution for the "
-          << "given parameters. \n";
-      }
-      else {
+      case 1:
+        cout << "The final velocity is " << v_f << " m/s. \n" << endl;
+        break;
+      case 2:
+        //maxh
+        cout << "The object reaches a maximum height of " << maxh << " m from the launch height. \n";
+        break;omm
+      case 3:
+        //dist traveled
+        cout << "The object travels " << d << " m horizontally. \n";
+        break;
+      case 4:
+        cout << "The object is in the air for " << t << " s. \n";
+        break;
+      case 5:
+        if (maxh < spy){
+          cout << "The object does not reach the specified height " << spy << " m. \n";
+        }
+        else if (t_spy1 == 9999999 && t_spy2 == 9999999)
+        {
+          if (ans1 == 5 && (dx > d_spy1)) { // i.e. the object reaches the specific height before the wall
+            cout << "The object reaches the height " << spy << " m at a distance of " << d_spy1
+                << " but cannot reach " << spy << " m \n"
+                << " again on its downward trajectory";
+          }
+          else if (ans1 == 5) { // the object 'hits the wall' before ever reaching that height
+            cout << "The object cannot reach the specified height of " << spy << "m \n"
+                 << "due to hitting the elevating landing height";
+          }
+        }
+        else {
         cout << "The object reaches a height of " << spy << " m after "
           << t_spy1 << " s at a distance of " << d_spy1 << " m \nfrom the launching point and again after "
           << t_spy2 << " s at a distance of " << d_spy2 << " m. \n";
