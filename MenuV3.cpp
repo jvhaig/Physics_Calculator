@@ -14,12 +14,11 @@
 #include <fstream>
 #include <cstdlib>
 #include <string>
-#include <corecrt.h>
 #include <math.h>
 
 using namespace std;
 
-const double M_PI = 3.14159265358979323846;
+const double _PI = 3.14159265358979323846;
 
 int displayCalculator();
 
@@ -3601,7 +3600,7 @@ void Gravity() {
       getline(cin >> ws, sUserDistance);
       bValid = isNumber(sUserDistance);
       if (bValid) {
-        sUserDistance = stod(sUserDistance);
+        dUserDistance = stod(sUserDistance);
       }
       if (!bValid) {
         cout << "Enter a valid distance: ";
