@@ -74,19 +74,22 @@
     
     Energy 1D
       Kinetic Energy/Mass/Velocity						
-      Gravitational Potential Energy/Mass/Acceleration Due to Gravity	
+      Gravitational Potential Energy/Mass/Acceleration Due to Gravity
+      Gravitational Potential Energy/Mass 1/Mass 2/Distance
       Elastic Potential Energy/Spring Constant/Displacement		
       Work/∆Energy								
 
     Energy 2D
       Kinetic Energy/Mass/Velocity
       Gravitational Potential Energy/Mass/Acceleration Due to Gravity
+      Gravitational Potential Energy/Mass 1/Mass 2/Distance
       Elastic Potential Energy/Spring Constant/Displacement
       Work/∆Energy
 
     Energy 3D
       Kinetic Energy/Mass/Velocity
       Gravitational Potential Energy/Mass/Acceleration Due to Gravity
+      Gravitational Potential Energy/Mass 1/Mass 2/Distance
       Elastic Potential Energy/Spring Constant/Displacement
       Work/∆Energy
 
