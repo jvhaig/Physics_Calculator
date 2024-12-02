@@ -14,7 +14,12 @@
 #include <fstream>
 #include <cstdlib>
 #include <string>
+#include <corecrt.h>
+#include <math.h>
+
 using namespace std;
+
+const double M_PI = 3.14159265358979323846;
 
 int displayCalculator();
 
@@ -593,7 +598,7 @@ int main() {
               bSubSubChoice = true;
               break;
             case 2:
-              GravMassAcc();
+              GravPotMassAccHeight();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
@@ -873,40 +878,7 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 
   return iInput;
 }
-
-//int OneDMomMassVel() {
-//  string sInput;
-//  int iInput = 0;
-//  bool bValid = false;
-//
-//  //subsubsubmenu
-//  cout << "======================" << endl;
-//  cout << "\nWhat would you like to solve for?" << endl;
-//  cout << "\t1] Momentum" << endl;
-//  cout << "\t2] Mass" << endl;
-//  cout << "\t3] Velocity" << endl;
-//  cout << "Enter an option: ";
-//
-//  do {
-//    getline(cin >> ws, sInput);
-//    bValid = isNumber(sInput);
-//    if (bValid) {
-//      iInput = stoi(sInput);
-//    }
-//    if (bValid && ((iInput < 0 || (iInput > 3))) || stoi(sInput) != stod(sInput)) {
-//      bValid = false;
-//      cout << "Error\n";
-//    }
-//    if (!bValid) {
-//      cout << "Enter a valid option: ";
-//    }
-//
-//  } while (!bValid);
-//
-//  return iInput;
-//
-//}
-                                                            //1D Kinematics functions
+//1D Kinematics functions
 void OneDVelDispAccTime() {
   string sInput, sUserIV, sUserTime, sUserDisplacement, sUserAcceleration;
   double dResult = 0.0, dUserIV = 0.0, dUserTime = 0.0, dUserDisplacement = 0.0, dUserAcceleration = 0.0;
@@ -1372,7 +1344,8 @@ void OneDViVfAccTime() {
 
     if (dUserAcceleration != 0) {
       dResult = (dUserFV - dUserIV) / dUserAcceleration;
-    }else if (dUserAcceleration == 0) {
+    }
+    else if (dUserAcceleration == 0) {
       dResult = dUserIV;
     }
     cout << "\n**************" << endl;
@@ -1421,369 +1394,370 @@ int TwoDKinematics() {            //Menu for 2D Kinematics.
 }
 //2D Kinematics functions
 void TwoDProjectileMotion() {
-    char ans;
-    int choice, ans1;
-    bool flag = true;
-    bool flag2 = false;
-    const double G = 9.807;
-    float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, maxh, t_maxh, t_fall, t,
-          d, dx, t_dx, h_dx, spx, t_spx, h_spx, spy, t_spy1, t_spy2, d_spy1, d_spy2, spt, h_spt, d_spt;
-    
-    cout << "Select value to solve for: \n(1) Final velocity \n(2) Maximum height"
-         << "\n(3) Distance traveled \n(4) Time of flight "
-         << "\n(5) Time & distance for a specific height \n(6) Time & height for a specific distance"
-         << "\n(7) Distance & height at a specific time" << endl;
-    
-    while (true) {
-      const int UPPER = 7, LOWER = 0; //valid range:
-      ans1 = returnIntInput(); // integer or float
+  char ans;
+  int choice, ans1;
+  bool flag = true;
+  bool flag2 = false;
+  const double G = 9.807;
+  float v_f, v_fx, v_fy, v_0, theta, v_0x, v_0y, y, delta_x, delta_y, maxh, t_maxh, t_fall, t,
+    d, dx, t_dx, h_dx, spx, t_spx, h_spx, spy, t_spy1, t_spy2, d_spy1, d_spy2, spt, h_spt, d_spt;
 
-      if ((ans1 < LOWER || ans1 > UPPER) && ans1 != 9) { // check range    
-        cout << "Invalid entry. Enter a choice 1 through 7: ";
+  cout << "Select value to solve for: \n(1) Final velocity \n(2) Maximum height"
+    << "\n(3) Distance traveled \n(4) Time of flight "
+    << "\n(5) Time & distance for a specific height \n(6) Time & height for a specific distance"
+    << "\n(7) Distance & height at a specific time" << endl;
+
+  while (true) {
+    const int UPPER = 7, LOWER = 0; //valid range:
+    ans1 = returnIntInput(); // integer or float
+
+    if ((ans1 < LOWER || ans1 > UPPER) && ans1 != 9) { // check range    
+      cout << "Invalid entry. Enter a choice 1 through 7: ";
+      continue;
+    }
+    else
+      break;
+  }
+  //determine type of projectile
+
+  cout << "Does the projectile land at the same height it is launched from? (enter 1 for yes or 2 for no) ";
+
+  while (true) {
+    const int UPPER = 2, LOWER = 1; //valid range:
+    ans = returnIntInput(); // integer or float
+
+    if (ans < LOWER || ans > UPPER) { // check range    
+      cout << "Enter a choice 1 or 2: ";
+      continue;
+    }
+    else
+      break;
+  }
+
+  if (ans == 1)// class I
+  {
+    flag2 = true;
+    delta_y = 0;
+    cout << "What is the object's intital velocity (in m/s)? ";
+    while (true) {
+      const int UPPER = 11200, LOWER = 0; //valid range:
+      v_0 = returnNumInput();
+
+      if (v_0 < LOWER || v_0 > UPPER) { // check range    
+        cout << "Enter a velocity between 0 m/s and 11,200 m/s: ";
         continue;
       }
       else
         break;
     }
-    //determine type of projectile
+    cout << "What is the launch angle (degrees)? ";
 
-    cout << "Does the projectile land at the same height it is launched from? (enter 1 for yes or 2 for no) ";
-    
+    while (true) {
+      const int UPPER = 90, LOWER = 0; //valid range:
+      theta = returnNumInput();
+
+      if (theta < LOWER || theta > UPPER) { // check range    
+        cout << "Enter an angle 0 through 90 degrees: "; // does not accept downward launch or "backwards"
+        continue;
+      }
+      else
+        break;
+    }
+  }
+
+  else // class II or III
+  {
+    cout << "Does the projectile land at an elevated height (1) or a lower height (2)? ";
     while (true) {
       const int UPPER = 2, LOWER = 1; //valid range:
-      ans = returnIntInput(); // integer or float
+      choice = returnIntInput();
 
-      if (ans < LOWER || ans > UPPER) { // check range    
-        cout << "Enter a choice 1 or 2: ";
+      if (choice < LOWER || choice > UPPER) { // check range    
+        cout << "Enter an option 1 or 2: ";
         continue;
       }
       else
         break;
     }
+    if (choice == 1)
+    {
+      flag = false;
+      cout << "What is the height of the landing height relative to launch height (m)? ";
+      while (true) {
+        const int UPPER = 300000, LOWER = 0; //valid range:
+        delta_y = returnNumInput();
 
-    if (ans == 1)// class I
-    {   
-        flag2 = true;
-        delta_y = 0;
-        cout << "What is the object's intital velocity (in m/s)? ";
-        while (true) {
-          const int UPPER = 11200, LOWER = 0; //valid range:
-          v_0 = returnNumInput();
-
-          if (v_0 < LOWER || v_0 > UPPER) { // check range    
-            cout << "Enter a velocity between 0 m/s and 11,200 m/s: "; 
-            continue;
-          }
-          else
-            break;
-        }
-        cout << "What is the launch angle (degrees)? ";
-        
-        while (true) {
-          const int UPPER = 90, LOWER = 0; //valid range:
-          theta = returnNumInput();
-
-          if (theta < LOWER || theta > UPPER) { // check range    
-            cout << "Enter an angle 0 through 90 degrees: "; // does not accept downward launch or "backwards"
-            continue;
-          }
-          else
-            break;
-        }
-    }
-
-    else // class II or III
-    {   
-        cout << "Does the projectile land at an elevated height (1) or a lower height (2)? ";
-        while (true) {
-          const int UPPER = 2, LOWER = 1; //valid range:
-          choice = returnIntInput();
-
-          if (choice < LOWER || choice > UPPER) { // check range    
-            cout << "Enter an option 1 or 2: ";
-            continue;
-          }
-          else
-            break;
-        }
-        if (choice == 1)
-        {   
-            flag = false;
-            cout << "What is the height of the landing height relative to launch height (m)? ";
-            while (true) {
-              const int UPPER = 300000, LOWER = 0; //valid range:
-              delta_y = returnNumInput();
-              
-              if (delta_y <= LOWER || delta_y > UPPER) { // check range    
-                cout << "Enter a height above 0 m and under 300,000 m: ";
-                continue;
-              }
-              else
-                break;
-            }
-          cout << "How far away from the launching site (m, horizontally) does the new elevated height begin? ";
-          while (true) {
-            const int UPPER = 300000, LOWER = 0; //valid range:
-            dx = returnNumInput();
-            
-            if (dx <= LOWER || dx > UPPER) { // check range    
-              cout << "Enter a height above 0 m and under 300,000 m: ";
-              continue;
-            }
-            else
-              break;
-          }
+        if (delta_y <= LOWER || delta_y > UPPER) { // check range    
+          cout << "Enter a height above 0 m and under 300,000 m: ";
+          continue;
         }
         else
-        {
-          
-          cout << "How far below the launch height is the landing height (m)? ";
-          while (true) {
-            const int UPPER = 300000, LOWER = 0; //valid range:
-            delta_y = returnNumInput();
-            
-            if (delta_y <= LOWER || delta_y > UPPER) { // check range    
-              cout << "Enter a depth greater than 0 m and less than 300,000 m: ";
-              continue;
-            }
-            else
-              break;
-          }
-          delta_y = -delta_y;
-        }
-        cout << "Is the projectile launched at an angle (1 for yes, 2 for no?) ";
-        while (true) {
-          const int UPPER = 2, LOWER = 1; //valid range:
-          ans = returnIntInput();
-          
-          if (ans < LOWER || ans > UPPER) { // check range    
-            cout << "Enter an option 1 or 2: ";
-            continue;
-          }
-          else
-            break;
-        }
-        if (ans == 1)
-        {
-            cout << "What is the launch angle? ";
-            while (true) {
-              const int UPPER = 90, LOWER = 0; //valid range:
-              theta = returnNumInput();
+          break;
+      }
+      cout << "How far away from the launching site (m, horizontally) does the new elevated height begin? ";
+      while (true) {
+        const int UPPER = 300000, LOWER = 0; //valid range:
+        dx = returnNumInput();
 
-              if (theta < LOWER || theta > UPPER) { // check range    
-                cout << "Enter an angle between 0 and 90 degrees: "; //technically could be a negative angle from horizontal...
-                continue;
-              }
-              else
-                break;
-            }
+        if (dx <= LOWER || dx > UPPER) { // check range    
+          cout << "Enter a height above 0 m and under 300,000 m: ";
+          continue;
         }
         else
-          theta = 0;
-
-        cout << "What is the object's intital velocity (in m/s)? ";
-        while (true) {
-          const int UPPER = 11200, LOWER = 0; //valid range:
-          v_0 = returnNumInput();
-
-          if (v_0 < LOWER || v_0 > UPPER) { // check range    
-            cout << "Enter a velocity between 0 m/s and 11,200 m/s: "; //Earth's escape velocity
-            continue;
-          }
-          else
-            break;
-        }
-    }
-
-    if (ans1 == 5)
-    {
-      cout << "Enter the height (m) for which to calculate time and distance: ";
-      while (true) {
-          const int UPPER = 300000, LOWER = 0; //valid range:
-          spy = returnNumInput();
-
-          if (spy < LOWER || spy > UPPER) { // check range    
-            cout << "Enter a height between 0 and 300,000 m: "; //height for which G is within 5% of 9.81
-            continue;
-          }
-          else
-            break;
-        }
-    }
-    else if (ans1 == 6)
-    {
-      cout << "Enter the horizontal distance (m) for which to calculate time and height: ";
-      while (true) {
-          const int UPPER = 300000, LOWER = 0; //valid range:
-          spx = returnNumInput();
-
-          if (spx < LOWER || spx > UPPER) { // check range    
-            cout << "Enter a distance over 0 and under 20,000,000 m: "; //technically could be a negative angle from horizontal...
-            continue;
-          }
-          else
-            break;
-        }
-    }
-    else if (ans1 == 7)
-    {
-      cout << "Enter the time (s) for which to calculate height and distance: ";
-      while (true) {
-          const int UPPER = 84000, LOWER = 0; //valid range:
-          spt = returnNumInput();
-
-          if (spt < LOWER || spt > UPPER) { // check range    
-            cout << "Enter a time between 0 and 84000 s: "; //technically could be a negative angle from horizontal...
-            continue;
-          }
-          else
-            break;
-        }
-    }
-    //formulas: 
-
-    if (theta == 90)
-      v_0x = 0;
-    else
-      v_0x = v_0 * cos(theta * (M_PI / 180));
-    //if (theta == 0 && flag2) // if no angle and flat ground
-    //  v_0y = 0;
-    //else
-    v_0y = v_0 * sin(theta * (M_PI / 180));
-
-    //flight time!! = time at which the projectile reaches landing
-    //t = (2 * delta_y)/(v_0 + v_fy);
-    t_maxh = v_0y/G; // when v_y = 0
-    maxh = (v_0y * t_maxh) - ((1/2) * G * pow(t_maxh, 2));
-
-    //t_fall = (maxh - delta_y)/G; 
-    // assumes that the max height is above the landing height. still need to validate input.
-    //t = t_maxh + t_fall;
-    if (pow(v_0y, 2) >= 2 * G * delta_y) {
-    t = (v_0y + sqrt(pow(v_0y, 2) - (2 * G * delta_y))) / G; // Positive root
-    }
-    else
-      t = 99999;
-
-    v_fx = v_0x;
-    v_fy = v_0y - G * t;
-    v_f = sqrt(pow(v_fx, 2) + pow(v_fy, 2));
-
-    d = v_0x * t;
-
-    //time to reach the location of the elevated height:
-    t_dx = dx / v_0x;
-    //height of projectile at first elevated height:
-    h_dx = (v_0y * t_dx) - ((1/2) * G * pow(t_dx, 2));
-
-    //time(s) a projectile reaches a particular distance:
-    t_spx = spx / v_0x;
-    //height of projectile at that particular distance:
-    h_spx = (v_0y * t_spx) - ((1/2) * G * pow(t_spx, 2));
-
-    //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
-    if (pow(v_0y, 2) >= 2 * G * spy) {
-    t_spy1 = (-1/G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
-    t_spy2 = (-1/G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
-    }
-    else {
-      t_spy1 = 9999999;
-      t_spy2 = 9999999;
-    }
-    //distance traveled by the object at those heights:
-    d_spy1 = v_0x * t_spy1;
-    d_spy2 = v_0x * t_spy2;
-
-    //the distance the object traveled by a certain time t_sp;
-    d_spt = v_0x * spt;
-    //the height the object has at a certain time t_sp;
-    h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
-    
-    //For debugging, comment out when done:
-    cout << endl 
-         << "\nv_0x " << v_0x
-         << "\nv_0y " << v_0y
-         << "\nv_0 " << v_0
-         << "\ndelta_y" << delta_y
-         << "\nv_f " << v_f
-         << "\nt " << t
-         << "\nmaxh " << maxh
-         << "\nd " << d 
-         << "\ncase " << ans1
-         << "\nh_spx" << h_spx
-         << "\nt_spx" << t_spx
-         << "\nspx" << spx
-         << endl << endl;
-
-    if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
-    {
-        cout << "The projectile does not have a high enough initial velocity \n"
-             << "or the correct angle to reach a height of " << delta_y << " m" 
-             << " a distance of " << dx << " m away. \n";
-    }
-    else if (t == 9999999)
-    {
-      cout << "Complex flight time. Invalid parameters no real solution. \n";
-    }
-    else {
-      switch (ans1)
-      {
-      case 1:
-        cout << "The final velocity is " << v_f << " m/s. \n" << endl;
-        break;
-      case 2:
-        //maxh
-        cout << "The object reaches a maximum height of " << maxh << " m from the launch height. \n";
-        break;
-      case 3:
-        //dist traveled
-        cout << "The object travels " << d << " m horizontally. \n";
-        break;
-      case 4:
-        cout << "The object is in the air for " << t << " s. \n";
-        break;
-      case 5:
-        if (maxh < spy){
-          cout << "The object does not reach the specified height " << spy << " m. \n";
-        }
-        else if (t_spy1 == 9999999 && t_spy2 == 9999999)
-        {
-          cout << "Complex time at height of " << spy << " m. No real solution for the "
-               << "given parameters. \n";
-        }
-        else {
-        cout << "The object reaches a height of " << spy << " m after "
-            << t_spy1 << " s at a distance of " << d_spy1 << " m \nfrom the launching point and again after "
-            << t_spy2 << " s at a distance of " << d_spy2 << " m. \n";
-        }
-        break;
-      case 6:
-        if (spx > d) {
-        cout << "The projectile does not reach the horizontal distance " << spx << " m. \n";
-        return;
-        }
-        else { cout << endl << h_spx << endl;
-          cout << "The object reaches a distance of " << spx << " m after \n"
-              << t_spx << " s at a height of " << h_spx << " m. \n";
-        }
-        break;
-      case 7:
-        if (spt > t) // the object lands before the specified time
-        {
-          cout << "The specified time " << spt << " s exceeds the time of flight. \n";
-          cout << "That is, the object is at the landing height, " << delta_y << " m, "
-               << "at a distance " << d << " m from the launch site. \n";
-        }
-        else {
-          cout << "At " << spt << " s after launch, the object is at height " << h_spt
-               << " m, and a horizontal distance " << d_spt << " m from the launch site. \n"; 
-        }
-        break;
-      default:
-        cout << "Error. Did not choose options 1 - 7. \n";
-        break;
+          break;
       }
     }
+    else
+    {
+
+      cout << "How far below the launch height is the landing height (m)? ";
+      while (true) {
+        const int UPPER = 300000, LOWER = 0; //valid range:
+        delta_y = returnNumInput();
+
+        if (delta_y <= LOWER || delta_y > UPPER) { // check range    
+          cout << "Enter a depth greater than 0 m and less than 300,000 m: ";
+          continue;
+        }
+        else
+          break;
+      }
+      delta_y = -delta_y;
+    }
+    cout << "Is the projectile launched at an angle (1 for yes, 2 for no?) ";
+    while (true) {
+      const int UPPER = 2, LOWER = 1; //valid range:
+      ans = returnIntInput();
+
+      if (ans < LOWER || ans > UPPER) { // check range    
+        cout << "Enter an option 1 or 2: ";
+        continue;
+      }
+      else
+        break;
+    }
+    if (ans == 1)
+    {
+      cout << "What is the launch angle? ";
+      while (true) {
+        const int UPPER = 90, LOWER = 0; //valid range:
+        theta = returnNumInput();
+
+        if (theta < LOWER || theta > UPPER) { // check range    
+          cout << "Enter an angle between 0 and 90 degrees: "; //technically could be a negative angle from horizontal...
+          continue;
+        }
+        else
+          break;
+      }
+    }
+    else
+      theta = 0;
+
+    cout << "What is the object's intital velocity (in m/s)? ";
+    while (true) {
+      const int UPPER = 11200, LOWER = 0; //valid range:
+      v_0 = returnNumInput();
+
+      if (v_0 < LOWER || v_0 > UPPER) { // check range    
+        cout << "Enter a velocity between 0 m/s and 11,200 m/s: "; //Earth's escape velocity
+        continue;
+      }
+      else
+        break;
+    }
+  }
+
+  if (ans1 == 5)
+  {
+    cout << "Enter the height (m) for which to calculate time and distance: ";
+    while (true) {
+      const int UPPER = 300000, LOWER = 0; //valid range:
+      spy = returnNumInput();
+
+      if (spy < LOWER || spy > UPPER) { // check range    
+        cout << "Enter a height between 0 and 300,000 m: "; //height for which G is within 5% of 9.81
+        continue;
+      }
+      else
+        break;
+    }
+  }
+  else if (ans1 == 6)
+  {
+    cout << "Enter the horizontal distance (m) for which to calculate time and height: ";
+    while (true) {
+      const int UPPER = 300000, LOWER = 0; //valid range:
+      spx = returnNumInput();
+
+      if (spx < LOWER || spx > UPPER) { // check range    
+        cout << "Enter a distance over 0 and under 20,000,000 m: "; //technically could be a negative angle from horizontal...
+        continue;
+      }
+      else
+        break;
+    }
+  }
+  else if (ans1 == 7)
+  {
+    cout << "Enter the time (s) for which to calculate height and distance: ";
+    while (true) {
+      const int UPPER = 84000, LOWER = 0; //valid range:
+      spt = returnNumInput();
+
+      if (spt < LOWER || spt > UPPER) { // check range    
+        cout << "Enter a time between 0 and 84000 s: "; //technically could be a negative angle from horizontal...
+        continue;
+      }
+      else
+        break;
+    }
+  }
+  //formulas: 
+
+  if (theta == 90)
+    v_0x = 0;
+  else
+    v_0x = v_0 * cos(theta * (M_PI / 180));
+  //if (theta == 0 && flag2) // if no angle and flat ground
+  //  v_0y = 0;
+  //else
+  v_0y = v_0 * sin(theta * (M_PI / 180));
+
+  //flight time!! = time at which the projectile reaches landing
+  //t = (2 * delta_y)/(v_0 + v_fy);
+  t_maxh = v_0y / G; // when v_y = 0
+  maxh = (v_0y * t_maxh) - ((1 / 2) * G * pow(t_maxh, 2));
+
+  //t_fall = (maxh - delta_y)/G; 
+  // assumes that the max height is above the landing height. still need to validate input.
+  //t = t_maxh + t_fall;
+  if (pow(v_0y, 2) >= 2 * G * delta_y) {
+    t = (v_0y + sqrt(pow(v_0y, 2) - (2 * G * delta_y))) / G; // Positive root
+  }
+  else
+    t = 99999;
+
+  v_fx = v_0x;
+  v_fy = v_0y - G * t;
+  v_f = sqrt(pow(v_fx, 2) + pow(v_fy, 2));
+
+  d = v_0x * t;
+
+  //time to reach the location of the elevated height:
+  t_dx = dx / v_0x;
+  //height of projectile at first elevated height:
+  h_dx = (v_0y * t_dx) - ((1 / 2) * G * pow(t_dx, 2));
+
+  //time(s) a projectile reaches a particular distance:
+  t_spx = spx / v_0x;
+  //height of projectile at that particular distance:
+  h_spx = (v_0y * t_spx) - ((1 / 2) * G * pow(t_spx, 2));
+
+  //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
+  if (pow(v_0y, 2) >= 2 * G * spy) {
+    t_spy1 = (-1 / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
+    t_spy2 = (-1 / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
+  }
+  else {
+    t_spy1 = 9999999;
+    t_spy2 = 9999999;
+  }
+  //distance traveled by the object at those heights:
+  d_spy1 = v_0x * t_spy1;
+  d_spy2 = v_0x * t_spy2;
+
+  //the distance the object traveled by a certain time t_sp;
+  d_spt = v_0x * spt;
+  //the height the object has at a certain time t_sp;
+  h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
+
+  //For debugging, comment out when done:
+  cout << endl
+    << "\nv_0x " << v_0x
+    << "\nv_0y " << v_0y
+    << "\nv_0 " << v_0
+    << "\ndelta_y" << delta_y
+    << "\nv_f " << v_f
+    << "\nt " << t
+    << "\nmaxh " << maxh
+    << "\nd " << d
+    << "\ncase " << ans1
+    << "\nh_spx" << h_spx
+    << "\nt_spx" << t_spx
+    << "\nspx" << spx
+    << endl << endl;
+
+  if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
+  {
+    cout << "The projectile does not have a high enough initial velocity \n"
+      << "or the correct angle to reach a height of " << delta_y << " m"
+      << " a distance of " << dx << " m away. \n";
+  }
+  else if (t == 9999999)
+  {
+    cout << "Complex flight time. Invalid parameters no real solution. \n";
+  }
+  else {
+    switch (ans1)
+    {
+    case 1:
+      cout << "The final velocity is " << v_f << " m/s. \n" << endl;
+      break;
+    case 2:
+      //maxh
+      cout << "The object reaches a maximum height of " << maxh << " m from the launch height. \n";
+      break;
+    case 3:
+      //dist traveled
+      cout << "The object travels " << d << " m horizontally. \n";
+      break;
+    case 4:
+      cout << "The object is in the air for " << t << " s. \n";
+      break;
+    case 5:
+      if (maxh < spy) {
+        cout << "The object does not reach the specified height " << spy << " m. \n";
+      }
+      else if (t_spy1 == 9999999 && t_spy2 == 9999999)
+      {
+        cout << "Complex time at height of " << spy << " m. No real solution for the "
+          << "given parameters. \n";
+      }
+      else {
+        cout << "The object reaches a height of " << spy << " m after "
+          << t_spy1 << " s at a distance of " << d_spy1 << " m \nfrom the launching point and again after "
+          << t_spy2 << " s at a distance of " << d_spy2 << " m. \n";
+      }
+      break;
+    case 6:
+      if (spx > d) {
+        cout << "The projectile does not reach the horizontal distance " << spx << " m. \n";
+        return;
+      }
+      else {
+        cout << endl << h_spx << endl;
+        cout << "The object reaches a distance of " << spx << " m after \n"
+          << t_spx << " s at a height of " << h_spx << " m. \n";
+      }
+      break;
+    case 7:
+      if (spt > t) // the object lands before the specified time
+      {
+        cout << "The specified time " << spt << " s exceeds the time of flight. \n";
+        cout << "That is, the object is at the landing height, " << delta_y << " m, "
+          << "at a distance " << d << " m from the launch site. \n";
+      }
+      else {
+        cout << "At " << spt << " s after launch, the object is at height " << h_spt
+          << " m, and a horizontal distance " << d_spt << " m from the launch site. \n";
+      }
+      break;
+    default:
+      cout << "Error. Did not choose options 1 - 7. \n";
+      break;
+    }
+  }
 
 
 }
@@ -2119,7 +2093,8 @@ void TwoDVelDispAccTime() {
 
       if (dUserAccelerationX != 0) {
         dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
-      }else if (dUserAccelerationX == 0) {
+      }
+      else if (dUserAccelerationX == 0) {
         dResult = dUserDisplacementX / dUserIVX;
       }
       cout << "\n**************" << endl;
@@ -2518,7 +2493,8 @@ void TwoDViVfAccTime() {
 
       if (dUserAccelerationX != 0) {
         dResult = (dUserFVX - dUserIVX) / dUserAccelerationX;
-      }else if (dUserAccelerationX == 0) {
+      }
+      else if (dUserAccelerationX == 0) {
         dResult = dUserIVX;
       }
       cout << "\n**************" << endl;
@@ -7375,7 +7351,7 @@ void OneDKinMassVel() {
 
 void GravPotMassAccHeight() {
   string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight, sUserAccGrav;
-  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserAccGrav = 0.0, dUserHeight;
+  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserAccGrav = 0.0, dUserHeight = 0.0;
   int iInput = 0;
   bool bValid = false;
   cout << "======================" << endl;
@@ -7500,7 +7476,7 @@ void GravPotMassAccHeight() {
     } while (!bValid);
 
     // CALCULATE
-    dResult = dUserPEnergy / (dUserGravAcc * dUserHeight);
+    dResult = dUserPEnergy / (dUserAccGrav * dUserHeight);
     cout << "\n**************" << endl;
     cout << "Mass: " << dResult << " kg\n";
     cout << "**************\n" << endl;
@@ -7604,7 +7580,7 @@ void GravPotMassAccHeight() {
     } while (!bValid);
 
     // CALCULATE
-    dResult = dUserPEnergy / (dUserGravAcc * dUserMass);
+    dResult = dUserPEnergy / (dUserAccGrav * dUserMass);
     cout << "\n**************" << endl;
     cout << "Height: " << dResult << " m\n";
     cout << "**************\n" << endl;
@@ -7782,7 +7758,7 @@ void WorkEnergy() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7792,106 +7768,106 @@ void WorkEnergy() {
     }
   } while (!bValid);
 
-    switch (iInput) {
-    case 1:
-      cout << "\n--Work Calculator--" << endl;
-      cout << "Enter Initial Energy (J): ";
-      do {
-        getline(cin >> ws, sUserIE);
-        bValid = isNumber(sUserIE);
-        if (bValid) {
-          dUserIE = stod(sUserIE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid initial energy: ";
-        }
-      } while (!bValid);
+  switch (iInput) {
+  case 1:
+    cout << "\n--Work Calculator--" << endl;
+    cout << "Enter Initial Energy (J): ";
+    do {
+      getline(cin >> ws, sUserIE);
+      bValid = isNumber(sUserIE);
+      if (bValid) {
+        dUserIE = stod(sUserIE);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial energy: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Final Energy (J): ";
-      do {
-        getline(cin >> ws, sUserFE);
-        bValid = isNumber(sUserFE);
-        if (bValid) {
-          dUserFE = stod(sUserFE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid final energy: ";
-        }
-      } while (!bValid);
+    cout << "Enter Final Energy (J): ";
+    do {
+      getline(cin >> ws, sUserFE);
+      bValid = isNumber(sUserFE);
+      if (bValid) {
+        dUserFE = stod(sUserFE);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final energy: ";
+      }
+    } while (!bValid);
 
-      //WORK
-      dResult = dUserFE - dUserIE;
-      cout << "\n**************" << endl;
-      cout << "Work: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
+    //WORK
+    dResult = dUserFE - dUserIE;
+    cout << "\n**************" << endl;
+    cout << "Work: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
 
-    case 2:
-      cout << "\n--Initial Energy Calculator--" << endl;
-      cout << "Enter Work (J): ";
-      do {
-        getline(cin >> ws, sUserWork);
-        bValid = isNumber(sUserWork);
-        if (bValid) {
-          dUserWork = stod(sUserWork);
-        }
-        if (!bValid) {
-          cout << "Enter a valid value for work: ";
-        }
-      } while (!bValid);
+  case 2:
+    cout << "\n--Initial Energy Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+      if (!bValid) {
+        cout << "Enter a valid value for work: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Final Energy (J): ";
-      do {
-        getline(cin >> ws, sUserFE);
-        bValid = isNumber(sUserFE);
-        if (bValid) {
-          dUserFE = stod(sUserFE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid final energy: ";
-        }
-      } while (!bValid);
+    cout << "Enter Final Energy (J): ";
+    do {
+      getline(cin >> ws, sUserFE);
+      bValid = isNumber(sUserFE);
+      if (bValid) {
+        dUserFE = stod(sUserFE);
+      }
+      if (!bValid) {
+        cout << "Enter a valid final energy: ";
+      }
+    } while (!bValid);
 
 
-      dResult = dUserFE - dUserWork;
-      cout << "\n**************" << endl;
-      cout << "Initial Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
+    dResult = dUserFE - dUserWork;
+    cout << "\n**************" << endl;
+    cout << "Initial Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
 
-    case 3:
-      cout << "\n--Final Energy Calculator--" << endl;
-      cout << "Enter Work (J): ";
-      do {
-        getline(cin >> ws, sUserWork);
-        bValid = isNumber(sUserWork);
-        if (bValid) {
-          dUserWork = stod(sUserWork);
-        }
-        if (!bValid) {
-          cout << "Enter a valid work: ";
-        }
-      } while (!bValid);
+  case 3:
+    cout << "\n--Final Energy Calculator--" << endl;
+    cout << "Enter Work (J): ";
+    do {
+      getline(cin >> ws, sUserWork);
+      bValid = isNumber(sUserWork);
+      if (bValid) {
+        dUserWork = stod(sUserWork);
+      }
+      if (!bValid) {
+        cout << "Enter a valid work: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Initial Energy (J): ";
-      do {
-        getline(cin >> ws, sUserIE);
-        bValid = isNumber(sUserIE);
-        if (bValid) {
-          dUserIE = stod(sUserIE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid initial energy: ";
-        }
-      } while (!bValid);
+    cout << "Enter Initial Energy (J): ";
+    do {
+      getline(cin >> ws, sUserIE);
+      bValid = isNumber(sUserIE);
+      if (bValid) {
+        dUserIE = stod(sUserIE);
+      }
+      if (!bValid) {
+        cout << "Enter a valid initial energy: ";
+      }
+    } while (!bValid);
 
-      //DISTANCE
-      dResult = dUserWork + dUserIE;
-      cout << "\n**************" << endl;
-      cout << "Final Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
-    }
+    //DISTANCE
+    dResult = dUserWork + dUserIE;
+    cout << "\n**************" << endl;
+    cout << "Final Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 int TwoDEnergy() {
@@ -7932,7 +7908,7 @@ int TwoDEnergy() {
   return iInput;
 }
 void TwoDKinMassVel() {
-  string sInput, sUserVelocityX, sUserVelocityY, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY;
+  string sInput, sUserVelocityX, sUserVelocityY, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY, sUserDimension;
   double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserMass = 0.0, dUserKineticEnergyX = 0.0, dUserKineticEnergyY = 0.0;
   int iInput = 0;
   bool bValid = false;
@@ -8218,7 +8194,7 @@ int ThreeDEnergy() {
   return iInput;
 }
 void ThreeDKinMassVel() {
-  string sInput, sUserVelocityX, sUserVelocityY, sUserVelocityZ, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY, sUserKineticEnergyZ;
+  string sInput, sUserVelocityX, sUserVelocityY, sUserVelocityZ, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY, sUserKineticEnergyZ, sUserDimension;
   double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserVelocityZ = 0.0, dUserMass = 0.0, dUserKineticEnergyX = 0.0, dUserKineticEnergyY = 0.0, dUserKineticEnergyZ = 0.0;
   int iInput = 0;
   bool bValid = false;
@@ -8825,6 +8801,6 @@ float returnNumInput() // (accepts int or float, returns as float)
       cout << "Enter a valid number (integer or decimal): ";
     }
   } while (!bValid);
-  
+
   return fInput;
 }
