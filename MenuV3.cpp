@@ -95,6 +95,7 @@ void RotationalKinIntertiaAngVel();
 bool isNumber(string);                  //Input Validation function
 int returnIntInput();
 float returnNumInput();
+const double dGravity = 9.80665;
 
 int main() {
 
@@ -129,6 +130,7 @@ int main() {
     case 0:           //Occurs when Quit option is selected in main menu.
       bChoice = true;
       cout << "See you next time!" << endl;
+      return 0;
     case 1:           //Occurs when Kinematics is selected in Main Menu.
       bChoice = true;
       bSubChoice = false;
@@ -913,8 +915,8 @@ int OneDKinematics() {            //Menu for 1D Kinematics
 //}
                                                             //1D Kinematics functions
 void OneDVelDispAccTime() {
-  string sInput, sUserIV, sUserTime, sUserDisplacement, sUserAcceleration, sUserVelocity;
-  double dResult = 0.0, dUserIV = 0.0, dUserTime = 0.0, dUserDisplacement = 0.0, dUserAcceleration = 0.0, dUserVelocity = 0.0;
+  string sInput, sUserIV, sUserTime, sUserDisplacement, sUserAcceleration;
+  double dResult = 0.0, dUserIV = 0.0, dUserTime = 0.0, dUserDisplacement = 0.0, dUserAcceleration = 0.0;
   int iInput = 0;
   bool bValid = false;
 
@@ -949,12 +951,12 @@ void OneDVelDispAccTime() {
   switch (iInput) {
   case 1:
     cout << "\n--K1: Displacement Calculator--" << endl;
-    cout << "Enter Velocity (m/s): ";
+    cout << "Enter Initial Velocity (m/s): ";
     do {
-      getline(cin >> ws, sUserVelocity);
-      bValid = isNumber(sUserVelocity);
+      getline(cin >> ws, sUserIV);
+      bValid = isNumber(sUserIV);
       if (bValid) {
-        dUserVelocity = stod(sUserVelocity);
+        dUserIV = stod(sUserIV);
       }
 
       if (!bValid) {
@@ -962,7 +964,7 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    cout << "Enter acceleration (m/s^2): ";
+    cout << "Enter Acceleration (m/s^2): ";
     do {
       getline(cin >> ws, sUserAcceleration);
       bValid = isNumber(sUserAcceleration);
@@ -991,7 +993,7 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = dUserIV * dUserTime + 0.5 * dUserAcceleration * pow(dUserTime, 2);
+    dResult = (dUserIV * dUserTime) + (0.5 * dUserAcceleration * pow(dUserTime, 2));
     cout << "\n**************" << endl;
     cout << "Displacement: " << dResult << " m\n";
     cout << "**************\n" << endl;
@@ -1043,7 +1045,7 @@ void OneDVelDispAccTime() {
     dResult = (dUserDisplacement - 0.5 * dUserAcceleration * pow(dUserTime, 2)) / dUserTime;
 
     cout << "\n**************" << endl;
-    cout << "Velocity: " << dResult << " m/s\n";
+    cout << "Initial Velocity: " << dResult << " m/s\n";
     cout << "**************\n" << endl;
     break;
   case 3:
@@ -1088,7 +1090,7 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = 2 * (dUserDisplacement - dUserIV * dUserTime) / (dUserTime * dUserTime);
+    dResult = 2 * (dUserDisplacement - dUserIV * dUserTime) / pow(dUserTime, 2);
     cout << "\n**************" << endl;
     cout << "Acceleration: " << dResult << " m/s^2\n";
     cout << "**************\n" << endl;
@@ -1204,10 +1206,10 @@ void OneDViVfAccTime() {
 
     cout << "Enter Acceleration (m/s^2): ";
     do {
-      getline(cin >> ws, sUserIV);
-      bValid = isNumber(sUserIV);
+      getline(cin >> ws, sUserAcceleration);
+      bValid = isNumber(sUserAcceleration);
       if (bValid) {
-        dUserIV = stod(sUserIV);
+        dUserAcceleration = stod(sUserAcceleration);
       }
 
       if (!bValid) {
@@ -1802,10 +1804,10 @@ void TwoDVelDispAccTime() {
   //subsubsubmenu
   cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
-  cout << "1] Displacement" << endl;
-  cout << "2] Initial Velocity" << endl;
-  cout << "3] Acceleration" << endl;
-  cout << "4] Time" << endl;
+  cout << "\t1] Displacement" << endl;
+  cout << "\t2] Initial Velocity" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "\t4] Time" << endl;
   cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
@@ -2198,10 +2200,10 @@ void TwoDViVfAccTime() {
   //subsubsubmenu
   cout << "======================" << endl;
   cout << "\nWhat would you like to solve for?" << endl;
-  cout << "1] Final Velocity" << endl;
-  cout << "2] Initial Velocity" << endl;
-  cout << "3] Acceleration" << endl;
-  cout << "4] Time" << endl;
+  cout << "\t1] Final Velocity" << endl;
+  cout << "\t2] Initial Velocity" << endl;
+  cout << "\t3] Acceleration" << endl;
+  cout << "\t4] Time" << endl;
   cout << "----------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7226,16 +7228,16 @@ int OneDEnergy() {
 }
 void OneDKinMassVel() {
   string sInput, sUserVelocity, sUserMass, sUserKenEnergy;
-  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserKenEnergy = 0.0, dGravity = 9.8;
+  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserKenEnergy = 0.0;
   int iInput = 0;
   bool bValid = false;
   cout << "======================" << endl;
   cout << "--1D Energy--" << endl;
   cout << "-Kinetic Energy/Mass/Velocity-" << endl;
-  cout << "1] Kinetic Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Velocity" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Kinetic Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7298,10 +7300,10 @@ void OneDKinMassVel() {
     cout << "\n--1DEnergy: Mass Calculator--" << endl;
     cout << "Enter Kinetic Energy (J): ";
     do {
-      getline(cin >> ws, sUserVelocity);
-      bValid = isNumber(sUserVelocity);
+      getline(cin >> ws, sUserKenEnergy);
+      bValid = isNumber(sUserKenEnergy);
       if (bValid) {
-        dUserVelocity = stod(sUserVelocity);
+        dUserKenEnergy = stod(sUserKenEnergy);
       }
 
       if (!bValid) {
@@ -7345,10 +7347,10 @@ void OneDKinMassVel() {
 
     cout << "Enter Kinetic Energy (J): ";
     do {
-      getline(cin >> ws, sUserVelocity);
-      bValid = isNumber(sUserVelocity);
+      getline(cin >> ws, sUserKenEnergy);
+      bValid = isNumber(sUserKenEnergy);
       if (bValid) {
-        dUserVelocity = stod(sUserVelocity);
+        dUserKenEnergy = stod(sUserKenEnergy);
       }
 
       if (!bValid) {
@@ -7366,17 +7368,17 @@ void OneDKinMassVel() {
 
 void GravMassAcc() {
   string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight;
-  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dGravity = 9.8, dUserHeight;
+  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeight;
   int iInput = 0;
   bool bValid = false;
   cout << "======================" << endl;
   cout << "--1D Energy--" << endl;
   cout << "-Gravitational Potential Energy/Mass/Acceleration Due to Gravity-" << endl;
-  cout << "1] Potential Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Acceleration w/ Gravity" << endl;
-  cout << "4] Height" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Potential Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration w/ Gravity" << endl;
+  cout << "\t4] Height" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7563,10 +7565,10 @@ void ElasSpringDisp() {
   cout << "======================" << endl;
   cout << "--1D Energy--" << endl;
   cout << "-Elastic Potential Energy/Spring Constant/Displacement-" << endl;
-  cout << "1] Elastic Potential Energy Calculator" << endl;
-  cout << "2] Spring Constant Calculator" << endl;
-  cout << "3] Displacement Calculator" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Elastic Potential Energy Calculator" << endl;
+  cout << "\t2] Spring Constant Calculator" << endl;
+  cout << "\t3] Displacement Calculator" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
 
   cout << "Enter an option: ";
@@ -7702,10 +7704,10 @@ void WorkEnergy() {
   cout << "======================" << endl;
   cout << "--1D Energy--" << endl;
   cout << "-Work/Change in Energy-" << endl;
-  cout << "1] Work Calculator" << endl;
-  cout << "2] Force Calculator" << endl;
-  cout << "3] Distance Calculator" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Work Calculator" << endl;
+  cout << "\t2] Force Calculator" << endl;
+  cout << "\t3] Distance Calculator" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7871,18 +7873,17 @@ int TwoDEnergy() {
 void TwoDKinMassVel() {
   string sInput, sUserVelocity, sUserMass, sUserPEnergy, sUserHeightX, sUserHeightY;
   double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeightX = 0.0, dUserHeightY = 0.0;
-  const double dGravity = 9.8;
   int iInput = 0;
   bool bValid = false;
 
   cout << "======================" << endl;
   cout << "--2D Energy--" << endl;
   cout << "-Gravitational Potential Energy/Mass/Velocity-" << endl;
-  cout << "1] Potential Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Velocity" << endl;
-  cout << "4] Height" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Potential Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "\t4] Height" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8065,18 +8066,17 @@ void TwoDKinMassVel() {
 void TwoDGravMassAcc() {
   string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight;
   double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeight = 0.0;
-  const double dGravity = 9.8;
   int iInput = 0;
   bool bValid = false;
 
   cout << "======================" << endl;
   cout << "--2D Gravitational Energy--" << endl;
   cout << "-Gravitational Potential Energy/Mass/Acceleration/Height-" << endl;
-  cout << "1] Potential Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Acceleration Due to Gravity" << endl;
-  cout << "4] Height" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Potential Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration Due to Gravity" << endl;
+  cout << "\t4] Height" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8263,10 +8263,10 @@ void TwoDElasSpringDisp() {
   cout << "======================" << endl;
   cout << "--2D Energy--" << endl;
   cout << "-Elastic Potential Energy/Spring Constant/Displacement-" << endl;
-  cout << "1] Elastic Potential Energy Calculator" << endl;
-  cout << "2] Spring Constant Calculator" << endl;
-  cout << "3] Displacement Calculator" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Elastic Potential Energy Calculator" << endl;
+  cout << "\t2] Spring Constant Calculator" << endl;
+  cout << "\t3] Displacement Calculator" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
 
   cout << "Enter an option: ";
@@ -8426,10 +8426,10 @@ void TwoDWorkEnergy() {
   cout << "======================" << endl;
   cout << "--2D Energy--" << endl;
   cout << "-Work/Change in Energy-" << endl;
-  cout << "1] Work Calculator" << endl;
-  cout << "2] Force Calculator" << endl;
-  cout << "3] Distance Calculator" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Work Calculator" << endl;
+  cout << "\t2] Force Calculator" << endl;
+  cout << "\t3] Distance Calculator" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8648,10 +8648,10 @@ void ThreeDKinMassVel() {
   cout << "======================" << endl;
   cout << "--3D Energy--" << endl;
   cout << "-Kinetic Energy/Mass/Velocity-" << endl;
-  cout << "1] Kinetic Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Velocity" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Kinetic Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Velocity" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8831,10 +8831,10 @@ void ThreeDGravMassAcc() {
   cout << "======================" << endl;
   cout << "--3D Energy--" << endl;
   cout << "-Gravitational Potential Energy/Mass/Acceleration Due to Gravity-" << endl;
-  cout << "1] Gravitational Potential Energy" << endl;
-  cout << "2] Mass" << endl;
-  cout << "3] Acceleration Due to Gravity" << endl;
-  cout << "9] -Back" << endl;
+  cout << "\t1] Gravitational Potential Energy" << endl;
+  cout << "\t2] Mass" << endl;
+  cout << "\t3] Acceleration Due to Gravity" << endl;
+  cout << "\t9] -Back" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -9161,10 +9161,10 @@ void ThreeDWorkEnergy() {
     cout << "======================" << endl;
     cout << "--3D Work && Energy--" << endl;
     cout << "-Work/Kinetic Energy/Potential Energy-" << endl;
-    cout << "1] Work" << endl;
-    cout << "2] Kinetic Energy" << endl;
-    cout << "3] Potential Energy" << endl;
-    cout << "9] -Back" << endl;
+    cout << "\t1] Work" << endl;
+    cout << "\t2] Kinetic Energy" << endl;
+    cout << "\t3] Potential Energy" << endl;
+    cout << "\t9] -Back" << endl;
     cout << "-------------------" << endl;
     cout << "Enter an option: ";
 
