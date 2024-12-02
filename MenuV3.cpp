@@ -73,21 +73,15 @@ int Energy();           //Energy functions
 
 int OneDEnergy();
 void OneDKinMassVel();
-void GravMassAcc();
+void GravPotMassAccHeight();
 void ElasSpringDisp();
 void WorkEnergy();
 
 int TwoDEnergy();
 void TwoDKinMassVel();
-void TwoDGravMassAcc();
-void TwoDElasSpringDisp();
-void TwoDWorkEnergy();
 
 int ThreeDEnergy();
 void ThreeDKinMassVel();
-void ThreeDGravMassAcc();
-void ThreeDElasSpringDisp();
-void ThreeDWorkEnergy();
 
 int RotationalEnergy();
 void RotationalKinIntertiaAngVel();
@@ -95,7 +89,6 @@ void RotationalKinIntertiaAngVel();
 bool isNumber(string);                  //Input Validation function
 int returnIntInput();
 float returnNumInput();
-const double dGravity = 9.80665;
 
 int main() {
 
@@ -648,19 +641,19 @@ int main() {
               bSubSubChoice = true;
               break;
             case 2:
-              TwoDGravMassAcc();
+              GravPotMassAccHeight();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 3:
-              TwoDElasSpringDisp();
+              ElasSpringDisp();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 4:
-              TwoDWorkEnergy();
+              WorkEnergy();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
@@ -696,19 +689,19 @@ int main() {
               bSubSubChoice = true;
               break;
             case 2:
-              ThreeDGravMassAcc();
+              GravPotMassAccHeight();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 3:
-              ThreeDElasSpringDisp();
+              ElasSpringDisp();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
               break;
             case 4:
-              ThreeDWorkEnergy();
+              WorkEnergy();
               bChoice = false;
               bSubChoice = true;
               bSubSubChoice = true;
@@ -7227,17 +7220,15 @@ int OneDEnergy() {
   return iInput;
 }
 void OneDKinMassVel() {
-  string sInput, sUserVelocity, sUserMass, sUserKenEnergy;
-  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserKenEnergy = 0.0;
+  string sInput, sUserVelocity, sUserMass, sUserKineticEnergy;
+  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserKineticEnergy = 0.0;
   int iInput = 0;
   bool bValid = false;
   cout << "======================" << endl;
-  cout << "--1D Energy--" << endl;
-  cout << "-Kinetic Energy/Mass/Velocity-" << endl;
-  cout << "\t1] Kinetic Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Velocity" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Kinetic Energy" << endl;
+  cout << "2] Mass" << endl;
+  cout << "3] Velocity" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7248,7 +7239,7 @@ void OneDKinMassVel() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7262,13 +7253,17 @@ void OneDKinMassVel() {
   //kinetic energy, mass, velocity
   switch (iInput) {
   case 1:
-    cout << "\n--1DEnergy: Kinetic Energy Calculator--" << endl;
+    cout << "\n--Kinetic Energy Calculator--" << endl;
     cout << "Enter Mass (kg): ";
     do {
       getline(cin >> ws, sUserMass);
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
@@ -7297,17 +7292,21 @@ void OneDKinMassVel() {
     break;
 
   case 2:
-    cout << "\n--1DEnergy: Mass Calculator--" << endl;
+    cout << "\n--Mass Calculator--" << endl;
     cout << "Enter Kinetic Energy (J): ";
     do {
-      getline(cin >> ws, sUserKenEnergy);
-      bValid = isNumber(sUserKenEnergy);
+      getline(cin >> ws, sUserKineticEnergy);
+      bValid = isNumber(sUserKineticEnergy);
       if (bValid) {
-        dUserKenEnergy = stod(sUserKenEnergy);
+        dUserKineticEnergy = stod(sUserKineticEnergy);
+        if (dUserKineticEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
-        cout << "Enter a valid velocity: ";
+        cout << "Enter a valid kinetic energy: ";
       }
     } while (!bValid);
 
@@ -7324,20 +7323,41 @@ void OneDKinMassVel() {
       }
     } while (!bValid);
 
-    dResult = (2 * dUserKenEnergy) / (dUserVelocity * dUserVelocity);
+    dResult = (2 * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
     cout << "\n**************" << endl;
     cout << "Mass: " << dResult << " kg\n";
     cout << "**************\n" << endl;
     break;
 
-  case 3: 
-    cout << "\n--1DEnergy: Velocity Calculator--" << endl;
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Kinetic Energy (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergy);
+      bValid = isNumber(sUserKineticEnergy);
+      if (bValid) {
+        dUserKineticEnergy = stod(sUserKineticEnergy);
+        if (dUserKineticEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
+
     cout << "Enter Mass (kg): ";
     do {
       getline(cin >> ws, sUserMass);
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
@@ -7345,40 +7365,25 @@ void OneDKinMassVel() {
       }
     } while (!bValid);
 
-    cout << "Enter Kinetic Energy (J): ";
-    do {
-      getline(cin >> ws, sUserKenEnergy);
-      bValid = isNumber(sUserKenEnergy);
-      if (bValid) {
-        dUserKenEnergy = stod(sUserKenEnergy);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid velocity: ";
-      }
-    } while (!bValid);
-
-    dResult = sqrt((2 * dUserKenEnergy) / dUserMass);
+    dResult = sqrt((2 * dUserKineticEnergy) / dUserMass);
     cout << "\n**************" << endl;
     cout << "Velocity: " << dResult << " m/s\n";
     cout << "**************\n" << endl;
     break;
-};
+  }
 }
 
-void GravMassAcc() {
-  string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight;
-  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeight;
+void GravPotMassAccHeight() {
+  string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight, sUserAccGrav;
+  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserAccGrav = 0.0, dUserHeight;
   int iInput = 0;
   bool bValid = false;
   cout << "======================" << endl;
-  cout << "--1D Energy--" << endl;
-  cout << "-Gravitational Potential Energy/Mass/Acceleration Due to Gravity-" << endl;
-  cout << "\t1] Potential Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Acceleration w/ Gravity" << endl;
-  cout << "\t4] Height" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Gravitational Potential Energy" << endl;
+  cout << "2] Mass" << endl;
+  cout << "3] Acceleration due to Gravity" << endl;
+  cout << "4] Height" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7389,7 +7394,7 @@ void GravMassAcc() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 4) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7398,17 +7403,21 @@ void GravMassAcc() {
       cout << "Enter a valid option: ";
     }
 
-  } while (!bValid);  
+  } while (!bValid);
 
   switch (iInput) {
   case 1:
-    cout << "\n--1DEnergy: Potential Energy Calculator--" << endl;
+    cout << "\n--Gravitational Potential Energy Calculator--" << endl;
     cout << "Enter Mass (kg): ";
     do {
       getline(cin >> ws, sUserMass);
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
@@ -7429,16 +7438,29 @@ void GravMassAcc() {
       }
     } while (!bValid);
 
+    cout << "Enter Acceleration due to Gravity (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccGrav);
+      bValid = isNumber(sUserAccGrav);
+      if (bValid) {
+        dUserAccGrav = stod(sUserAccGrav);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration due to gravity: ";
+      }
+    } while (!bValid);
+
     //CALCULATE
-    dResult = dUserMass * dGravity * dUserHeight;
+    dResult = dUserMass * dUserAccGrav * dUserHeight;
     cout << "\n**************" << endl;
     cout << "Potential Energy: " << dResult << " J\n";
     cout << "**************\n" << endl;
     break;
 
   case 2:
-    cout << "\n--1DEnergy: Mass Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
+    cout << "\n--Mass Calculator--" << endl;
+    cout << "Enter Gravitational Potential Energy (J): ";
     do {
       getline(cin >> ws, sUserPEnergy);
       bValid = isNumber(sUserPEnergy);
@@ -7447,7 +7469,20 @@ void GravMassAcc() {
       }
 
       if (!bValid) {
-        cout << "Enter a valid potential energy: ";
+        cout << "Enter a valid gravitational potential energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Acceleration due to Gravity (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccGrav);
+      bValid = isNumber(sUserAccGrav);
+      if (bValid) {
+        dUserAccGrav = stod(sUserAccGrav);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration due to gravity: ";
       }
     } while (!bValid);
 
@@ -7465,15 +7500,15 @@ void GravMassAcc() {
     } while (!bValid);
 
     // CALCULATE
-    dResult = dUserPEnergy / (dGravity * dUserHeight);
+    dResult = dUserPEnergy / (dUserGravAcc * dUserHeight);
     cout << "\n**************" << endl;
     cout << "Mass: " << dResult << " kg\n";
     cout << "**************\n" << endl;
     break;
 
-  case 3: 
-    cout << "\n--1DEnergy: Acceleration w/ Gravity Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
+  case 3:
+    cout << "\n--Acceleration due to Gravity Calculator--" << endl;
+    cout << "Enter Gravitational Potential Energy (J): ";
     do {
       getline(cin >> ws, sUserPEnergy);
       bValid = isNumber(sUserPEnergy);
@@ -7482,7 +7517,7 @@ void GravMassAcc() {
       }
 
       if (!bValid) {
-        cout << "Enter a valid potential energy: ";
+        cout << "Enter a valid gravitational potential energy: ";
       }
     } while (!bValid);
 
@@ -7492,6 +7527,10 @@ void GravMassAcc() {
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
@@ -7512,16 +7551,16 @@ void GravMassAcc() {
       }
     } while (!bValid);
 
-      // CALCULATE
-      dResult = dUserPEnergy / (dUserMass * dUserHeight);
-      cout << "\n**************" << endl;
-      cout << "Acceleration w/ Gravity: " << dResult << " m/s^2\n";
-      cout << "**************\n" << endl;
-      break;
+    // CALCULATE
+    dResult = dUserPEnergy / (dUserMass * dUserHeight);
+    cout << "\n**************" << endl;
+    cout << "Acceleration w/ Gravity: " << dResult << " m/s^2\n";
+    cout << "**************\n" << endl;
+    break;
 
   case 4:
-    cout << "\n--1DEnergy: Height Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
+    cout << "\n--Height Calculator--" << endl;
+    cout << "Enter Gravitational Potential Energy (J): ";
     do {
       getline(cin >> ws, sUserPEnergy);
       bValid = isNumber(sUserPEnergy);
@@ -7530,7 +7569,7 @@ void GravMassAcc() {
       }
 
       if (!bValid) {
-        cout << "Enter a valid potential energy: ";
+        cout << "Enter a valid gravitational potential energy: ";
       }
     } while (!bValid);
 
@@ -7540,6 +7579,10 @@ void GravMassAcc() {
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
 
       if (!bValid) {
@@ -7547,8 +7590,21 @@ void GravMassAcc() {
       }
     } while (!bValid);
 
+    cout << "Enter Acceleration due to Gravity (m/s^2): ";
+    do {
+      getline(cin >> ws, sUserAccGrav);
+      bValid = isNumber(sUserAccGrav);
+      if (bValid) {
+        dUserAccGrav = stod(sUserAccGrav);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid acceleration due to gravity: ";
+      }
+    } while (!bValid);
+
     // CALCULATE
-    dResult = dUserPEnergy / (dGravity * dUserMass);
+    dResult = dUserPEnergy / (dUserGravAcc * dUserMass);
     cout << "\n**************" << endl;
     cout << "Height: " << dResult << " m\n";
     cout << "**************\n" << endl;
@@ -7563,14 +7619,11 @@ void ElasSpringDisp() {
   bool bValid = false;
 
   cout << "======================" << endl;
-  cout << "--1D Energy--" << endl;
-  cout << "-Elastic Potential Energy/Spring Constant/Displacement-" << endl;
-  cout << "\t1] Elastic Potential Energy Calculator" << endl;
-  cout << "\t2] Spring Constant Calculator" << endl;
-  cout << "\t3] Displacement Calculator" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Elastic Potential Energy" << endl;
+  cout << "2] Spring Constant" << endl;
+  cout << "3] Displacement" << endl;
   cout << "-------------------" << endl;
-
   cout << "Enter an option: ";
 
   do {
@@ -7580,7 +7633,7 @@ void ElasSpringDisp() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7591,123 +7644,134 @@ void ElasSpringDisp() {
   } while (!bValid);
 
   switch (iInput) {
-    case 1:
-      cout << "\n--Elastic Potential Energy Calculator--" << endl;
-      cout << "Enter Spring Constant (N/m): ";
-      do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
-        if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
+  case 1:
+    cout << "\n--Elastic Potential Energy Calculator--" << endl;
+    cout << "Enter Spring Constant (N/m): ";
+    do {
+      getline(cin >> ws, sUserSpringConstant);
+      bValid = isNumber(sUserSpringConstant);
+      if (bValid) {
+        dUserSpringConstant = stod(sUserSpringConstant);
+        if (dUserSpringConstant < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
+      }
+      if (!bValid) {
+        cout << "Enter a valid spring constant: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacement);
-        bValid = isNumber(sUserDisplacement);
-        if (bValid) {
-          dUserDisplacement = stod(sUserDisplacement);
-        }
-        if (!bValid) {
-          cout << "Enter a valid displacement: ";
-        }
-      } while (!bValid);
+    cout << "Enter Displacement (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
 
-      // Calculate Elastic Potential Energy
-      dResult = 0.5 * dUserSpringConstant * dUserDisplacement * dUserDisplacement;
-      cout << "\n**************" << endl;
-      cout << "Elastic Potential Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
+    // Calculate Elastic Potential Energy
+    dResult = 0.5 * dUserSpringConstant * dUserDisplacement * dUserDisplacement;
+    cout << "\n**************" << endl;
+    cout << "Elastic Potential Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
 
-    case 2:
-      cout << "\n--Spring Constant Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserElasticPEnergy);
-        bValid = isNumber(sUserElasticPEnergy);
-        if (bValid) {
-          dUserElasticPEnergy = stod(sUserElasticPEnergy);
+  case 2:
+    cout << "\n--Spring Constant Calculator--" << endl;
+    cout << "Enter Elastic Potential Energy (J): ";
+    do {
+      getline(cin >> ws, sUserElasticPEnergy);
+      bValid = isNumber(sUserElasticPEnergy);
+      if (bValid) {
+        dUserElasticPEnergy = stod(sUserElasticPEnergy);
+        if (dUserElasticPEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
+      }
+      if (!bValid) {
+        cout << "Enter a valid elastic potential energy: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacement);
-        bValid = isNumber(sUserDisplacement);
-        if (bValid) {
-          dUserDisplacement = stod(sUserDisplacement);
-        }
-        if (!bValid) {
-          cout << "Enter a valid displacement: ";
-        }
-      } while (!bValid);
+    cout << "Enter Displacement (m): ";
+    do {
+      getline(cin >> ws, sUserDisplacement);
+      bValid = isNumber(sUserDisplacement);
+      if (bValid) {
+        dUserDisplacement = stod(sUserDisplacement);
+      }
+      if (!bValid) {
+        cout << "Enter a valid displacement: ";
+      }
+    } while (!bValid);
 
-      // Calculate Spring Constant
-      dResult = (2 * dUserElasticPEnergy) / (dUserDisplacement * dUserDisplacement);
-      cout << "\n**************" << endl;
-      cout << "Spring Constant: " << dResult << " N/m\n";
-      cout << "**************\n" << endl;
-      break;
+    // Calculate Spring Constant
+    dResult = (2 * dUserElasticPEnergy) / (dUserDisplacement * dUserDisplacement);
+    cout << "\n**************" << endl;
+    cout << "Spring Constant: " << dResult << " N/m\n";
+    cout << "**************\n" << endl;
+    break;
 
-    case 3:
-      cout << "\n--Displacement Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserElasticPEnergy);
-        bValid = isNumber(sUserElasticPEnergy);
-        if (bValid) {
-          dUserElasticPEnergy = stod(sUserElasticPEnergy);
+  case 3:
+    cout << "\n--Displacement Calculator--" << endl;
+    cout << "Enter Elastic Potential Energy (J): ";
+    do {
+      getline(cin >> ws, sUserElasticPEnergy);
+      bValid = isNumber(sUserElasticPEnergy);
+      if (bValid) {
+        dUserElasticPEnergy = stod(sUserElasticPEnergy);
+        if (dUserElasticPEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
+      }
+      if (!bValid) {
+        cout << "Enter a valid elastic potential energy: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Spring Constant (N/m): ";
-      do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
-        if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
+    cout << "Enter Spring Constant (N/m): ";
+    do {
+      getline(cin >> ws, sUserSpringConstant);
+      bValid = isNumber(sUserSpringConstant);
+      if (bValid) {
+        dUserSpringConstant = stod(sUserSpringConstant);
+        if (dUserSpringConstant < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
+      }
+      if (!bValid) {
+        cout << "Enter a valid spring constant: ";
+      }
+    } while (!bValid);
 
-      // Calculate Displacement
-      dResult = sqrt((2 * dUserElasticPEnergy) / dUserSpringConstant);
-      cout << "\n**************" << endl;
-      cout << "Displacement: " << dResult << " m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 4 :
-      break;
+    // Calculate Displacement
+    dResult = sqrt((2 * dUserElasticPEnergy) / dUserSpringConstant);
+    cout << "\n**************" << endl;
+    cout << "Displacement: " << dResult << " m\n";
+    cout << "**************\n" << endl;
+    break;
   }
 }
 
 void WorkEnergy() {
-  string sInput, sUserForce, sUserDistance, sUserWork, sUserChangeInEnergy;
-  double dResult = 0.0, dUserForce = 0.0, dUserDistance = 0.0, dUserWork = 0.0, dUserChangeInEnergy = 0.0;
+  string sInput, sUserWork, sUserIE, sUserFE;
+  double dResult = 0.0, dUserWork = 0.0, dUserIE = 0.0, dUserFE = 0.0;
   int iInput = 0;
   bool bValid = false;
 
   cout << "======================" << endl;
-  cout << "--1D Energy--" << endl;
-  cout << "-Work/Change in Energy-" << endl;
-  cout << "\t1] Work Calculator" << endl;
-  cout << "\t2] Force Calculator" << endl;
-  cout << "\t3] Distance Calculator" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Work" << endl;
+  cout << "2] Initial Energy" << endl;
+  cout << "3] Final Energy" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7718,7 +7782,7 @@ void WorkEnergy() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if (((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7728,42 +7792,42 @@ void WorkEnergy() {
     }
   } while (!bValid);
 
-  switch (iInput) {
+    switch (iInput) {
     case 1:
       cout << "\n--Work Calculator--" << endl;
-      cout << "Enter Force (N): ";
+      cout << "Enter Initial Energy (J): ";
       do {
-        getline(cin >> ws, sUserForce);
-        bValid = isNumber(sUserForce);
+        getline(cin >> ws, sUserIE);
+        bValid = isNumber(sUserIE);
         if (bValid) {
-          dUserForce = stod(sUserForce);
+          dUserIE = stod(sUserIE);
         }
         if (!bValid) {
-          cout << "Enter a valid force: ";
+          cout << "Enter a valid initial energy: ";
         }
       } while (!bValid);
 
-      cout << "Enter Distance (m): ";
+      cout << "Enter Final Energy (J): ";
       do {
-        getline(cin >> ws, sUserDistance);
-        bValid = isNumber(sUserDistance);
+        getline(cin >> ws, sUserFE);
+        bValid = isNumber(sUserFE);
         if (bValid) {
-          dUserDistance = stod(sUserDistance);
+          dUserFE = stod(sUserFE);
         }
         if (!bValid) {
-          cout << "Enter a valid distance: ";
+          cout << "Enter a valid final energy: ";
         }
       } while (!bValid);
 
-    //WORK
-      dResult = dUserForce * dUserDistance;
+      //WORK
+      dResult = dUserFE - dUserIE;
       cout << "\n**************" << endl;
       cout << "Work: " << dResult << " J\n";
       cout << "**************\n" << endl;
       break;
 
     case 2:
-      cout << "\n--Force Calculator--" << endl;
+      cout << "\n--Initial Energy Calculator--" << endl;
       cout << "Enter Work (J): ";
       do {
         getline(cin >> ws, sUserWork);
@@ -7772,31 +7836,31 @@ void WorkEnergy() {
           dUserWork = stod(sUserWork);
         }
         if (!bValid) {
-          cout << "Enter a valid work: ";
+          cout << "Enter a valid value for work: ";
         }
       } while (!bValid);
 
-      cout << "Enter Distance (m): ";
+      cout << "Enter Final Energy (J): ";
       do {
-        getline(cin >> ws, sUserDistance);
-        bValid = isNumber(sUserDistance);
+        getline(cin >> ws, sUserFE);
+        bValid = isNumber(sUserFE);
         if (bValid) {
-          dUserDistance = stod(sUserDistance);
+          dUserFE = stod(sUserFE);
         }
         if (!bValid) {
-          cout << "Enter a valid distance: ";
+          cout << "Enter a valid final energy: ";
         }
       } while (!bValid);
 
-    //FORCE
-      dResult = dUserWork / dUserDistance;
+
+      dResult = dUserFE - dUserWork;
       cout << "\n**************" << endl;
-      cout << "Force: " << dResult << " N\n";
+      cout << "Initial Energy: " << dResult << " J\n";
       cout << "**************\n" << endl;
       break;
 
     case 3:
-      cout << "\n--Distance Calculator--" << endl;
+      cout << "\n--Final Energy Calculator--" << endl;
       cout << "Enter Work (J): ";
       do {
         getline(cin >> ws, sUserWork);
@@ -7809,28 +7873,25 @@ void WorkEnergy() {
         }
       } while (!bValid);
 
-      cout << "Enter Force (N): ";
+      cout << "Enter Initial Energy (J): ";
       do {
-        getline(cin >> ws, sUserForce);
-        bValid = isNumber(sUserForce);
+        getline(cin >> ws, sUserIE);
+        bValid = isNumber(sUserIE);
         if (bValid) {
-          dUserForce = stod(sUserForce);
+          dUserIE = stod(sUserIE);
         }
         if (!bValid) {
-          cout << "Enter a valid force: ";
+          cout << "Enter a valid initial energy: ";
         }
       } while (!bValid);
 
-    //DISTANCE
-      dResult = dUserWork / dUserForce;
+      //DISTANCE
+      dResult = dUserWork + dUserIE;
       cout << "\n**************" << endl;
-      cout << "Distance: " << dResult << " m\n";
+      cout << "Final Energy: " << dResult << " J\n";
       cout << "**************\n" << endl;
       break;
-
-    case 9:
-      break;
-  }
+    }
 }
 
 int TwoDEnergy() {
@@ -7871,19 +7932,15 @@ int TwoDEnergy() {
   return iInput;
 }
 void TwoDKinMassVel() {
-  string sInput, sUserVelocity, sUserMass, sUserPEnergy, sUserHeightX, sUserHeightY;
-  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeightX = 0.0, dUserHeightY = 0.0;
+  string sInput, sUserVelocityX, sUserVelocityY, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserMass = 0.0, dUserKineticEnergyX = 0.0, dUserKineticEnergyY = 0.0;
   int iInput = 0;
   bool bValid = false;
-
   cout << "======================" << endl;
-  cout << "--2D Energy--" << endl;
-  cout << "-Gravitational Potential Energy/Mass/Velocity-" << endl;
-  cout << "\t1] Potential Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Velocity" << endl;
-  cout << "\t4] Height" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Kinetic Energy" << endl;
+  cout << "2] Mass" << endl;
+  cout << "3] Velocity" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -7894,7 +7951,7 @@ void TwoDKinMassVel() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -7902,703 +7959,224 @@ void TwoDKinMassVel() {
     if (!bValid) {
       cout << "Enter a valid option: ";
     }
+
   } while (!bValid);
 
+  //kinetic energy, mass, velocity
   switch (iInput) {
   case 1:
-    cout << "\n--2DEnergy: Potential Energy Calculator--" << endl;
+    cout << "\n--Kinetic Energy Calculator--" << endl;
     cout << "Enter Mass (kg): ";
     do {
       getline(cin >> ws, sUserMass);
       bValid = isNumber(sUserMass);
       if (bValid) {
         dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
+
       if (!bValid) {
         cout << "Enter a valid mass: ";
       }
     } while (!bValid);
 
-    cout << "Enter Height on the x-axis (m): ";
+    cout << "Enter Velocity in the x-direction (m/s): ";
     do {
-      getline(cin >> ws, sUserHeightX);
-      bValid = isNumber(sUserHeightX);
+      getline(cin >> ws, sUserVelocityX);
+      bValid = isNumber(sUserVelocityX);
       if (bValid) {
-        dUserHeightX = stod(sUserHeightX);
+        dUserVelocityX = stod(sUserVelocityX);
       }
+
       if (!bValid) {
-        cout << "Enter a valid x-axis height: ";
+        cout << "Enter a valid velocity: ";
       }
     } while (!bValid);
 
-    cout << "Enter Height on the y-axis (m): ";
+    cout << "Enter Velocity in the y-direction (m/s): ";
     do {
-      getline(cin >> ws, sUserHeightY);
-      bValid = isNumber(sUserHeightY);
+      getline(cin >> ws, sUserVelocityY);
+      bValid = isNumber(sUserVelocityY);
       if (bValid) {
-        dUserHeightY = stod(sUserHeightY);
+        dUserVelocityY = stod(sUserVelocityY);
       }
+
       if (!bValid) {
-        cout << "Enter a valid y-axis height: ";
+        cout << "Enter a valid velocity: ";
       }
     } while (!bValid);
 
-    dResult = dUserMass * dGravity * sqrt(dUserHeightX * dUserHeightX + dUserHeightY * dUserHeightY);
+    //CALCULATE
+    dResultX = 0.5 * dUserMass * (dUserVelocityX * dUserVelocityX);
+    dResultY = 0.5 * dUserMass * (dUserVelocityY * dUserVelocityY);
+    dResult = dResultX + dResultY;
     cout << "\n**************" << endl;
-    cout << "Potential Energy: " << dResult << " J\n";
+    cout << "Kinetic Energy from motion in the x-direction: " << dResultX << " J\n";
+    cout << "Kinetic Energy from motion in the y-direction: " << dResultY << " J\n";
+    cout << "Total Kinetic Energy: " << dResult << " J\n";
     cout << "**************\n" << endl;
     break;
 
   case 2:
-    cout << "\n--2DEnergy: Mass Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
+    cout << "\n--Mass Calculator--" << endl;
+
+    cout << "Choose a dimension in which to calculate time (x or y): ";
+
     do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
+      getline(cin >> ws, sUserDimension);
 
-    cout << "Enter Height on the x-axis (m): ";
-    do {
-      getline(cin >> ws, sUserHeightX);
-      bValid = isNumber(sUserHeightX);
-      if (bValid) {
-        dUserHeightX = stod(sUserHeightX);
+      if (sUserDimension == "x" || sUserDimension == "y") {
+        bValid = true;
       }
-      if (!bValid) {
-        cout << "Enter a valid x-axis height: ";
-      }
-    } while (!bValid);
 
-    cout << "Enter Height on the y-axis (m): ";
-    do {
-      getline(cin >> ws, sUserHeightY);
-      bValid = isNumber(sUserHeightY);
-      if (bValid) {
-        dUserHeightY = stod(sUserHeightY);
-      }
-      if (!bValid) {
-        cout << "Enter a valid y-axis height: ";
-      }
-    } while (!bValid);
-
-    dResult = dUserPEnergy / (dGravity * sqrt(dUserHeightX * dUserHeightX + dUserHeightY * dUserHeightY));
-    cout << "\n**************" << endl;
-    cout << "Mass: " << dResult << " kg\n";
-    cout << "**************\n" << endl;
-    break;
-
-  case 3:
-    cout << "\n--2DEnergy: Velocity Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
-    do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Mass (kg): ";
-    do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
-      if (bValid) {
-        dUserMass = stod(sUserMass);
-      }
-      if (!bValid) {
-        cout << "Enter a valid mass: ";
-      }
-    } while (!bValid);
-
-    if (dUserMass > 0) {
-      dResult = sqrt((2 * dUserPEnergy) / dUserMass);
-      cout << "\n**************" << endl;
-      cout << "Velocity: " << dResult << " m/s\n";
-      cout << "**************\n" << endl;
-    } else {
-      cout << "\nError: Mass must be greater than 0\n";
-    }
-    break;
-
-  case 4:
-    cout << "\n--2DEnergy: Height Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
-    do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Mass (kg): ";
-    do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
-      if (bValid) {
-        dUserMass = stod(sUserMass);
-      }
-      if (!bValid) {
-        cout << "Enter a valid mass: ";
-      }
-    } while (!bValid);
-
-    dResult = dUserPEnergy / (dGravity * dUserMass);
-    cout << "\n**************" << endl;
-    cout << "Total Height: " << dResult << " m\n";
-    cout << "**************\n" << endl;
-    break;
-  }
-}
-
-void TwoDGravMassAcc() {
-  string sInput, sUserAcceleration, sUserMass, sUserPEnergy, sUserHeight;
-  double dResult = 0.0, dUserAcceleration = 0.0, dUserMass = 0.0, dUserPEnergy = 0.0, dUserHeight = 0.0;
-  int iInput = 0;
-  bool bValid = false;
-
-  cout << "======================" << endl;
-  cout << "--2D Gravitational Energy--" << endl;
-  cout << "-Gravitational Potential Energy/Mass/Acceleration/Height-" << endl;
-  cout << "\t1] Potential Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Acceleration Due to Gravity" << endl;
-  cout << "\t4] Height" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "-------------------" << endl;
-  cout << "Enter an option: ";
-
-  do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
-    if (bValid) {
-      iInput = stoi(sInput);
-    }
-    if (bValid) {
-      if (((iInput < 0 || iInput > 4) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      else {
         bValid = false;
         cout << "Error\n";
-      }
-    }
-    if (!bValid) {
-      cout << "Enter a valid option: ";
-    }
-
-  } while (!bValid);  
-
-  switch (iInput) {
-  case 1:
-    cout << "\n--2DEnergy: Potential Energy Calculator--" << endl;
-    cout << "Enter Mass (kg): ";
-    do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
-      if (bValid) {
-        dUserMass = stod(sUserMass);
+        cout << "Enter a valid dimension (x or y): ";
       }
 
-      if (!bValid) {
-        cout << "Enter a valid mass: ";
-      }
     } while (!bValid);
 
-    cout << "Enter Height (m): ";
-    do {
-      getline(cin >> ws, sUserHeight);
-      bValid = isNumber(sUserHeight);
-      if (bValid) {
-        dUserHeight = stod(sUserHeight);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid height: ";
-      }
-    } while (!bValid);
-
-    // CALCULATE
-    dResult = dUserMass * dGravity * dUserHeight;
-    cout << "\n**************" << endl;
-    cout << "Potential Energy: " << dResult << " J\n";
-    cout << "**************\n" << endl;
-    break;
-
-  case 2:
-    cout << "\n--2DEnergy: Mass Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
-    do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Height (m): ";
-    do {
-      getline(cin >> ws, sUserHeight);
-      bValid = isNumber(sUserHeight);
-      if (bValid) {
-        dUserHeight = stod(sUserHeight);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid height: ";
-      }
-    } while (!bValid);
-
-    // CALCULATE
-    dResult = dUserPEnergy / (dGravity * dUserHeight);
-    cout << "\n**************" << endl;
-    cout << "Mass: " << dResult << " kg\n";
-    cout << "**************\n" << endl;
-    break;
-
-  case 3:
-    cout << "\n--2DEnergy: Acceleration Due to Gravity Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
-    do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Mass (kg): ";
-    do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
-      if (bValid) {
-        dUserMass = stod(sUserMass);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid mass: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Height (m): ";
-    do {
-      getline(cin >> ws, sUserHeight);
-      bValid = isNumber(sUserHeight);
-      if (bValid) {
-        dUserHeight = stod(sUserHeight);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid height: ";
-      }
-    } while (!bValid);
-
-    // CALCULATE
-    dResult = dUserPEnergy / (dUserMass * dUserHeight);
-    cout << "\n**************" << endl;
-    cout << "Acceleration Due to Gravity: " << dResult << " m/s^2\n";
-    cout << "**************\n" << endl;
-    break;
-
-  case 4:
-    cout << "\n--2DEnergy: Height Calculator--" << endl;
-    cout << "Enter Potential Energy (J): ";
-    do {
-      getline(cin >> ws, sUserPEnergy);
-      bValid = isNumber(sUserPEnergy);
-      if (bValid) {
-        dUserPEnergy = stod(sUserPEnergy);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid potential energy: ";
-      }
-    } while (!bValid);
-
-    cout << "Enter Mass (kg): ";
-    do {
-      getline(cin >> ws, sUserMass);
-      bValid = isNumber(sUserMass);
-      if (bValid) {
-        dUserMass = stod(sUserMass);
-      }
-
-      if (!bValid) {
-        cout << "Enter a valid mass: ";
-      }
-    } while (!bValid);
-
-    // CALCULATE
-    dResult = dUserPEnergy / (dGravity * dUserMass);
-    cout << "\n**************" << endl;
-    cout << "Height: " << dResult << " m\n";
-    cout << "**************\n" << endl;
-    break;
-  }
-}
-
-void TwoDElasSpringDisp() {
-  string sInput, sUserElasticPEnergy, sUserSpringConstant, sUserDisplacementX, sUserDisplacementY;
-  double dResult = 0.0, dUserElasticPEnergy = 0.0, dUserSpringConstant = 0.0, dUserDisplacementX = 0.0, dUserDisplacementY = 0.0, dUserDisplacement = 0.0;
-  int iInput = 0;
-  bool bValid = false;
-
-  cout << "======================" << endl;
-  cout << "--2D Energy--" << endl;
-  cout << "-Elastic Potential Energy/Spring Constant/Displacement-" << endl;
-  cout << "\t1] Elastic Potential Energy Calculator" << endl;
-  cout << "\t2] Spring Constant Calculator" << endl;
-  cout << "\t3] Displacement Calculator" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "-------------------" << endl;
-
-  cout << "Enter an option: ";
-
-  do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
-    if (bValid) {
-      iInput = stoi(sInput);
-    }
-    if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
-        bValid = false;
-        cout << "Error\n";
-      }
-    }
-    if (!bValid) {
-      cout << "Enter a valid option: ";
-    }
-  } while (!bValid);
-
-  switch (iInput) {
-    case 1:
-      cout << "\n--2D Elastic Potential Energy Calculator--" << endl;
-      cout << "Enter Spring Constant (N/m): ";
+    if (sUserDimension == "x") {
+      cout << "Enter Kinetic Energy from motion in the x-direction (J): ";
       do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
+        getline(cin >> ws, sUserKineticEnergyX);
+        bValid = isNumber(sUserKineticEnergyX);
         if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
-        }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter X Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementX);
-        bValid = isNumber(sUserDisplacementX);
-        if (bValid) {
-          dUserDisplacementX = stod(sUserDisplacementX);
-        }
-        if (!bValid) {
-          cout << "Enter a valid X displacement: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Y Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementY);
-        bValid = isNumber(sUserDisplacementY);
-        if (bValid) {
-          dUserDisplacementY = stod(sUserDisplacementY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid Y displacement: ";
-        }
-      } while (!bValid);
-
-      dUserDisplacement = sqrt(dUserDisplacementX * dUserDisplacementX + dUserDisplacementY * dUserDisplacementY);
-      dResult = 0.5 * dUserSpringConstant * dUserDisplacement * dUserDisplacement;
-      cout << "\n**************" << endl;
-      cout << "Elastic Potential Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 2:
-      cout << "\n--2D Spring Constant Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserElasticPEnergy);
-        bValid = isNumber(sUserElasticPEnergy);
-        if (bValid) {
-          dUserElasticPEnergy = stod(sUserElasticPEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter X Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementX);
-        bValid = isNumber(sUserDisplacementX);
-        if (bValid) {
-          dUserDisplacementX = stod(sUserDisplacementX);
-        }
-        if (!bValid) {
-          cout << "Enter a valid X displacement: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Y Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementY);
-        bValid = isNumber(sUserDisplacementY);
-        if (bValid) {
-          dUserDisplacementY = stod(sUserDisplacementY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid Y displacement: ";
-        }
-      } while (!bValid);
-
-      dUserDisplacement = sqrt(dUserDisplacementX * dUserDisplacementX + dUserDisplacementY * dUserDisplacementY);
-      dResult = (2 * dUserElasticPEnergy) / (dUserDisplacement * dUserDisplacement);
-      cout << "\n**************" << endl;
-      cout << "Spring Constant: " << dResult << " N/m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 3:
-      cout << "\n--2D Displacement Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserElasticPEnergy);
-        bValid = isNumber(sUserElasticPEnergy);
-        if (bValid) {
-          dUserElasticPEnergy = stod(sUserElasticPEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Spring Constant (N/m): ";
-      do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
-        if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
-        }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
-
-      dUserDisplacement = sqrt((2 * dUserElasticPEnergy) / dUserSpringConstant);
-      cout << "\n**************" << endl;
-      cout << "Displacement: " << dUserDisplacement << " m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 9:
-      break;
-  }
-}
-
-void TwoDWorkEnergy() {
-  string sInput, sUserForceX, sUserForceY, sUserDistanceX, sUserDistanceY, sUserWork, sUserChangeInEnergy;
-  double dResult = 0.0, dForceX = 0.0, dForceY = 0.0, dDistanceX = 0.0, dDistanceY = 0.0;
-  double dUserWork = 0.0, dForce = 0.0, dDistanceMagnitude = 0.0;
-  int iInput = 0;
-  bool bValid = false;
-
-  cout << "======================" << endl;
-  cout << "--2D Energy--" << endl;
-  cout << "-Work/Change in Energy-" << endl;
-  cout << "\t1] Work Calculator" << endl;
-  cout << "\t2] Force Calculator" << endl;
-  cout << "\t3] Distance Calculator" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "-------------------" << endl;
-  cout << "Enter an option: ";
-
-  do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
-    if (bValid) {
-        iInput = stoi(sInput);
-    }
-    if (bValid) {
-        if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+          dUserKineticEnergyX = stod(sUserKineticEnergyX);
+          if (dUserKineticEnergyX < 0) {
             bValid = false;
             cout << "Error\n";
+          }
         }
+
+        if (!bValid) {
+          cout << "Enter a valid kinetic energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityX);
+        bValid = isNumber(sUserVelocityX);
+        if (bValid) {
+          dUserVelocityX = stod(sUserVelocityX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = (2 * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
     }
-    if (!bValid) {
-        cout << "Enter a valid option: ";
+    else if (sUserDimension == "y") {
+      cout << "Enter Kinetic Energy from motion in the y-direction (J): ";
+      do {
+        getline(cin >> ws, sUserKineticEnergyY);
+        bValid = isNumber(sUserKineticEnergyY);
+        if (bValid) {
+          dUserKineticEnergyY = stod(sUserKineticEnergyY);
+          if (dUserKineticEnergyY < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid kinetic energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityY);
+        bValid = isNumber(sUserVelocityY);
+        if (bValid) {
+          dUserVelocityY = stod(sUserVelocityY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = (2 * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
     }
-  } while (!bValid);
 
-  switch (iInput) {
-    case 1:
-      cout << "\n--Work Calculator--" << endl;
-      cout << "Enter Force X (N): ";
-      do {
-        getline(cin >> ws, sUserForceX);
-        bValid = isNumber(sUserForceX);
-        if (bValid) {
-          dForceX = stod(sUserForceX);
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Kinetic Energy from motion in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergyX);
+      bValid = isNumber(sUserKineticEnergyX);
+      if (bValid) {
+        dUserKineticEnergyX = stod(sUserKineticEnergyX);
+        if (dUserKineticEnergyX < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid force X: ";
-        }
-      } while (!bValid);
+      }
 
-      cout << "Enter Force Y (N): ";
-      do {
-        getline(cin >> ws, sUserForceY);
-        bValid = isNumber(sUserForceY);
-        if (bValid) {
-          dForceY = stod(sUserForceY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid force Y: ";
-        }
-      } while (!bValid);
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Distance X axis (m): ";
-      do {
-        getline(cin >> ws, sUserDistanceX);
-        bValid = isNumber(sUserDistanceX);
-        if (bValid) {
-          dDistanceX = stod(sUserDistanceX);
+    cout << "Enter Kinetic Energy from motion in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergyY);
+      bValid = isNumber(sUserKineticEnergyY);
+      if (bValid) {
+        dUserKineticEnergyY = stod(sUserKineticEnergyY);
+        if (dUserKineticEnergyY < 0) {
+          bValid = false;
+          cout << "Error\n";
         }
-        if (!bValid) {
-          cout << "Enter a valid distance X-component: ";
-        }
-      } while (!bValid);
+      }
 
-      cout << "Enter Distance Y-component (m): ";
-      do {
-        getline(cin >> ws, sUserDistanceY);
-        bValid = isNumber(sUserDistanceY);
-        if (bValid) {
-          dDistanceY = stod(sUserDistanceY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid distance Y-component: ";
-        }
-      } while (!bValid);
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
 
-      dResult = (dForceX * dDistanceX) + (dForceY * dDistanceY);
-      cout << "\n**************" << endl;
-      cout << "Work: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
 
-    case 2:
-      cout << "\n--Force Calculator--" << endl;
-      cout << "Enter Work (J): ";
-      do {
-        getline(cin >> ws, sUserWork);
-        bValid = isNumber(sUserWork);
-        if (bValid) {
-          dUserWork = stod(sUserWork);
-        }
-        if (!bValid) {
-          cout << "Enter a valid work: ";
-        }
-      } while (!bValid);
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
 
-      cout << "Enter Distance X (m): ";
-      do {
-        getline(cin >> ws, sUserDistanceX);
-        bValid = isNumber(sUserDistanceX);
-        if (bValid) {
-          dDistanceX = stod(sUserDistanceX);
-        }
-        if (!bValid) {
-          cout << "Enter a valid distance X: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Distance Y (m): ";
-      do {
-        getline(cin >> ws, sUserDistanceY);
-        bValid = isNumber(sUserDistanceY);
-        if (bValid) {
-          dDistanceY = stod(sUserDistanceY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid distance Y-component: ";
-        }
-      } while (!bValid);
-
-      dDistanceMagnitude = sqrt(dDistanceX * dDistanceX + dDistanceY * dDistanceY);
-      dForce = dUserWork / dDistanceMagnitude;
-      cout << "\n**************" << endl;
-      cout << "Force: " << dForce << " N\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 3:
-      cout << "\n--Distance Calculator--" << endl;
-      cout << "Enter Work (J): ";
-      do {
-        getline(cin >> ws, sUserWork);
-        bValid = isNumber(sUserWork);
-        if (bValid) {
-          dUserWork = stod(sUserWork);
-        }
-        if (!bValid) {
-          cout << "Enter a valid work: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Force X-component (N): ";
-      do {
-        getline(cin >> ws, sUserForceX);
-        bValid = isNumber(sUserForceX);
-        if (bValid) {
-          dForceX = stod(sUserForceX);
-        }
-        if (!bValid) {
-          cout << "Enter a valid force X-component: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Force Y-component (N): ";
-      do {
-        getline(cin >> ws, sUserForceY);
-        bValid = isNumber(sUserForceY);
-        if (bValid) {
-          dForceY = stod(sUserForceY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid force Y-component: ";
-        }
-      } while (!bValid);
-
-      dForce = sqrt(dForceX * dForceX + dForceY * dForceY);
-      dResult = dUserWork / dForce;
-      cout << "\n**************" << endl;
-      cout << "Distance Magnitude: " << dResult << " m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 9:
-        break;
+    dResultX = sqrt((2 * dUserKineticEnergyX) / dUserMass);
+    dResultY = sqrt((2 * dUserKineticEnergyY) / dUserMass);
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
+    cout << "\n**************" << endl;
+    cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Total Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
   }
 }
 
@@ -8640,18 +8218,15 @@ int ThreeDEnergy() {
   return iInput;
 }
 void ThreeDKinMassVel() {
-  string sInput, sUserMass, sUserVx, sUserVy, sUserVz, sUserKenEnergy;
-  double dResult = 0.0, dUserMass = 0.0, dUserVx = 0.0, dUserVy = 0.0, dUserVz = 0.0, dUserKenEnergy = 0.0;
+  string sInput, sUserVelocityX, sUserVelocityY, sUserVelocityZ, sUserMass, sUserKineticEnergyX, sUserKineticEnergyY, sUserKineticEnergyZ;
+  double dResult = 0.0, dResultX = 0.0, dResultY = 0.0, dResultZ = 0.0, dUserVelocityX = 0.0, dUserVelocityY = 0.0, dUserVelocityZ = 0.0, dUserMass = 0.0, dUserKineticEnergyX = 0.0, dUserKineticEnergyY = 0.0, dUserKineticEnergyZ = 0.0;
   int iInput = 0;
   bool bValid = false;
-
   cout << "======================" << endl;
-  cout << "--3D Energy--" << endl;
-  cout << "-Kinetic Energy/Mass/Velocity-" << endl;
-  cout << "\t1] Kinetic Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Velocity" << endl;
-  cout << "\t9] -Back" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Kinetic Energy" << endl;
+  cout << "2] Mass" << endl;
+  cout << "3] Velocity" << endl;
   cout << "-------------------" << endl;
   cout << "Enter an option: ";
 
@@ -8662,7 +8237,7 @@ void ThreeDKinMassVel() {
       iInput = stoi(sInput);
     }
     if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
         bValid = false;
         cout << "Error\n";
       }
@@ -8670,635 +8245,297 @@ void ThreeDKinMassVel() {
     if (!bValid) {
       cout << "Enter a valid option: ";
     }
+
   } while (!bValid);
 
+  //kinetic energy, mass, velocity
   switch (iInput) {
-    case 1:
-      cout << "\n--3DEnergy: Kinetic Energy Calculator--" << endl;
-      cout << "Enter Mass (kg): ";
-      do {
-        getline(cin >> ws, sUserMass);
-        bValid = isNumber(sUserMass);
-        if (bValid) {
-          dUserMass = stod(sUserMass);
-        }
-        if (!bValid) {
-          cout << "Enter a valid mass: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in X direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVx);
-        bValid = isNumber(sUserVx);
-        if (bValid) {
-          dUserVx = stod(sUserVx);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in Y direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVy);
-        bValid = isNumber(sUserVy);
-        if (bValid) {
-          dUserVy = stod(sUserVy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in Z direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVz);
-        bValid = isNumber(sUserVz);
-        if (bValid) {
-          dUserVz = stod(sUserVz);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      dResult = 0.5 * dUserMass * (dUserVx * dUserVx + dUserVy * dUserVy + dUserVz * dUserVz);
-      cout << "\n**************" << endl;
-      cout << "Kinetic Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 2:
-      cout << "\n--3DEnergy: Mass Calculator--" << endl;
-      cout << "Enter Kinetic Energy (J): ";
-      do {
-        getline(cin >> ws, sUserKenEnergy);
-        bValid = isNumber(sUserKenEnergy);
-        if (bValid) {
-          dUserKenEnergy = stod(sUserKenEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid kinetic energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in X direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVx);
-        bValid = isNumber(sUserVx);
-        if (bValid) {
-          dUserVx = stod(sUserVx);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in Y direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVy);
-        bValid = isNumber(sUserVy);
-        if (bValid) {
-          dUserVy = stod(sUserVy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Velocity in Z direction (m/s): ";
-      do {
-        getline(cin >> ws, sUserVz);
-        bValid = isNumber(sUserVz);
-        if (bValid) {
-          dUserVz = stod(sUserVz);
-        }
-        if (!bValid) {
-          cout << "Enter a valid velocity: ";
-        }
-      } while (!bValid);
-
-      dResult = (2 * dUserKenEnergy) / (dUserVx * dUserVx + dUserVy * dUserVy + dUserVz * dUserVz);
-      cout << "\n**************" << endl;
-      cout << "Mass: " << dResult << " kg\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 3:
-      cout << "\n--3DEnergy: Velocity Calculator--" << endl;
-      cout << "Enter Mass (kg): ";
-      do {
-        getline(cin >> ws, sUserMass);
-        bValid = isNumber(sUserMass);
-        if (bValid) {
-          dUserMass = stod(sUserMass);
-        }
-        if (!bValid) {
-          cout << "Enter a valid mass: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Kinetic Energy (J): ";
-      do {
-        getline(cin >> ws, sUserKenEnergy);
-        bValid = isNumber(sUserKenEnergy);
-        if (bValid) {
-          dUserKenEnergy = stod(sUserKenEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid kinetic energy: ";
-        }
-      } while (!bValid);
-
-      dResult = sqrt((2 * dUserKenEnergy) / dUserMass);
-      cout << "\n**************" << endl;
-      cout << "Velocity: " << dResult << " m/s\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 9:
-      break;
-  }
-}
-
-void ThreeDGravMassAcc() {
-  string sInput, sUserMass, sUserGravEnergy, sUserAcceleration, sUserHeight;
-  double dResult = 0.0, dUserMass = 0.0, dUserGravEnergy = 0.0, dUserAcceleration = 0.0, dUserHeight = 0.0;
-  int iInput = 0;
-  bool bValid = false;
-
-  cout << "======================" << endl;
-  cout << "--3D Energy--" << endl;
-  cout << "-Gravitational Potential Energy/Mass/Acceleration Due to Gravity-" << endl;
-  cout << "\t1] Gravitational Potential Energy" << endl;
-  cout << "\t2] Mass" << endl;
-  cout << "\t3] Acceleration Due to Gravity" << endl;
-  cout << "\t9] -Back" << endl;
-  cout << "-------------------" << endl;
-  cout << "Enter an option: ";
-
-  do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
-    if (bValid) {
-      iInput = stoi(sInput);
-    }
-    if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
-        bValid = false;
-        cout << "Error\n";
-      }
-    }
-    if (!bValid) {
-      cout << "Enter a valid option: ";
-    }
-  } while (!bValid);
-
-  switch (iInput) {
-    case 1:
-      cout << "\n--3DEnergy: Gravitational Potential Energy Calculator--" << endl;
-      cout << "Enter Mass (kg): ";
-      do {
-        getline(cin >> ws, sUserMass);
-        bValid = isNumber(sUserMass);
-        if (bValid) {
-          dUserMass = stod(sUserMass);
-        }
-        if (!bValid) {
-          cout << "Enter a valid mass: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Height (m): ";
-      do {
-        getline(cin >> ws, sUserHeight);
-        bValid = isNumber(sUserHeight);
-        if (bValid) {
-          dUserHeight = stod(sUserHeight);
-        }
-        if (!bValid) {
-          cout << "Enter a valid height: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Gravitational Acceleration (m/s^2): ";
-      do {
-        getline(cin >> ws, sUserAcceleration);
-        bValid = isNumber(sUserAcceleration);
-        if (bValid) {
-          dUserAcceleration = stod(sUserAcceleration);
-        }
-        if (!bValid) {
-          cout << "Enter a valid acceleration: ";
-        }
-      } while (!bValid);
-
-      dResult = dUserMass * dUserAcceleration * dUserHeight;
-      cout << "\n**************" << endl;
-      cout << "Gravitational Potential Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 2:
-      cout << "\n--3DEnergy: Mass Calculator--" << endl;
-      cout << "Enter Gravitational Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserGravEnergy);
-        bValid = isNumber(sUserGravEnergy);
-        if (bValid) {
-          dUserGravEnergy = stod(sUserGravEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid gravitational potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Height (m): ";
-      do {
-        getline(cin >> ws, sUserHeight);
-        bValid = isNumber(sUserHeight);
-        if (bValid) {
-          dUserHeight = stod(sUserHeight);
-        }
-        if (!bValid) {
-          cout << "Enter a valid height: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Gravitational Acceleration (m/s^2): ";
-      do {
-        getline(cin >> ws, sUserAcceleration);
-        bValid = isNumber(sUserAcceleration);
-        if (bValid) {
-          dUserAcceleration = stod(sUserAcceleration);
-        }
-        if (!bValid) {
-          cout << "Enter a valid acceleration: ";
-        }
-      } while (!bValid);
-
-      dResult = dUserGravEnergy / (dUserAcceleration * dUserHeight);
-      cout << "\n**************" << endl;
-      cout << "Mass: " << dResult << " kg\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 3:
-      cout << "\n--3DEnergy: Acceleration Due to Gravity Calculator--" << endl;
-      cout << "Enter Gravitational Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserGravEnergy);
-        bValid = isNumber(sUserGravEnergy);
-        if (bValid) {
-          dUserGravEnergy = stod(sUserGravEnergy);
-        }
-        if (!bValid) {
-          cout << "Enter a valid gravitational potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Mass (kg): ";
-      do {
-        getline(cin >> ws, sUserMass);
-        bValid = isNumber(sUserMass);
-        if (bValid) {
-          dUserMass = stod(sUserMass);
-        }
-        if (!bValid) {
-          cout << "Enter a valid mass: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Height (m): ";
-      do {
-        getline(cin >> ws, sUserHeight);
-        bValid = isNumber(sUserHeight);
-        if (bValid) {
-          dUserHeight = stod(sUserHeight);
-        }
-        if (!bValid) {
-          cout << "Enter a valid height: ";
-        }
-      } while (!bValid);
-
-      dResult = dUserGravEnergy / (dUserMass * dUserHeight);
-      cout << "\n**************" << endl;
-      cout << "Acceleration Due to Gravity: " << dResult << " m/s^2\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 9:
-      break;
-  }
-}
-
-void ThreeDElasSpringDisp() {
-  string sInput, sUserPE, sUserSpringConstant, sUserDisplacement, sUserDisplacementX, sUserDisplacementY, sUserDisplacementZ;
-  double dResult = 0.0, dUserPE = 0.0, dUserSpringConstant = 0.0, dUserDisplacement = 0.0, dUserDisplacementX = 0.0, dUserDisplacementY = 0.0, dUserDisplacementZ = 0.0;
-  int iInput = 0;
-  bool bValid = false;
-
-  cout << "======================" << endl;
-  cout << "--3D Energy--" << endl;
-  cout << "-Elastic Potential Energy/Spring Constant/Displacement-" << endl;
-  cout << "1] Elastic Potential Energy" << endl;
-  cout << "2] Spring Constant" << endl;
-  cout << "3] Displacement" << endl;
-  cout << "9] -Back" << endl;
-  cout << "-------------------" << endl;
-  cout << "Enter an option: ";
-
-  do {
-    getline(cin >> ws, sInput);
-    bValid = isNumber(sInput);
-    if (bValid) {
-      iInput = stoi(sInput);
-    }
-    if (bValid) {
-      if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
-        bValid = false;
-        cout << "Error\n";
-      }
-    }
-    if (!bValid) {
-      cout << "Enter a valid option: ";
-    }
-  } while (!bValid);
-
-  switch (iInput) {
-    case 1:
-      cout << "\n--3DEnergy: Elastic Potential Energy Calculator--" << endl;
-      cout << "Enter Spring Constant (N/m): ";
-      do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
-        if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
-        }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter X Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementX);
-        bValid = isNumber(sUserDisplacementX);
-        if (bValid) {
-          dUserDisplacementX = stod(sUserDisplacementX);
-        }
-        if (!bValid) {
-          cout << "Enter a valid X displacement: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Y Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementY);
-        bValid = isNumber(sUserDisplacementY);
-        if (bValid) {
-          dUserDisplacementY = stod(sUserDisplacementY);
-        }
-        if (!bValid) {
-          cout << "Enter a valid Y displacement: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Z Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacementZ);
-        bValid = isNumber(sUserDisplacementZ);
-        if (bValid) {
-          dUserDisplacementZ = stod(sUserDisplacementZ);
-        }
-        if (!bValid) {
-          cout << "Enter a valid Y displacement: ";
-        }
-      } while (!bValid);
-
-      dResult = 0.5 * dUserSpringConstant * (dUserDisplacementX * dUserDisplacementX + dUserDisplacementY * dUserDisplacementY + dUserDisplacementZ * dUserDisplacementZ);
-      cout << "\n**************" << endl;
-      cout << "Elastic Potential Energy: " << dResult << " J\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 2:
-      cout << "\n--3DEnergy: Spring Constant Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserPE);
-        bValid = isNumber(sUserPE);
-        if (bValid) {
-          dUserPE = stod(sUserPE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Displacement (m): ";
-      do {
-        getline(cin >> ws, sUserDisplacement);
-        bValid = isNumber(sUserDisplacement);
-        if (bValid) {
-          dUserDisplacement = stod(sUserDisplacement);
-        }
-        if (!bValid) {
-          cout << "Enter a valid displacement: ";
-        }
-      } while (!bValid);
-
-      dResult = (2 * dUserPE) / (dUserDisplacement * dUserDisplacement);
-      cout << "\n**************" << endl;
-      cout << "Spring Constant: " << dResult << " N/m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 3:
-      cout << "\n--3DEnergy: Displacement Calculator--" << endl;
-      cout << "Enter Elastic Potential Energy (J): ";
-      do {
-        getline(cin >> ws, sUserPE);
-        bValid = isNumber(sUserPE);
-        if (bValid) {
-          dUserPE = stod(sUserPE);
-        }
-        if (!bValid) {
-          cout << "Enter a valid elastic potential energy: ";
-        }
-      } while (!bValid);
-
-      cout << "Enter Spring Constant (N/m): ";
-      do {
-        getline(cin >> ws, sUserSpringConstant);
-        bValid = isNumber(sUserSpringConstant);
-        if (bValid) {
-          dUserSpringConstant = stod(sUserSpringConstant);
-        }
-        if (!bValid) {
-          cout << "Enter a valid spring constant: ";
-        }
-      } while (!bValid);
-
-      dResult = sqrt((2 * dUserPE) / dUserSpringConstant);
-      cout << "\n**************" << endl;
-      cout << "Displacement: " << dResult << " m\n";
-      cout << "**************\n" << endl;
-      break;
-
-    case 9:
-      break;
-  }
-}
-
-void ThreeDWorkEnergy() {
-    string sInput, sUserForce, sUserDisplacement, sUserMass, sUserVelocity, sUserHeight, sUserGA;
-    double dResult = 0.0, dUserForce = 0.0, dUserDisplacement = 0.0, dUserMass = 0.0, dUserVelocity = 0.0, dUserHeight = 0.0, dUserGA = 0.0;
-    int iInput = 0;
-    bool bValid = false;
-
-    cout << "======================" << endl;
-    cout << "--3D Work && Energy--" << endl;
-    cout << "-Work/Kinetic Energy/Potential Energy-" << endl;
-    cout << "\t1] Work" << endl;
-    cout << "\t2] Kinetic Energy" << endl;
-    cout << "\t3] Potential Energy" << endl;
-    cout << "\t9] -Back" << endl;
-    cout << "-------------------" << endl;
-    cout << "Enter an option: ";
-
+  case 1:
+    cout << "\n--Kinetic Energy Calculator--" << endl;
+    cout << "Enter Mass (kg): ";
     do {
-      getline(cin >> ws, sInput);
-      bValid = isNumber(sInput);
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
       if (bValid) {
-        iInput = stoi(sInput);
-      }
-      if (bValid) {
-        if (((iInput < 0 || iInput > 3) && iInput != 9) || stoi(sInput) != stod(sInput)) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
           bValid = false;
           cout << "Error\n";
         }
       }
+
       if (!bValid) {
-        cout << "Enter a valid option: ";
+        cout << "Enter a valid mass: ";
       }
     } while (!bValid);
 
-    switch (iInput) {
-      case 1:
-        cout << "\n--3DEnergy: Work Calculator--" << endl;
-        cout << "Enter Force (N): ";
-        do {
-          getline(cin >> ws, sUserForce);
-          bValid = isNumber(sUserForce);
-          if (bValid) {
-            dUserForce = stod(sUserForce);
-          }
-          if (!bValid) {
-            cout << "Enter a valid force: ";
-          }
-        } while (!bValid);
+    cout << "Enter Velocity in the x-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityX);
+      bValid = isNumber(sUserVelocityX);
+      if (bValid) {
+        dUserVelocityX = stod(sUserVelocityX);
+      }
 
-        cout << "Enter Displacement (m): ";
-        do {
-          getline(cin >> ws, sUserDisplacement);
-          bValid = isNumber(sUserDisplacement);
-          if (bValid) {
-            dUserDisplacement = stod(sUserDisplacement);
-          }
-          if (!bValid) {
-            cout << "Enter a valid displacement: ";
-          }
-        } while (!bValid);
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
 
-        //Formula
+    cout << "Enter Velocity in the y-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityY);
+      bValid = isNumber(sUserVelocityY);
+      if (bValid) {
+        dUserVelocityY = stod(sUserVelocityY);
+      }
 
-        cout << "\n**************" << endl;
-        cout << "Work: " << dResult << " J\n";
-        cout << "**************\n" << endl;
-        break;
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
 
-      case 2:
-        cout << "\n--3DEnergy: Kinetic Energy Calculator--" << endl;
-        cout << "Enter Mass (kg): ";
-        do {
-          getline(cin >> ws, sUserMass);
-          bValid = isNumber(sUserMass);
-          if (bValid) {
-            dUserMass = stod(sUserMass);
-          }
-          if (!bValid) {
-            cout << "Enter a valid mass: ";
-          }
-        } while (!bValid);
+    cout << "Enter Velocity in the z-direction (m/s): ";
+    do {
+      getline(cin >> ws, sUserVelocityZ);
+      bValid = isNumber(sUserVelocityZ);
+      if (bValid) {
+        dUserVelocityZ = stod(sUserVelocityZ);
+      }
 
-        cout << "Enter Velocity (m/s): ";
-        do {
-          getline(cin >> ws, sUserVelocity);
-          bValid = isNumber(sUserVelocity);
-          if (bValid) {
-            dUserVelocity = stod(sUserVelocity);
-          }
-          if (!bValid) {
-            cout << "Enter a valid velocity: ";
-          }
-        } while (!bValid);
+      if (!bValid) {
+        cout << "Enter a valid velocity: ";
+      }
+    } while (!bValid);
 
-        dResult = 0.5 * dUserMass * dUserVelocity * dUserVelocity;
-        cout << "\n**************" << endl;
-        cout << "Kinetic Energy: " << dResult << " J\n";
-        cout << "**************\n" << endl;
-        break;
+    //CALCULATE
+    dResultX = 0.5 * dUserMass * (dUserVelocityX * dUserVelocityX);
+    dResultY = 0.5 * dUserMass * (dUserVelocityY * dUserVelocityY);
+    dResultZ = 0.5 * dUserMass * (dUserVelocityZ * dUserVelocityZ);
+    dResult = dResultX + dResultY + dResultZ;
+    cout << "\n**************" << endl;
+    cout << "Kinetic Energy from motion in the x-direction: " << dResultX << " J\n";
+    cout << "Kinetic Energy from motion in the y-direction: " << dResultY << " J\n";
+    cout << "Kinetic Energy from motion in the z-direction: " << dResultZ << " J\n";
+    cout << "Total Kinetic Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
 
-      case 3:
-        cout << "\n--3DEnergy: Potential Energy Calculator--" << endl;
-        cout << "Enter Mass (kg): ";
-        do {
-          getline(cin >> ws, sUserMass);
-          bValid = isNumber(sUserMass);
-          if (bValid) {
-              dUserMass = stod(sUserMass);
-          }
-          if (!bValid) {
-              cout << "Enter a valid mass: ";
-          }
-        } while (!bValid);
+  case 2:
+    cout << "\n--Mass Calculator--" << endl;
 
-        cout << "Enter Height (m): ";
-        do {
-          getline(cin >> ws, sUserHeight);
-          bValid = isNumber(sUserHeight);
-          if (bValid) {
-            dUserHeight = stod(sUserHeight);
-          }
-          if (!bValid) {
-            cout << "Enter a valid height: ";
-          }
-        } while (!bValid);
+    cout << "Choose a dimension in which to calculate time (x, y, or z): ";
 
-        cout << "Enter Gravitational Acceleration (m/s^2): ";
-        do {
-          getline(cin >> ws, sUserGA);
-          bValid = isNumber(sUserGA);
-          if (bValid) {
-            dUserGA = stod(sUserGA);
-          }
-          if (!bValid) {
-            cout << "Enter a valid acceleration: ";
-          }
-        } while (!bValid);
+    do {
+      getline(cin >> ws, sUserDimension);
 
-        dResult = dUserMass * dUserGA * dUserHeight;
-        cout << "\n**************" << endl;
-        cout << "Potential Energy: " << dResult << " J\n";
-        cout << "**************\n" << endl;
-        break;
+      if (sUserDimension == "x" || sUserDimension == "y" || sUserDimension == "z") {
+        bValid = true;
+      }
 
-      case 9:
-        break;
+      else {
+        bValid = false;
+        cout << "Error\n";
+        cout << "Enter a valid dimension (x, y, or z): ";
+      }
+
+    } while (!bValid);
+
+    if (sUserDimension == "x") {
+      cout << "Enter Kinetic Energy from motion in the x-direction (J): ";
+      do {
+        getline(cin >> ws, sUserKineticEnergyX);
+        bValid = isNumber(sUserKineticEnergyX);
+        if (bValid) {
+          dUserKineticEnergyX = stod(sUserKineticEnergyX);
+          if (dUserKineticEnergyX < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid kinetic energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the x-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityX);
+        bValid = isNumber(sUserVelocityX);
+        if (bValid) {
+          dUserVelocityX = stod(sUserVelocityX);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = (2 * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
     }
+    else if (sUserDimension == "y") {
+      cout << "Enter Kinetic Energy from motion in the y-direction (J): ";
+      do {
+        getline(cin >> ws, sUserKineticEnergyY);
+        bValid = isNumber(sUserKineticEnergyY);
+        if (bValid) {
+          dUserKineticEnergyY = stod(sUserKineticEnergyY);
+          if (dUserKineticEnergyY < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid kinetic energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the y-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityY);
+        bValid = isNumber(sUserVelocityY);
+        if (bValid) {
+          dUserVelocityY = stod(sUserVelocityY);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = (2 * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+    else if (sUserDimension == "z") {
+      cout << "Enter Kinetic Energy from motion in the z-direction (J): ";
+      do {
+        getline(cin >> ws, sUserKineticEnergyZ);
+        bValid = isNumber(sUserKineticEnergyZ);
+        if (bValid) {
+          dUserKineticEnergyZ = stod(sUserKineticEnergyZ);
+          if (dUserKineticEnergyZ < 0) {
+            bValid = false;
+            cout << "Error\n";
+          }
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid kinetic energy: ";
+        }
+      } while (!bValid);
+
+      cout << "Enter Velocity in the z-direction (m/s): ";
+      do {
+        getline(cin >> ws, sUserVelocityZ);
+        bValid = isNumber(sUserVelocityZ);
+        if (bValid) {
+          dUserVelocityZ = stod(sUserVelocityZ);
+        }
+
+        if (!bValid) {
+          cout << "Enter a valid velocity: ";
+        }
+      } while (!bValid);
+
+      dResult = (2 * dUserKineticEnergyZ) / (dUserVelocityZ * dUserVelocityZ);
+      cout << "\n**************" << endl;
+      cout << "Mass: " << dResult << " kg\n";
+      cout << "**************\n" << endl;
+      break;
+    }
+
+  case 3:
+    cout << "\n--Velocity Calculator--" << endl;
+    cout << "Enter Kinetic Energy from motion in the x-direction (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergyX);
+      bValid = isNumber(sUserKineticEnergyX);
+      if (bValid) {
+        dUserKineticEnergyX = stod(sUserKineticEnergyX);
+        if (dUserKineticEnergyX < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Kinetic Energy from motion in the y-direction (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergyY);
+      bValid = isNumber(sUserKineticEnergyY);
+      if (bValid) {
+        dUserKineticEnergyY = stod(sUserKineticEnergyY);
+        if (dUserKineticEnergyY < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Kinetic Energy from motion in the z-direction (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergyZ);
+      bValid = isNumber(sUserKineticEnergyZ);
+      if (bValid) {
+        dUserKineticEnergyZ = stod(sUserKineticEnergyZ);
+        if (dUserKineticEnergyZ < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid kinetic energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Mass (kg): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid mass: ";
+      }
+    } while (!bValid);
+
+    dResultX = sqrt((2 * dUserKineticEnergyX) / dUserMass);
+    dResultY = sqrt((2 * dUserKineticEnergyY) / dUserMass);
+    dResultZ = sqrt((2 * dUserKineticEnergyZ) / dUserMass);
+    dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
+    cout << "\n**************" << endl;
+    cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
+    cout << "Velocity in the y-direction: " << dResultY << " m/s\n";
+    cout << "Velocity in the z-direction: " << dResultZ << " m/s\n";
+    cout << "Total Velocity: " << dResult << " m/s\n";
+    cout << "**************\n" << endl;
+    break;
   }
+}
 
 int RotationalEnergy() {
   string sInput;
@@ -9308,7 +8545,7 @@ int RotationalEnergy() {
   //subsubMENU
   cout << "======================" << endl;
   cout << "--Rotational Energy--" << endl;
-  cout << "1] Rotational Kinetic Energy/Rotational Inertia/Angular Velocity" << endl;
+  cout << "1] Rotational Energy/Rotational Inertia/Angular Velocity" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
@@ -9335,40 +8572,157 @@ int RotationalEnergy() {
   return iInput;
 }
 void RotationalKinIntertiaAngVel() {
-  string sUserMomentOfInertia, sUserAngularVelocity;
-  double dMomentOfInertia = 0.0, dAngularVelocity = 0.0, dResult = 0.0;
+  string sInput, sUserVelocity, sUserMass, sUserKineticEnergy;
+  double dResult = 0.0, dUserVelocity = 0.0, dUserMass = 0.0, dUserKineticEnergy = 0.0;
+  int iInput = 0;
   bool bValid = false;
+  cout << "======================" << endl;
+  cout << "\nWhat would you like to solve for?" << endl;
+  cout << "1] Rotational Energy" << endl;
+  cout << "2] Rotational Inertia" << endl;
+  cout << "3] Angular Velocity" << endl;
+  cout << "-------------------" << endl;
+  cout << "Enter an option: ";
 
-  cout << "\n--Rotational Kinetic Energy / Rotational Inertia / Angular Velocity Calculator--" << endl;
-  cout << "Enter Moment of Inertia (kg m^2): ";
   do {
-      getline(cin >> ws, sUserMomentOfInertia);
-      bValid = isNumber(sUserMomentOfInertia);
-      if (bValid) {
-          dMomentOfInertia = stod(sUserMomentOfInertia);
+    getline(cin >> ws, sInput);
+    bValid = isNumber(sInput);
+    if (bValid) {
+      iInput = stoi(sInput);
+    }
+    if (bValid) {
+      if ((iInput < 1 || iInput > 3) || stoi(sInput) != stod(sInput)) {
+        bValid = false;
+        cout << "Error\n";
       }
-      if (!bValid) {
-          cout << "Enter a valid Moment of Inertia: ";
-      }
+    }
+    if (!bValid) {
+      cout << "Enter a valid option: ";
+    }
+
   } while (!bValid);
 
-  cout << "Enter Angular Velocity (rad/s): ";
-  do {
-      getline(cin >> ws, sUserAngularVelocity);
-      bValid = isNumber(sUserAngularVelocity);
+  //kinetic energy, mass, velocity
+  switch (iInput) {
+  case 1:
+    cout << "\n--Rotational Energy Calculator--" << endl;
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
       if (bValid) {
-          dAngularVelocity = stod(sUserAngularVelocity);
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
       }
+
       if (!bValid) {
-          cout << "Enter a valid Angular Velocity: ";
+        cout << "Enter a valid rotational inertia: ";
       }
-  } while (!bValid);
+    } while (!bValid);
 
-  dResult = 0.5 * dMomentOfInertia * dAngularVelocity * dAngularVelocity;
+    cout << "Enter Angular Velocity (rad/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
 
-  cout << "\n**************" << endl;
-  cout << "Rotational Kinetic Energy: " << dResult << " J\n";
-  cout << "**************\n" << endl;
+      if (!bValid) {
+        cout << "Enter a valid angular velocity: ";
+      }
+    } while (!bValid);
+
+    //CALCULATE
+    dResult = 0.5 * dUserMass * (dUserVelocity * dUserVelocity);
+    cout << "\n**************" << endl;
+    cout << "Rotational Energy: " << dResult << " J\n";
+    cout << "**************\n" << endl;
+    break;
+
+  case 2:
+    cout << "\n--Rotational Inertia Calculator--" << endl;
+    cout << "Enter Rotational Energy (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergy);
+      bValid = isNumber(sUserKineticEnergy);
+      if (bValid) {
+        dUserKineticEnergy = stod(sUserKineticEnergy);
+        if (dUserKineticEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid rotational energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Angular Velocity (rad/s): ";
+    do {
+      getline(cin >> ws, sUserVelocity);
+      bValid = isNumber(sUserVelocity);
+      if (bValid) {
+        dUserVelocity = stod(sUserVelocity);
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid angular velocity: ";
+      }
+    } while (!bValid);
+
+    dResult = (2 * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
+    cout << "\n**************" << endl;
+    cout << "Rotational Inertia: " << dResult << " kg*m^2\n";
+    cout << "**************\n" << endl;
+    break;
+
+  case 3:
+    cout << "\n--Angular Velocity Calculator--" << endl;
+    cout << "Enter Rotational Energy (J): ";
+    do {
+      getline(cin >> ws, sUserKineticEnergy);
+      bValid = isNumber(sUserKineticEnergy);
+      if (bValid) {
+        dUserKineticEnergy = stod(sUserKineticEnergy);
+        if (dUserKineticEnergy < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid rotational energy: ";
+      }
+    } while (!bValid);
+
+    cout << "Enter Rotational Inertia (kg*m^2): ";
+    do {
+      getline(cin >> ws, sUserMass);
+      bValid = isNumber(sUserMass);
+      if (bValid) {
+        dUserMass = stod(sUserMass);
+        if (dUserMass < 0) {
+          bValid = false;
+          cout << "Error\n";
+        }
+      }
+
+      if (!bValid) {
+        cout << "Enter a valid rotational inertia: ";
+      }
+    } while (!bValid);
+
+    dResult = sqrt((2 * dUserKineticEnergy) / dUserMass);
+    cout << "\n**************" << endl;
+    cout << "Angular Velocity: " << dResult << " rad/s\n";
+    cout << "**************\n" << endl;
+    break;
+  }
 }
 
 
