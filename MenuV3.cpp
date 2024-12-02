@@ -1121,21 +1121,17 @@ void OneDVelDispAccTime() {
 
 
 
-    dResult = (-dUserIV + sqrt(dUserIV * dUserIV - (2 * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;           //Not sure about this formula
+    if (dUserAcceleration != 0) {
+      dResult = (-dUserIV + sqrt(dUserIV * dUserIV + (2 * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;
+    } else if (dUserAcceleration == 0) {
+      dResult = dUserDisplacement/dUserIV;
+    }
+      
     cout << "\n**************" << endl;
     cout << "Time: " << dResult << " s\n";
-
-    if (dUserIV * dUserIV - (2 * dUserAcceleration * dUserDisplacement) < 0) {
-      cout << "Input values may be incorrect. Please try again.";
-    }
-    else if (dUserAcceleration == 0) {
-      cout << "0 Acceleration is not allowed for this calculation";
-    }
-
     cout << "**************\n" << endl;
     break;
   }
-
 }
 
 void OneDViVfAccTime() {
