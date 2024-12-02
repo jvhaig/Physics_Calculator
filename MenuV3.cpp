@@ -1069,7 +1069,7 @@ void OneDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = 2 * (dUserDisplacement - dUserIV * dUserTime) / pow(dUserTime, 2);
+    dResult = 2.0f * (dUserDisplacement - dUserIV * dUserTime) / pow(dUserTime, 2);
     cout << "\n**************" << endl;
     cout << "Acceleration: " << dResult << " m/s^2\n";
     cout << "**************\n" << endl;
@@ -1118,7 +1118,7 @@ void OneDVelDispAccTime() {
 
 
     if (dUserAcceleration != 0) {
-      dResult = (-dUserIV + sqrt(dUserIV * dUserIV + (2 * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;
+      dResult = (-dUserIV + sqrt(dUserIV * dUserIV + (2.0f * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;
     }
     else if (dUserAcceleration == 0) {
       dResult = dUserDisplacement / dUserIV;
@@ -1404,8 +1404,8 @@ int TwoDKinematics() {            //Menu for 2D Kinematics.
 }
 //2D Kinematics functions
 void TwoDProjectileMotion() {
-  char ans;
-  int choice, ans1;
+  int iAns = 0;
+  int choice = 0, ans1 = 0;
   bool flag = true;
   bool flag2 = false;
   const double G = 9.807;
@@ -1421,7 +1421,7 @@ void TwoDProjectileMotion() {
     const int UPPER = 7, LOWER = 0; //valid range:
     ans1 = returnIntInput(); // integer or float
 
-    if ((ans1 < LOWER || ans1 > UPPER) && ans1 != 9) { // check range    
+    if (ans1 < LOWER || ans1 > UPPER) { // check range    
       cout << "Invalid entry. Enter a choice 1 through 7: ";
       continue;
     }
@@ -1434,9 +1434,9 @@ void TwoDProjectileMotion() {
 
   while (true) {
     const int UPPER = 2, LOWER = 1; //valid range:
-    ans = returnIntInput(); // integer or float
+    iAns = returnIntInput(); // integer or float
 
-    if (ans < LOWER || ans > UPPER) { // check range    
+    if (iAns < LOWER || iAns > UPPER) { // check range    
       cout << "Enter a choice 1 or 2: ";
       continue;
     }
@@ -1444,7 +1444,7 @@ void TwoDProjectileMotion() {
       break;
   }
 
-  if (ans == 1)// class I
+  if (iAns == 1)// class I
   {
     flag2 = true;
     delta_y = 0;
@@ -1537,16 +1537,16 @@ void TwoDProjectileMotion() {
     cout << "Is the projectile launched at an angle (1 for yes, 2 for no?) ";
     while (true) {
       const int UPPER = 2, LOWER = 1; //valid range:
-      ans = returnIntInput();
+      iAns = returnIntInput();
 
-      if (ans < LOWER || ans > UPPER) { // check range    
+      if (iAns < LOWER || iAns > UPPER) { // check range    
         cout << "Enter an option 1 or 2: ";
         continue;
       }
       else
         break;
     }
-    if (ans == 1)
+    if (iAns == 1)
     {
       cout << "What is the launch angle? ";
       while (true) {
@@ -1637,13 +1637,13 @@ void TwoDProjectileMotion() {
   //flight time!! = time at which the projectile reaches landing
   //t = (2 * delta_y)/(v_0 + v_fy);
   t_maxh = v_0y / G; // when v_y = 0
-  maxh = (v_0y * t_maxh) - ((1 / 2) * G * pow(t_maxh, 2));
+  maxh = (v_0y * t_maxh) - ((1.0f / 2.0f) * G * pow(t_maxh, 2));
 
   //t_fall = (maxh - delta_y)/G; 
   // assumes that the max height is above the landing height. still need to validate input.
   //t = t_maxh + t_fall;
-  if (pow(v_0y, 2) >= 2 * G * delta_y) {
-    t = (v_0y + sqrt(pow(v_0y, 2) - (2 * G * delta_y))) / G; // Positive root
+  if (pow(v_0y, 2) >= 2.0f * G * delta_y) {
+    t = (v_0y + sqrt(pow(v_0y, 2) - (2.0f * G * delta_y))) / G; // Positive root
   }
   else {
     t = 9999999;
@@ -1658,20 +1658,20 @@ void TwoDProjectileMotion() {
   //time to reach the location of the elevated height:
   t_dx = dx / v_0x;
   //height of projectile at first elevated height:
-  h_dx = (v_0y * t_dx) - ((1 / 2) * G * pow(t_dx, 2));
+  h_dx = (v_0y * t_dx) - ((1.0f / 2.0f) * G * pow(t_dx, 2));
 
   //time(s) a projectile reaches a particular distance:
   t_spx = spx / v_0x;
   //height of projectile at that particular distance:
 
-  h_spx = (v_0y * t_spx) - ((1 / 2) * G * pow(t_spx, 2));
+  h_spx = (v_0y * t_spx) - ((1.0f / 2.0f) * G * pow(t_spx, 2));
   //h_spx = 5;
   cout << " \nhspx is now " << h_spx;
 
   //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
-  if (pow(v_0y, 2) >= 2 * G * spy) {
-    t_spy1 = (-1 / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2 * G * spy)));
-    t_spy2 = (-1 / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2 * G * spy)));
+  if (pow(v_0y, 2) >= 2.0f * G * spy) {
+    t_spy1 = (-1 / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
+    t_spy2 = (-1 / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
   }
   else {
     t_spy1 = 9999999;
@@ -2066,8 +2066,8 @@ void TwoDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResultX = 2 * (dUserDisplacementX - dUserIVX * dUserTime) / (dUserTime * dUserTime);
-    dResultY = 2 * (dUserDisplacementY - dUserIVY * dUserTime) / (dUserTime * dUserTime);
+    dResultX = 2.0f * (dUserDisplacementX - dUserIVX * dUserTime) / (dUserTime * dUserTime);
+    dResultY = 2.0f * (dUserDisplacementY - dUserIVY * dUserTime) / (dUserTime * dUserTime);
     dResult = abs(sqrt(dResultX * dResultX + dResultY * dResultY));
     cout << "\n**************" << endl;
     cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
@@ -2137,7 +2137,7 @@ void TwoDVelDispAccTime() {
 
 
       if (dUserAccelerationX != 0) {
-        dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
+        dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2.0f * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
       }
       else if (dUserAccelerationX == 0) {
         dResult = dUserDisplacementX / dUserIVX;
@@ -2190,7 +2190,7 @@ void TwoDVelDispAccTime() {
 
 
       if (dUserAccelerationY != 0) {
-        dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY + (2 * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;
+        dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY + (2.0f * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;
       }
       else if (dUserAccelerationY == 0) {
         dResult = dUserDisplacementY / dUserIVY;
@@ -2977,9 +2977,9 @@ void ThreeDVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResultX = 2 * (dUserDisplacementX - dUserIVX * dUserTime) / (dUserTime * dUserTime);
-    dResultY = 2 * (dUserDisplacementY - dUserIVY * dUserTime) / (dUserTime * dUserTime);
-    dResultZ = 2 * (dUserDisplacementZ - dUserIVZ * dUserTime) / (dUserTime * dUserTime);
+    dResultX = 2.0f * (dUserDisplacementX - dUserIVX * dUserTime) / (dUserTime * dUserTime);
+    dResultY = 2.0f * (dUserDisplacementY - dUserIVY * dUserTime) / (dUserTime * dUserTime);
+    dResultZ = 2.0f * (dUserDisplacementZ - dUserIVZ * dUserTime) / (dUserTime * dUserTime);
     dResult = abs(sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ));
     cout << "\n**************" << endl;
     cout << "Acceleration in the x-direction: " << dResultX << " m/s^2\n";
@@ -3050,7 +3050,7 @@ void ThreeDVelDispAccTime() {
 
 
       if (dUserAccelerationX != 0) {
-        dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2 * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
+        dResult = (-dUserIVX + sqrt(dUserIVX * dUserIVX + (2.0f * dUserAccelerationX * dUserDisplacementX))) / dUserAccelerationX;
       }
       else if (dUserAccelerationX == 0) {
         dResult = dUserDisplacementX / dUserIVX;
@@ -3103,7 +3103,7 @@ void ThreeDVelDispAccTime() {
 
 
       if (dUserAccelerationY != 0) {
-        dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY + (2 * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;
+        dResult = (-dUserIVY + sqrt(dUserIVY * dUserIVY + (2.0f * dUserAccelerationY * dUserDisplacementY))) / dUserAccelerationY;
       }
       else if (dUserAccelerationY == 0) {
         dResult = dUserDisplacementY / dUserIVY;
@@ -3156,7 +3156,7 @@ void ThreeDVelDispAccTime() {
 
 
       if (dUserAccelerationY != 0) {
-        dResult = (-dUserIVZ + sqrt(dUserIVZ * dUserIVZ + (2 * dUserAccelerationZ * dUserDisplacementZ))) / dUserAccelerationZ;
+        dResult = (-dUserIVZ + sqrt(dUserIVZ * dUserIVZ + (2.0f * dUserAccelerationZ * dUserDisplacementZ))) / dUserAccelerationZ;
       }
       else if (dUserAccelerationY == 0) {
         dResult = dUserDisplacementZ / dUserIVZ;
@@ -3912,7 +3912,7 @@ void AngVelDispAccTime() {
       }
     } while (!bValid);
 
-    dResult = 2 * (dUserDisplacement - dUserIV * dUserTime) / pow(dUserTime, 2);
+    dResult = 2.0f * (dUserDisplacement - dUserIV * dUserTime) / pow(dUserTime, 2);
     cout << "\n**************" << endl;
     cout << "Angular Acceleration: " << dResult << " rad/s^2\n";
     cout << "**************\n" << endl;
@@ -3961,7 +3961,7 @@ void AngVelDispAccTime() {
 
 
     if (dUserAcceleration != 0) {
-      dResult = (-dUserIV + sqrt(dUserIV * dUserIV + (2 * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;
+      dResult = (-dUserIV + sqrt(dUserIV * dUserIV + (2.0f * dUserAcceleration * dUserDisplacement))) / dUserAcceleration;
     }
     else if (dUserAcceleration == 0) {
       dResult = dUserDisplacement / dUserIV;
@@ -8860,7 +8860,7 @@ void OneDKinMassVel() {
       }
     } while (!bValid);
 
-    dResult = (2 * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
+    dResult = (2.0f * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
     cout << "\n**************" << endl;
     cout << "Mass: " << dResult << " kg\n";
     cout << "**************\n" << endl;
@@ -8902,7 +8902,7 @@ void OneDKinMassVel() {
       }
     } while (!bValid);
 
-    dResult = sqrt((2 * dUserKineticEnergy) / dUserMass);
+    dResult = sqrt((2.0f * dUserKineticEnergy) / dUserMass);
     cout << "\n**************" << endl;
     cout << "Velocity: " << dResult << " m/s\n";
     cout << "**************\n" << endl;
@@ -9508,7 +9508,7 @@ void ElasSpringDisp() {
     } while (!bValid);
 
     // Calculate Spring Constant
-    dResult = (2 * dUserElasticPEnergy) / (dUserDisplacement * dUserDisplacement);
+    dResult = (2.0f * dUserElasticPEnergy) / (dUserDisplacement * dUserDisplacement);
     cout << "\n**************" << endl;
     cout << "Spring Constant: " << dResult << " N/m\n";
     cout << "**************\n" << endl;
@@ -9549,7 +9549,7 @@ void ElasSpringDisp() {
     } while (!bValid);
 
     // Calculate Displacement
-    dResult = sqrt((2 * dUserElasticPEnergy) / dUserSpringConstant);
+    dResult = sqrt((2.0f * dUserElasticPEnergy) / dUserSpringConstant);
     cout << "\n**************" << endl;
     cout << "Displacement: " << dResult << " m\n";
     cout << "**************\n" << endl;
@@ -9868,7 +9868,7 @@ void TwoDKinMassVel() {
         }
       } while (!bValid);
 
-      dResult = (2 * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
+      dResult = (2.0f * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
       cout << "\n**************" << endl;
       cout << "Mass: " << dResult << " kg\n";
       cout << "**************\n" << endl;
@@ -9905,7 +9905,7 @@ void TwoDKinMassVel() {
         }
       } while (!bValid);
 
-      dResult = (2 * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
+      dResult = (2.0f * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
       cout << "\n**************" << endl;
       cout << "Mass: " << dResult << " kg\n";
       cout << "**************\n" << endl;
@@ -9965,8 +9965,8 @@ void TwoDKinMassVel() {
       }
     } while (!bValid);
 
-    dResultX = sqrt((2 * dUserKineticEnergyX) / dUserMass);
-    dResultY = sqrt((2 * dUserKineticEnergyY) / dUserMass);
+    dResultX = sqrt((2.0f * dUserKineticEnergyX) / dUserMass);
+    dResultY = sqrt((2.0f * dUserKineticEnergyY) / dUserMass);
     dResult = sqrt(dResultX * dResultX + dResultY * dResultY);
     cout << "\n**************" << endl;
     cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
@@ -10170,7 +10170,7 @@ void ThreeDKinMassVel() {
         }
       } while (!bValid);
 
-      dResult = (2 * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
+      dResult = (2.0f * dUserKineticEnergyX) / (dUserVelocityX * dUserVelocityX);
       cout << "\n**************" << endl;
       cout << "Mass: " << dResult << " kg\n";
       cout << "**************\n" << endl;
@@ -10207,7 +10207,7 @@ void ThreeDKinMassVel() {
         }
       } while (!bValid);
 
-      dResult = (2 * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
+      dResult = (2.0f * dUserKineticEnergyY) / (dUserVelocityY * dUserVelocityY);
       cout << "\n**************" << endl;
       cout << "Mass: " << dResult << " kg\n";
       cout << "**************\n" << endl;
@@ -10244,7 +10244,7 @@ void ThreeDKinMassVel() {
         }
       } while (!bValid);
 
-      dResult = (2 * dUserKineticEnergyZ) / (dUserVelocityZ * dUserVelocityZ);
+      dResult = (2.0f * dUserKineticEnergyZ) / (dUserVelocityZ * dUserVelocityZ);
       cout << "\n**************" << endl;
       cout << "Mass: " << dResult << " kg\n";
       cout << "**************\n" << endl;
@@ -10321,9 +10321,9 @@ void ThreeDKinMassVel() {
       }
     } while (!bValid);
 
-    dResultX = sqrt((2 * dUserKineticEnergyX) / dUserMass);
-    dResultY = sqrt((2 * dUserKineticEnergyY) / dUserMass);
-    dResultZ = sqrt((2 * dUserKineticEnergyZ) / dUserMass);
+    dResultX = sqrt((2.0f * dUserKineticEnergyX) / dUserMass);
+    dResultY = sqrt((2.0f * dUserKineticEnergyY) / dUserMass);
+    dResultZ = sqrt((2.0f * dUserKineticEnergyZ) / dUserMass);
     dResult = sqrt(dResultX * dResultX + dResultY * dResultY + dResultZ * dResultZ);
     cout << "\n**************" << endl;
     cout << "Velocity in the x-direction: " << dResultX << " m/s\n";
@@ -10473,7 +10473,7 @@ void RotationalKinIntertiaAngVel() {
       }
     } while (!bValid);
 
-    dResult = (2 * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
+    dResult = (2.0f * dUserKineticEnergy) / (dUserVelocity * dUserVelocity);
     cout << "\n**************" << endl;
     cout << "Rotational Inertia: " << dResult << " kg*m^2\n";
     cout << "**************\n" << endl;
@@ -10515,7 +10515,7 @@ void RotationalKinIntertiaAngVel() {
       }
     } while (!bValid);
 
-    dResult = sqrt((2 * dUserKineticEnergy) / dUserMass);
+    dResult = sqrt((2.0f * dUserKineticEnergy) / dUserMass);
     cout << "\n**************" << endl;
     cout << "Angular Velocity: " << dResult << " rad/s\n";
     cout << "**************\n" << endl;
