@@ -1670,8 +1670,8 @@ void TwoDProjectileMotion() {
 
   //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
   if (pow(v_0y, 2) >= 2.0f * G * spy) {
-    t_spy1 = (-1 / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
-    t_spy2 = (-1 / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
+    t_spy1 = (-1.0f / G) * ((-v_0y) + sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
+    t_spy2 = (-1.0f / G) * ((-v_0y) - sqrt(pow(v_0y, 2) - (2.0f * G * spy)));
   }
   else {
     t_spy1 = 9999999;
@@ -1687,7 +1687,7 @@ void TwoDProjectileMotion() {
   h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
 
   //For debugging, comment out when done:
-  cout << endl
+  /*cout << endl
     << "\nv_0x " << v_0x
     << "\nv_0y " << v_0y
     << "\nv_0 " << v_0
@@ -1700,14 +1700,14 @@ void TwoDProjectileMotion() {
     << "\nh_spx" << h_spx
     << "\nt_spx" << t_spx
     << "\nspx" << spx
-    << endl << endl;
-  //the distance the object traveled by a certain time t_sp;
+    << endl << endl;*/
+    //the distance the object traveled by a certain time t_sp;
   d_spt = v_0x * spt;
   //the height the object has at a certain time t_sp;
   h_spt = (v_0y * spt) - (.5 * G * pow(spt, 2));
 
   //For debugging, comment out when done:
-  cout << endl
+  /*cout << endl
     << "\nv_0x " << v_0x
     << "\nv_0y " << v_0y
     << "\nv_0 " << v_0
@@ -1721,7 +1721,7 @@ void TwoDProjectileMotion() {
     << "\nt_spx" << t_spx
     << "\nspx" << spx
     << "\nG" << G
-    << endl << endl;
+    << endl << endl;*/
 
   if (!flag && (h_dx < delta_y)) // we are launching to an elevated height, and it does not reach it
   {
@@ -1729,8 +1729,7 @@ void TwoDProjectileMotion() {
       << "or the correct angle to reach a height of " << delta_y << " m"
       << " a distance of " << dx << " m away. \n";
   }
-  else if (t == 9999999)
-  {
+  else if (t == 9999999) {
     cout << "The projectile does not have a high enough initial velocity \n"
       << "or the correct angle to reach a height of " << delta_y << " m"
       << " a distance of " << dx << " m away. \n";
