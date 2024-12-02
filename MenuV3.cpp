@@ -833,8 +833,8 @@ int Kinematics() {            //Menu for Kinematics
   cout << "--Kinematics--" << endl;
   cout << "1] 1D Kinematics" << endl;
   cout << "2] 2D Kinematics" << endl;
-  cout << "3] 3D Kinematics" << endl;
-  cout << "4] Angular Kinematics" << endl;
+  cout << "3] 3D Kinematics      ~(COMING SOON)~" << endl;
+  cout << "4] Angular Kinematics ~(COMING SOON)~" << endl;
   cout << "9] -Back" << endl;
   cout << "0] -Quit" << endl;
   cout << "-------------------" << endl;
