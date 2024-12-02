@@ -7,8 +7,13 @@
 
 # Description
     This application is a physics calculator designed to help users perform physics calculations, including Kinematics, Dynamics, and Energy. The program is structured with multiple menus and submenus. It covers one-dimensional, two-dimensional, three-dimensional, and rotational motion scenarios. 
-    
+
+# Prerequisites
+        Operating System: Windows
+        
 # Installation
+        Download .exe file
+        Run the Application
     
 # Structure
 
