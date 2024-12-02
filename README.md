@@ -29,12 +29,12 @@
       Velocity/Displacement/Time							
       Initial Velocity/Final Velocity/Acceleration					
     
-    3D Kinematics
+    3D Kinematics (Upcoming)
       Projectile Motion: Initial Velocity/Launch Angle/Acceleration due to Gravity  
       Velocity/Displacement/Time
       Initial Velocity/Final Velocity/Acceleration
       
-    Angular Kinematics
+    Angular Kinematics (Upcoming)
       Angular Velocity/Angular Displacement/Time
       Initial Angular Velocity/Final Angular Velocity/Angular Acceleration
     
