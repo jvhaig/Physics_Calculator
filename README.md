@@ -13,7 +13,7 @@
         
 # Installation
         Download Zip File
-            [Physics Calculator.zip](https://github.com/user-attachments/files/17988313/Physics.Calculator.zip)
+            [Physics Calculator.zip](https://github.com/user-attachments/files/17988979/Physics.Calculator.zip)
         Extract Zip File
         Run the Application (.exe)
     
