@@ -101,7 +101,7 @@
 # Presentation
     [Physics Calculator_ Presentation.pptx](https://github.com/user-attachments/files/17988587/Physics.Calculator_.Presentation.pptx)
 
-#Report
+# Report
 
     [CSCE A201 Final Project Report.pdf](https://github.com/user-attachments/files/17988601/CSCE.A201.Final.Project.Report.pdf)
 
