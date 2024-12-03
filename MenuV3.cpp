@@ -18,7 +18,7 @@
 
 using namespace std;
 
-const double M_PI = 3.14159265358979323846;
+const double _PI = 3.14159265358979323846;
 
 int displayCalculator();
 
@@ -1415,14 +1415,14 @@ void TwoDProjectileMotion() {
   cout << "Select value to solve for: \n(1) Final velocity \n(2) Maximum height"
     << "\n(3) Distance traveled \n(4) Time of flight "
     << "\n(5) Time & distance for a specific height \n(6) Time & height for a specific distance"
-    << "\n(7) Distance & height at a specific time" << endl;
+    << "\n(7) Distance & height at a specific time" << "\n(8) Initial velocity and components " << endl;
 
   while (true) {
-    const int UPPER = 7, LOWER = 0; //valid range:
+    const int UPPER = 8, LOWER = 0; //valid range:
     ans1 = returnIntInput(); // integer or float
 
     if (ans1 < LOWER || ans1 > UPPER) { // check range    
-      cout << "Invalid entry. Enter a choice 1 through 7: ";
+      cout << "Invalid entry. Enter a choice 1 through 8: ";
       continue;
     }
     else
@@ -1563,18 +1563,33 @@ void TwoDProjectileMotion() {
     }
     else
       theta = 0;
+    if (ans1 != 8) {
+      cout << "What is the object's intital velocity (in m/s)? ";
+      while (true) {
+        const int UPPER = 11200, LOWER = 0; //valid range:
+        v_0 = returnNumInput();
 
-    cout << "What is the object's intital velocity (in m/s)? ";
-    while (true) {
-      const int UPPER = 11200, LOWER = 0; //valid range:
-      v_0 = returnNumInput();
-
-      if (v_0 < LOWER || v_0 > UPPER) { // check range    
-        cout << "Enter a velocity between 0 m/s and 11,200 m/s: "; //Earth's escape velocity
-        continue;
+        if (v_0 < LOWER || v_0 > UPPER) { // check range    
+          cout << "Enter a velocity between 0 m/s and 11,200 m/s: "; //Earth's escape velocity
+          continue;
+        }
+        else
+          break;
       }
-      else
-        break;
+    }
+    else {
+      cout << "What is horizontal distance traveled by the object? ";
+      while (true) {
+        const int UPPER = 10000000, LOWER = 0; //valid range:
+        d = returnNumInput();
+
+        if (d < LOWER || d > UPPER) { // check range    
+          cout << "Enter a distance between 0 m and 10,000,000 m: ";
+          continue;
+        }
+        else
+          break;
+      }
     }
   }
 
@@ -1653,8 +1668,21 @@ void TwoDProjectileMotion() {
   v_fy = v_0y - G * t;
   v_f = sqrt(pow(v_fx, 2) + pow(v_fy, 2));
 
+  if (ans1 != 8) {
   d = v_0x * t;
+  }
 
+  if (ans1 == 8) {
+
+    v_0 = sqrt((G * pow(d, 2))/(2 * pow(cos(theta * M_PI/180), 2) * ((d * tan(theta * M_PI/180)) - delta_y)));
+     
+     if (theta == 90)
+      v_0x = 0;
+    else
+      v_0x = v_0 * cos(theta * (M_PI / 180));
+
+    v_0y = v_0 * sin(theta * (M_PI / 180));
+  }
   //time to reach the location of the elevated height:
   t_dx = dx / v_0x;
   //height of projectile at first elevated height:
@@ -1666,7 +1694,7 @@ void TwoDProjectileMotion() {
 
   h_spx = (v_0y * t_spx) - ((1.0f / 2.0f) * G * pow(t_spx, 2));
   //h_spx = 5;
-  cout << " \nhspx is now " << h_spx;
+  // is now " << h_spx;
 
   //time(s) a projectile reaches a particular height: /// Need to fix if they choose a negative spy!!
   if (pow(v_0y, 2) >= 2.0f * G * spy) {
@@ -1797,8 +1825,12 @@ void TwoDProjectileMotion() {
           << " m, and a horizontal distance " << d_spt << " m from the launch site. \n";
       }
       break;
+    case 8:
+      cout << "The initial velocity of the object is " << v_0 << " m/s. The x-component is \n"
+           << v_0x << " m/s and the y-component is " << v_0y << " m/s. \n";
+      break;
     default:
-      cout << "Error. Did not choose options 1 - 7. \n";
+      cout << "Error. Did not choose options 1 - 8. \n";
       break;
     }
   }
